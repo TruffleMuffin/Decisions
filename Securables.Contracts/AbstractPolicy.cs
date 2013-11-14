@@ -26,12 +26,13 @@ namespace Securables.Contracts
         /// </summary>
         /// <param name="component">The component.</param>
         /// <param name="key">The key.</param>
+        /// <param name="context">The context.</param>
         /// <returns>
         /// The environment
         /// </returns>
-        protected async Task<dynamic> GetEnvironmentAsync(string component, string key)
+        protected async Task<dynamic> GetEnvironmentAsync(string component, string key, DecisionContext context)
         {
-            return await service.GetAsync(component, key);
+            return await service.GetAsync(component, key, context);
         }
 
         /// <summary>

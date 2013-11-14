@@ -13,10 +13,11 @@ namespace Securables.Application.Services
         /// </summary>
         /// <param name="component">The component.</param>
         /// <param name="key">The key.</param>
+        /// <param name="context">The context.</param>
         /// <returns>
         /// An environment, likely an instance of a class from an external assembly.
         /// </returns>
-        public async Task<dynamic> GetAsync(string component, string key)
+        public async Task<dynamic> GetAsync(string component, string key, DecisionContext context)
         {
             return await Task.FromResult(new object());
         }
