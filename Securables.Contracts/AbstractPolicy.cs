@@ -32,12 +32,12 @@ namespace Securables.Contracts
         }
 
         /// <summary>
-        /// Sets the environment provider.
+        /// Sets the environment provider for this policy instance. The provider will be used to look up environments that the policy needs to complete its task.
         /// </summary>
-        /// <param name="service">The service.</param>
-        internal void SetEnvironmentProvider(IEnvironmentService service)
+        /// <param name="provider">The environment provider.</param>
+        internal void SetEnvironmentProvider(IEnvironmentService provider)
         {
-            this.service = service;
+            this.service = provider;
         }
     }
 }
