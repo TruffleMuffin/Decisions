@@ -40,7 +40,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\EnvironmentService.cs" />
     <Compile Include="Services\PolicyService.cs" />
+    <Compile Include="Services\SecurablesService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Securables.Contracts\Securables.Contracts.csproj">

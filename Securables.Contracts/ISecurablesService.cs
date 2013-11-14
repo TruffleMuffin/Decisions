@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Securables.Contracts
 {
@@ -14,7 +15,7 @@ namespace Securables.Contracts
         /// <returns>
         /// A <see cref="Decision" /> indicating the result of the query.
         /// </returns>
-        Decision CheckAsync(DecisionContext context);
+        Task<Decision> CheckAsync(DecisionContext context);
 
         /// <summary>
         /// Determines the results of the specified <see cref="contexts"/>.
@@ -23,6 +24,6 @@ namespace Securables.Contracts
         /// <returns>
         /// A set of <see cref="Decision" /> indicating the results of the query.
         /// </returns>
-        IDictionary<string, Decision> CheckAsync(IEnumerable<DecisionContext> contexts);
+        Task<IDictionary<string, Decision>> CheckAsync(IEnumerable<DecisionContext> contexts);
     }
 }
