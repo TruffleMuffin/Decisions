@@ -93,6 +93,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Securables.Application\Securables.Application.csproj">
+      <Project>{289f50d0-6ddf-4ad2-a7ac-77ac19e45409}</Project>
+      <Name>Securables.Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Securables.Contracts\Securables.Contracts.csproj">
       <Project>{77470fbd-65a2-4935-972e-d9e75be96adc}</Project>
       <Name>Securables.Contracts</Name>
