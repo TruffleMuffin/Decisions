@@ -24,11 +24,14 @@ namespace Securables.Contracts
         /// <summary>
         /// Gets the environment with the specified key asynchronously.
         /// </summary>
+        /// <param name="component">The component.</param>
         /// <param name="key">The key.</param>
-        /// <returns>The environment</returns>
-        protected async Task<dynamic> GetEnvironmentAsync(string key)
+        /// <returns>
+        /// The environment
+        /// </returns>
+        protected async Task<dynamic> GetEnvironmentAsync(string component, string key)
         {
-            return await service.GetAsync(key);
+            return await service.GetAsync(component, key);
         }
 
         /// <summary>

@@ -11,11 +11,12 @@ namespace Securables.Application.Services
         /// <summary>
         /// Gets the environment with the specified key asynchronously.
         /// </summary>
+        /// <param name="component">The component.</param>
         /// <param name="key">The key.</param>
         /// <returns>
         /// An environment, likely an instance of a class from an external assembly.
         /// </returns>
-        public async Task<dynamic> GetAsync(string key)
+        public async Task<dynamic> GetAsync(string component, string key)
         {
             return await Task.FromResult(new object());
         }
