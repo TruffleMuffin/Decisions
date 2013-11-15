@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Securables.Contracts;
 
@@ -10,8 +11,8 @@ namespace Securables.Tests.Support
         private readonly Dictionary<string, object> environments = new Dictionary<string, object>
             {
                 { "CurrentUser", new CurrentUserEnvironment { UserId = new Guid("880A00AD-5C40-447B-821A-2679E757B267") } }, 
-                { "Acl", new AclEnvironment { Entries = new List<Acl>{ new Acl { Allow = true } } } },
-                { "LongRunning", new ComplexEnvironment { Entries = new List<Acl>{ new Acl { Allow = true } } } }
+                { "Acl", new AclEnvironment { Entries = new List<Acl>{ new Acl { Allow = false } } } },
+                { "LongRunning", new AclEnvironment { Entries = new List<Acl>{ new Acl { Allow = true } } } }
             };
 
         public CacheOptions Cache { get { return new CacheOptions { Cacheable = true, Period = TimeSpan.FromSeconds(10) }; } }
@@ -22,7 +23,7 @@ namespace Securables.Tests.Support
         {
             if (key == "LongRunning")
             {
-                return await Task.Delay(TimeSpan.FromSeconds(3)).ContinueWith(t => Task.FromResult(environments[key]));
+                Thread.Sleep(TimeSpan.FromSeconds(3));
             }
 
             return await Task.FromResult(environments[key]);

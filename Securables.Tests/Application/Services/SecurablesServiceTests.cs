@@ -28,6 +28,10 @@ namespace Securables.Tests.Application.Services
         [Row("B", Decision.Deny)]
         [Row("C", Decision.Permit)]
         [Row("D", Decision.Deny)]
+        [Row("E", Decision.Permit)]
+        [Row("F", Decision.Deny)]
+        [Row("G", Decision.Deny)]
+        [Row("H", Decision.Permit)]
         async Task CheckAsync_Decision_Expected(string alias, Decision expected)
         {
             var result = await target.CheckAsync(new DecisionContext
@@ -39,5 +43,27 @@ namespace Securables.Tests.Application.Services
                 });
             Assert.AreEqual(expected, result);
         }
+
+        [AsyncTest]
+        [Row("H", Decision.Permit, 4)]
+        [Row("I", Decision.Permit, 1)]
+        async Task CheckAsync_Decision_Expected_TimeConstraint(string alias, Decision expected, int seconds)
+        {
+            DateTime start = DateTime.Now;
+
+            var result = await target.CheckAsync(new DecisionContext
+            {
+                Component = "Example",
+                Role = alias,
+                EntityId = "1",
+                UserId = "gareth"
+            });
+
+            DateTime end = DateTime.Now;
+
+            Assert.AreEqual(expected, result);
+            Assert.AreApproximatelyEqual(end, start, TimeSpan.FromSeconds(seconds));
+        }
     }
 }
+

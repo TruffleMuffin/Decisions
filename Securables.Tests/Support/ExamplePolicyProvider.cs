@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Securables.Contracts;
 
 namespace Securables.Tests.Support
@@ -14,7 +15,11 @@ namespace Securables.Tests.Support
                     { "A", new AlphaPolicy() },
                     { "B", new BetaPolicy() },
                     { "C", new AlphaPolicy() },
-                    { "D", new AlphaPolicy() }
+                    { "D", new AlphaPolicy() },
+                    { "E", new CappaPolicy{ CurrentUserEnvironmentKey = "CurrentUser", MatchUserId = new Guid("880A00AD-5C40-447B-821A-2679E757B267") } },
+                    { "F", new CappaPolicy{ CurrentUserEnvironmentKey = "CurrentUser", MatchUserId = new Guid("1E9A7C0C-FC86-4516-BA42-F7232E65A12C") } },
+                    { "G", new DeltaPolicy{ AclEnvironmentKey = "Acl" } },
+                    { "H", new DeltaPolicy{ AclEnvironmentKey = "LongRunning" } }
                 };
         }
     }

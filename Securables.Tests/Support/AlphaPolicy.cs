@@ -1,4 +1,5 @@
-﻿using Securables.Contracts;
+﻿using System.Threading.Tasks;
+using Securables.Contracts;
 
 namespace Securables.Tests.Support
 {
