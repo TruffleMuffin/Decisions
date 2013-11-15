@@ -20,13 +20,13 @@ namespace Securables.Contracts
         string[] SupportedKeys { get; }
         
         /// <summary>
-        /// Gets the environment with the specified <see cref="key"/> using the <see cref="context"/> provided.
+        /// Gets the environment with the specified <see cref="alias"/> using the <see cref="context"/> provided.
         /// </summary>
-        /// <param name="key">The key.</param>
+        /// <param name="alias">The globally unique alias used to represent a specific environment.</param>
         /// <param name="context">The context.</param>
         /// <returns>
         /// An environment specified to the provided information.
         /// </returns>
-        Task<dynamic> GetAsync(string key, DecisionContext context);
+        Task<dynamic> GetAsync(string alias, DecisionContext context);
     }
 }

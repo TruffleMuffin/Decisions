@@ -34,14 +34,14 @@ namespace Securables.Application.Services
         /// <summary>
         /// Gets the environment with the specified key asynchronously.
         /// </summary>
-        /// <param name="key">The key.</param>
+        /// <param name="alias">The key.</param>
         /// <param name="context">The context.</param>
         /// <returns>
         /// An environment, likely an instance of a class from an external assembly.
         /// </returns>
-        public async Task<dynamic> GetAsync(string key, DecisionContext context)
+        public async Task<dynamic> GetAsync(string alias, DecisionContext context)
         {
-            return await environments[key].GetAsync(key, context);
+            return await environments[alias].GetAsync(alias, context);
         }
     }
 }

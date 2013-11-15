@@ -21,14 +21,14 @@ namespace Securables.Tests.Support
 
         public string Component { get { return "Example"; } }
 
-        public async Task<dynamic> GetAsync(string key, DecisionContext context)
+        public async Task<dynamic> GetAsync(string alias, DecisionContext context)
         {
-            if (key == "LongRunning")
+            if (alias == "LongRunning")
             {
                 Thread.Sleep(TimeSpan.FromSeconds(3));
             }
 
-            return await Task.FromResult(environments[key]);
+            return await Task.FromResult(environments[alias]);
         }
     }
 }
