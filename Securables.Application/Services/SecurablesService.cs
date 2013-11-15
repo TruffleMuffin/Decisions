@@ -26,7 +26,7 @@ namespace Securables.Application.Services
             foreach (var expressionSection in settings.Element("components").Elements("component"))
             {
                 var component = expressionSection.Attribute("name").Value;
-                var expressionProvider = new ExpressionProvider(expressionSection.Element("expressions"), service, component);
+                var expressionProvider = new ExpressionProvider(expressionSection.Element("expressions"), service);
                 providers.AddOrUpdate(component, expressionProvider, (key, oldValue) => expressionProvider);
             }
         }

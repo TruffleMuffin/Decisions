@@ -18,7 +18,6 @@ namespace Securables.Application.Providers
         private readonly IDictionary<string, Predicate<DecisionContext>> compiled = new Dictionary<string, Predicate<DecisionContext>>();
         private readonly IDictionary<string, string> expressions;
         private readonly PolicyService provider;
-        private readonly string component;
 
         /// <summary>
         /// Initializes the <see cref="ExpressionProvider"/> class.
@@ -34,20 +33,16 @@ namespace Securables.Application.Providers
         /// </summary>
         /// <param name="settings">The settings.</param>
         /// <param name="provider">The provider.</param>
-        /// <param name="component">The component.</param>
-        /// <exception cref="System.Configuration.ConfigurationErrorsException">
-        /// All expressions must specify a unique 'key'.
+        /// <exception cref="System.Configuration.ConfigurationErrorsException">All expressions must specify a unique 'key'.
         /// or
-        /// All expressions must specify a 'value'.
-        /// </exception>
+        /// All expressions must specify a 'value'.</exception>
         /// <exception cref="ConfigurationErrorsException">All expressions must specify a unique 'key'.
         /// or
         /// All expressions must specify a 'value'.</exception>
-        public ExpressionProvider(XElement settings, PolicyService provider, string component)
+        public ExpressionProvider(XElement settings, PolicyService provider)
         {
             expressions = new Dictionary<string, string>();
             this.provider = provider;
-            this.component = component;
 
             foreach (var item in settings.Elements("item"))
             {
@@ -173,7 +168,7 @@ namespace Securables.Application.Providers
                 return Expression.Constant(boolean);
             }
 
-            return Expression.Call(Expression.Constant(provider.Get(component, alias)), METHOD_INFO, PARAMETER);
+            return Expression.Call(Expression.Constant(provider.Get(alias)), METHOD_INFO, PARAMETER);
         }
 
         private static Expression Combine(Expression lhs, Expression rhs, char operation, bool not)

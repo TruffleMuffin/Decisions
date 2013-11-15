@@ -9,12 +9,7 @@ namespace Securables.Contracts
     public abstract class AbstractPolicy
     {
         private IEnvironmentService service;
-
-        /// <summary>
-        /// Gets the Globally Unique Identifier that identifies this Policy.
-        /// </summary>
-        public abstract string Id { get; }
-
+        
         /// <summary>
         /// Make a decisions on the <see cref="Decision"/> of this policy for the provided <see cref="DecisionContext"/>.
         /// </summary>

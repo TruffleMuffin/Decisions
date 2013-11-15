@@ -9,12 +9,7 @@ namespace Securables.Tests.Support
     class DeltaPolicy : AbstractPolicy
     {
         public string AclEnvironmentKey { get; set; }
-
-        public override string Id
-        {
-            get { return "Example.Delta"; }
-        }
-
+        
         public override bool Decide(DecisionContext context)
         {
             var envTask = GetEnvironmentAsync(context.Component, AclEnvironmentKey, context);

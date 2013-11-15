@@ -10,11 +10,6 @@ namespace Securables.Contracts
     public interface IPolicyProvider
     {
         /// <summary>
-        /// Gets or sets the name of the component which this instance provides policies for.
-        /// </summary>
-        string Component { get; }
-
-        /// <summary>
         /// Gets all the policies this instance of the provider wishes to offer.
         /// </summary>
         /// <returns>A dictionary of policies, the key should be a identifier that is used to link to the decision.</returns>

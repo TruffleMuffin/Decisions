@@ -11,12 +11,7 @@ namespace Securables.Tests.Support
         public Guid MatchUserId { get; set; }
 
         public string CurrentUserEnvironmentKey { get; set; }
-
-        public override string Id
-        {
-            get { return "Example.Cappa"; }
-        }
-
+        
         public override bool Decide(DecisionContext context)
         {
             var envTask = GetEnvironmentAsync(context.Component, CurrentUserEnvironmentKey, context);

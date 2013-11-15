@@ -11,7 +11,7 @@ namespace Securables.Application.Services
     /// </summary>
     internal class PolicyService
     {
-        private static readonly ConcurrentDictionary<string, ConcurrentDictionary<string, AbstractPolicy>> policies = new ConcurrentDictionary<string, ConcurrentDictionary<string, AbstractPolicy>>();
+        private readonly ConcurrentDictionary<string, AbstractPolicy> policies = new ConcurrentDictionary<string, AbstractPolicy>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PolicyService" /> class.
@@ -23,26 +23,23 @@ namespace Securables.Application.Services
         {
             if (providers == null || providers.Any() == false) throw new ArgumentException("Some providers are required to initialize the Securables.Application.Services.PolicyService");
 
-            foreach (var policyProvider in providers)
+            foreach (var policyList in providers.Select(policyProvider => policyProvider.GetPolicies().ToList()))
             {
-                var policyList = policyProvider.GetPolicies().ToList();
                 policyList.ForEach(a => a.Value.SetEnvironmentProvider(service));
-                var componentPolicies = new ConcurrentDictionary<string, AbstractPolicy>(policyList);
-                policies.AddOrUpdate(policyProvider.Component, componentPolicies, (key, oldValue) => componentPolicies);
+                policyList.ForEach(a => policies.AddOrUpdate(a.Key, a.Value, (key, oldValue) => { throw new ArgumentException("A Policy with this key has already been registered.", key); }));
             }
         }
 
         /// <summary>
         /// Gets the <see cref="AbstractPolicy" /> with the specified key.
         /// </summary>
-        /// <param name="component">The component the policy will be found in.</param>
         /// <param name="alias">The key that can be used to lookup the policy.</param>
         /// <returns>
         /// An environment, likely an instance of a class from an external assembly.
         /// </returns>
-        public AbstractPolicy Get(string component, string alias)
+        public AbstractPolicy Get(string alias)
         {
-            return policies[component][alias];
+            return policies[alias];
         }
     }
 }
