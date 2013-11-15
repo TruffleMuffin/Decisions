@@ -12,7 +12,7 @@ namespace Securables.Tests.Support
         
         public override bool Decide(DecisionContext context)
         {
-            var envTask = GetEnvironmentAsync(context.Component, AclEnvironmentKey, context);
+            var envTask = GetEnvironmentAsync(AclEnvironmentKey, context);
             envTask.Wait();
             var env = envTask.Result as AclEnvironment;
             return env.Entries.Any(a => a.Allow);

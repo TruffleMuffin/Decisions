@@ -10,12 +10,11 @@ namespace Securables.Contracts
         /// <summary>
         /// Gets the environment with the specified key asynchronously.
         /// </summary>
-        /// <param name="component">The component.</param>
         /// <param name="key">The key.</param>
         /// <param name="context">The context.</param>
         /// <returns>
         /// An environment, likely an instance of a class from an external assembly.
         /// </returns>
-        Task<dynamic> GetAsync(string component, string key, DecisionContext context);
+        Task<dynamic> GetAsync(string key, DecisionContext context);
     }
 }

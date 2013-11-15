@@ -12,7 +12,7 @@ namespace Securables.Application.Services
     /// </summary>
     internal class EnvironmentService : IEnvironmentService
     {
-        private readonly ConcurrentDictionary<string, IEnvironmentProvider> environmentProviders = new ConcurrentDictionary<string, IEnvironmentProvider>();
+        private readonly ConcurrentDictionary<string, IEnvironmentProvider> environments = new ConcurrentDictionary<string, IEnvironmentProvider>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EnvironmentService"/> class.
@@ -22,26 +22,26 @@ namespace Securables.Application.Services
         {
             if (providers == null || providers.Any() == false) throw new ArgumentException("Some providers are required to initialize the Securables.Application.Services.EnvironmentService");
 
-            foreach (var environmentProvider in providers)
+            foreach (var provider in providers)
             {
-                // Note: Avoid foreach closure trap changing variable assignment to be unpredictable
-                var provider = environmentProvider;
-                environmentProviders.AddOrUpdate(environmentProvider.Component, provider, (key, oldValue) => provider);
+                foreach (var key in provider.SupportedKeys)
+                {
+                    environments.AddOrUpdate(key, provider, (k, oldValue) => { throw new ArgumentException("A Environment Provider with this key has already been registered.", k); });
+                }
             }
         }
 
         /// <summary>
         /// Gets the environment with the specified key asynchronously.
         /// </summary>
-        /// <param name="component">The component.</param>
         /// <param name="key">The key.</param>
         /// <param name="context">The context.</param>
         /// <returns>
         /// An environment, likely an instance of a class from an external assembly.
         /// </returns>
-        public async Task<dynamic> GetAsync(string component, string key, DecisionContext context)
+        public async Task<dynamic> GetAsync(string key, DecisionContext context)
         {
-            return await environmentProviders[component].GetAsync(key, context);
+            return await environments[key].GetAsync(key, context);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Securables.Tests.Support
         
         public override bool Decide(DecisionContext context)
         {
-            var envTask = GetEnvironmentAsync(context.Component, CurrentUserEnvironmentKey, context);
+            var envTask = GetEnvironmentAsync(CurrentUserEnvironmentKey, context);
             envTask.Wait();
             var env = envTask.Result as CurrentUserEnvironment;
             return env.UserId == MatchUserId;

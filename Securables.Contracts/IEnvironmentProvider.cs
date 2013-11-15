@@ -15,10 +15,10 @@ namespace Securables.Contracts
         CacheOptions Cache { get; }
 
         /// <summary>
-        /// Gets or sets the name of the component which this instance provides environments for.
+        /// Gets the keys that this instance supports retrieval of environments for.
         /// </summary>
-        string Component { get; }
-
+        string[] SupportedKeys { get; }
+        
         /// <summary>
         /// Gets the environment with the specified <see cref="key"/> using the <see cref="context"/> provided.
         /// </summary>

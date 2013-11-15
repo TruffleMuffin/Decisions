@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Securables.Contracts;
@@ -16,6 +17,7 @@ namespace Securables.Tests.Support
             };
 
         public CacheOptions Cache { get { return new CacheOptions { Cacheable = true, Period = TimeSpan.FromSeconds(10) }; } }
+        public string[] SupportedKeys { get { return environments.Keys.ToArray(); } }
 
         public string Component { get { return "Example"; } }
 
