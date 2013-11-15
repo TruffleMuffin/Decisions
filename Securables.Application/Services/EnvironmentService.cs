@@ -8,7 +8,7 @@ using Securables.Contracts;
 namespace Securables.Application.Services
 {
     /// <summary>
-    /// A service for retrieving environments regarding a <see cref="DecisionContext"/> for use in determining its <see cref="Decision"/> via the <see cref="ISecurablesService"/>.
+    /// A service for retrieving environments regarding a <see cref="DecisionContext"/> for use in determining its Decision via the <see cref="ISecurablesService"/>.
     /// </summary>
     internal class EnvironmentService : IEnvironmentService
     {

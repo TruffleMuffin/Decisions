@@ -18,11 +18,11 @@ namespace Securables.API
         /// <param name="roleName">Name of the role the user claims to have on the entity within the <see cref="componentName"/>.</param>
         /// <param name="entityId">The entity id.</param>
         /// <returns>
-        /// A <see cref="Decision" /> indicating the result of the query.
+        /// A Decision indicating the result of the query.
         /// </returns>
-        public async Task<Decision> Get(string componentName, string userId, string roleName, string entityId)
+        public async Task<bool> Get(string componentName, string userId, string roleName, string entityId)
         {
-            return await Task.FromResult(Decision.Deny);
+            return await Task.FromResult(false);
         }
     }
 }

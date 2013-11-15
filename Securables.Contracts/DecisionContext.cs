@@ -1,7 +1,7 @@
 ﻿namespace Securables.Contracts
 {
     /// <summary>
-    /// Describes a decision context, containing all relevant information for getting a <see cref="Decision"/> result from the <see cref="ISecurablesService"/>.
+    /// Describes a decision context, containing all relevant information for getting a Decision result from the <see cref="ISecurablesService"/>.
     /// </summary>
     public class DecisionContext
     {

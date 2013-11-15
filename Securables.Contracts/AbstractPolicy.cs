@@ -11,7 +11,7 @@ namespace Securables.Contracts
         private IEnvironmentService service;
         
         /// <summary>
-        /// Make a decisions on the <see cref="Decision"/> of this policy for the provided <see cref="DecisionContext"/>.
+        /// Make a decisions on the Decision of this policy for the provided <see cref="DecisionContext"/>.
         /// </summary>
         /// <returns>True if the policy passes, otherwise false.</returns>
         public abstract bool Decide(DecisionContext context);

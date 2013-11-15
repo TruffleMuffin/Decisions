@@ -13,17 +13,17 @@ namespace Securables.Contracts
         /// </summary>
         /// <param name="context">The context.</param>
         /// <returns>
-        /// A <see cref="Decision" /> indicating the result of the query.
+        /// A Decision indicating the result of the query.
         /// </returns>
-        Task<Decision> CheckAsync(DecisionContext context);
+        Task<bool> CheckAsync(DecisionContext context);
 
         /// <summary>
         /// Determines the results of the specified <see cref="contexts"/>.
         /// </summary>
         /// <param name="contexts">The contexts.</param>
         /// <returns>
-        /// A set of <see cref="Decision" /> indicating the results of the query.
+        /// A set of Decision indicating the results of the query.
         /// </returns>
-        Task<IDictionary<string, Decision>> CheckAsync(IEnumerable<DecisionContext> contexts);
+        Task<IDictionary<string, bool>> CheckAsync(IEnumerable<DecisionContext> contexts);
     }
 }

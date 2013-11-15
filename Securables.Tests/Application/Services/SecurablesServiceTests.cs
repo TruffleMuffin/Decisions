@@ -24,15 +24,15 @@ namespace Securables.Tests.Application.Services
         }
 
         [AsyncTest]
-        [Row("A", Decision.Permit)]
-        [Row("B", Decision.Deny)]
-        [Row("C", Decision.Permit)]
-        [Row("D", Decision.Deny)]
-        [Row("E", Decision.Permit)]
-        [Row("F", Decision.Deny)]
-        [Row("G", Decision.Deny)]
-        [Row("H", Decision.Permit)]
-        async Task CheckAsync_Decision_Expected(string alias, Decision expected)
+        [Row("A", true)]
+        [Row("B", false)]
+        [Row("C", true)]
+        [Row("D", false)]
+        [Row("E", true)]
+        [Row("F", false)]
+        [Row("G", false)]
+        [Row("H", true)]
+        async Task CheckAsync_Decision_Expected(string alias, bool expected)
         {
             var result = await target.CheckAsync(new DecisionContext
                 {
@@ -56,16 +56,16 @@ namespace Securables.Tests.Application.Services
                 };
             var results = await target.CheckAsync(decisions);
             Assert.Count(4, results);
-            Assert.AreEqual(Decision.Permit, results["Example/gareth/A/1"]);
-            Assert.AreEqual(Decision.Deny, results["Example/gareth/B/1"]);
-            Assert.AreEqual(Decision.Permit, results["Example/gareth/C/1"]);
-            Assert.AreEqual(Decision.Deny, results["Example/gareth/D/1"]);
+            Assert.AreEqual(true, results["Example/gareth/A/1"]);
+            Assert.AreEqual(false, results["Example/gareth/B/1"]);
+            Assert.AreEqual(true, results["Example/gareth/C/1"]);
+            Assert.AreEqual(false, results["Example/gareth/D/1"]);
         }
 
         [AsyncTest]
-        [Row("H", Decision.Permit, 4)]
-        [Row("I", Decision.Permit, 1)]
-        async Task CheckAsync_Decision_Expected_TimeConstraint(string alias, Decision expected, int seconds)
+        [Row("H", true, 4)]
+        [Row("I", true, 1)]
+        async Task CheckAsync_Decision_Expected_TimeConstraint(string alias, bool expected, int seconds)
         {
             DateTime start = DateTime.Now;
 

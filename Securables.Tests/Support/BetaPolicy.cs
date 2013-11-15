@@ -8,7 +8,7 @@ namespace Securables.Tests.Support
     class BetaPolicy : AbstractPolicy
     {
         /// <summary>
-        /// Make a decisions on the <see cref="Decision" /> of this policy for the provided <see cref="DecisionContext" />.
+        /// Make a decisions on the Decision of this policy for the provided <see cref="DecisionContext" />.
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>

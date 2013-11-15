@@ -37,14 +37,14 @@ namespace Securables.Application.Services
         /// </summary>
         /// <param name="context">The context.</param>
         /// <returns>
-        /// A <see cref="Decision" /> indicating the result of the query.
+        /// A Decision indicating the result of the query.
         /// </returns>
-        public async Task<Decision> CheckAsync(DecisionContext context)
+        public async Task<bool> CheckAsync(DecisionContext context)
         {
             return await Task.Run(() =>
                 {
                     var expression = providers[context.Component].Inflate(context);
-                    return expression(context) ? Decision.Permit : Decision.Deny;
+                    return expression(context);
                 });
         }
 
@@ -53,13 +53,13 @@ namespace Securables.Application.Services
         /// </summary>
         /// <param name="contexts">The contexts.</param>
         /// <returns>
-        /// A set of <see cref="Decision" /> indicating the results of the query.
+        /// A set of Decision indicating the results of the query.
         /// </returns>
-        public async Task<IDictionary<string, Decision>> CheckAsync(IEnumerable<DecisionContext> contexts)
+        public async Task<IDictionary<string, bool>> CheckAsync(IEnumerable<DecisionContext> contexts)
         {
             return await Task.Run(() =>
                 {
-                    var tasks = new Dictionary<string, Task<Decision>>();
+                    var tasks = new Dictionary<string, Task<bool>>();
                     foreach (var context in contexts)
                     {
                         tasks.Add(context.Id, CheckAsync(context));
