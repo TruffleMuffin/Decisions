@@ -62,6 +62,11 @@ namespace Securables.Application.Providers
             }
         }
 
+        /// <summary>
+        /// Inflates the specified context into an expression that can be executed.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <returns>A delegate that takes a <see cref="DecisionContext"/> as a parameter to execute</returns>
         public Predicate<DecisionContext> Inflate(DecisionContext context)
         {
             if (compiled.ContainsKey(context.Role) == false)
@@ -73,6 +78,11 @@ namespace Securables.Application.Providers
             return compiled[context.Role];
         }
 
+        /// <summary>
+        /// Reduces the specified input, removing all extraneous or non-required text.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <returns>A string based on the input</returns>
         private static string Reduce(string input)
         {
             var output = input;
@@ -86,6 +96,11 @@ namespace Securables.Application.Providers
             return output;
         }
 
+        /// <summary>
+        /// Parses the specified input.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <returns>An <see cref="Expression"/> representing the input.</returns>
         private Expression Parse(string input)
         {
             Expression expression = null;
@@ -160,6 +175,11 @@ namespace Securables.Application.Providers
             return expression;
         }
 
+        /// <summary>
+        /// Calls an <see cref="AbstractPolicy"/> registered in the <see cref="PolicyService"/> with the specified alias.
+        /// </summary>
+        /// <param name="alias">The alias.</param>
+        /// <returns>An <see cref="Expression"/> representing the result</returns>
         private Expression Call(string alias)
         {
             bool boolean;
@@ -171,6 +191,15 @@ namespace Securables.Application.Providers
             return Expression.Call(Expression.Constant(provider.Get(alias)), METHOD_INFO, PARAMETER);
         }
 
+        /// <summary>
+        /// Combines the specified LHS and RHS with the provided operators.
+        /// </summary>
+        /// <param name="lhs">The LHS.</param>
+        /// <param name="rhs">The RHS.</param>
+        /// <param name="operation">The operation.</param>
+        /// <param name="not">if set to <c>true</c> [not].</param>
+        /// <returns>An <see cref="Expression"/> representing the result of the operation</returns>
+        /// <exception cref="System.InvalidOperationException">When the operation is not recognised.</exception>
         private static Expression Combine(Expression lhs, Expression rhs, char operation, bool not)
         {
             if (not)
