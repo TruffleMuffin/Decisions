@@ -20,9 +20,9 @@ namespace Securables.Tests.Support
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public override Decision Decide(DecisionContext context)
+        public override bool Decide(DecisionContext context)
         {
-            return Decision.Permit;
+            return true;
         }
     }
 }

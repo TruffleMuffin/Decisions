@@ -18,8 +18,8 @@ namespace Securables.Contracts
         /// <summary>
         /// Make a decisions on the <see cref="Decision"/> of this policy for the provided <see cref="DecisionContext"/>.
         /// </summary>
-        /// <returns></returns>
-        public abstract Decision Decide(DecisionContext context);
+        /// <returns>True if the policy passes, otherwise false.</returns>
+        public abstract bool Decide(DecisionContext context);
 
         /// <summary>
         /// Gets the environment with the specified key asynchronously.

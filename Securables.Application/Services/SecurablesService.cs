@@ -40,7 +40,11 @@ namespace Securables.Application.Services
         /// </returns>
         public async Task<Decision> CheckAsync(DecisionContext context)
         {
-            return await Task.FromResult(Decision.Deny);
+            return await Task.Run(() =>
+                {
+                    var expression = providers[context.Component].Inflate(context);
+                    return expression(context) ? Decision.Permit : Decision.Deny;
+                });
         }
 
         /// <summary>
