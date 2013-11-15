@@ -20,7 +20,7 @@ namespace Securables.Tests.Application.Services
         {
             environmentService = new EnvironmentService(new[] { new ExampleEnvironmentProvider() });
             policyService = new PolicyService(new[] { new ExamplePolicyProvider() }, environmentService);
-            target = new SecurablesService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Decisions.xml"), policyService);
+            target = new SecurablesService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Securables.config"), policyService);
         }
 
         [AsyncTest]
