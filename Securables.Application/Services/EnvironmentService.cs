@@ -41,7 +41,21 @@ namespace Securables.Application.Services
         /// </returns>
         public async Task<dynamic> GetAsync(string alias, DecisionContext context)
         {
-            return await environments[alias].GetAsync(alias, context);
+            IEnvironmentProvider provider;
+            if (environments.TryGetValue(alias, out provider)) return await provider.GetAsync(alias, context);
+            return null;
+        }
+
+        /// <summary>
+        /// Gets the cache options for the specified alias.
+        /// </summary>
+        /// <param name="alias">The alias.</param>
+        /// <returns>A <see cref="CacheOptions"/></returns>
+        internal CacheOptions GetCacheOptions(string alias)
+        {
+            IEnvironmentProvider provider;
+            if (environments.TryGetValue(alias, out provider)) return provider.Cache;
+            return null;
         }
     }
 }

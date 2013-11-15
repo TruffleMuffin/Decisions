@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
-using Securables.Contracts;
 
 namespace Securables.API
 {
