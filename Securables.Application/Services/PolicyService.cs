@@ -14,16 +14,20 @@ namespace Securables.Application.Services
         private static readonly ConcurrentDictionary<string, ConcurrentDictionary<string, AbstractPolicy>> policies = new ConcurrentDictionary<string, ConcurrentDictionary<string, AbstractPolicy>>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolicyService"/> class.
+        /// Initializes a new instance of the <see cref="PolicyService" /> class.
         /// </summary>
         /// <param name="providers">The providers.</param>
-        public PolicyService(IEnumerable<IPolicyProvider> providers)
+        /// <param name="service">The service.</param>
+        /// <exception cref="System.ArgumentException">Some providers are required to initialize the Securables.Application.Services.PolicyService</exception>
+        public PolicyService(IEnumerable<IPolicyProvider> providers, IEnvironmentService service)
         {
             if (providers == null || providers.Any() == false) throw new ArgumentException("Some providers are required to initialize the Securables.Application.Services.PolicyService");
 
             foreach (var policyProvider in providers)
             {
-                var componentPolicies = new ConcurrentDictionary<string, AbstractPolicy>(policyProvider.GetPolicies().ToList());
+                var policyList = policyProvider.GetPolicies().ToList();
+                policyList.ForEach(a => a.Value.SetEnvironmentProvider(service));
+                var componentPolicies = new ConcurrentDictionary<string, AbstractPolicy>(policyList);
                 policies.AddOrUpdate(policyProvider.Component, componentPolicies, (key, oldValue) => componentPolicies);
             }
         }

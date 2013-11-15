@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
 using Securables.Contracts;
 
@@ -21,7 +20,7 @@ namespace Securables.API
         /// <returns>
         /// A <see cref="Decision" /> indicating the result of the query.
         /// </returns>
-        public async Task<Decision> Get(string componentName, Guid userId, string roleName, string entityId)
+        public async Task<Decision> Get(string componentName, string userId, string roleName, string entityId)
         {
             return await Task.FromResult(Decision.Deny);
         }

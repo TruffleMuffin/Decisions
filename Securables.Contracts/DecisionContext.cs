@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Securables.Contracts
+﻿namespace Securables.Contracts
 {
     /// <summary>
     /// Describes a decision context, containing all relevant information for getting a <see cref="Decision"/> result from the <see cref="ISecurablesService"/>.
@@ -25,7 +23,7 @@ namespace Securables.Contracts
         /// <summary>
         /// Gets or sets the user id the decision should be made for.
         /// </summary>
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
 
         /// <summary>
         /// Gets or sets the role the decision should be about.

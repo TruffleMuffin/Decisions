@@ -23,10 +23,10 @@ namespace Securables.Application.Services
         public SecurablesService(string configPath, PolicyService service)
         {
             var settings = XElement.Load(Path.GetFullPath(configPath));
-            foreach (var expressionSection in settings.Elements("components"))
+            foreach (var expressionSection in settings.Element("components").Elements("component"))
             {
                 var component = expressionSection.Attribute("name").Value;
-                var expressionProvider = new ExpressionProvider(settings.Element("expressions"), service, component);
+                var expressionProvider = new ExpressionProvider(expressionSection.Element("expressions"), service, component);
                 providers.AddOrUpdate(component, expressionProvider, (key, oldValue) => expressionProvider);
             }
         }

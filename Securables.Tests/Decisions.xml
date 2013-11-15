@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <components>
+    <component name="Example">
+      <expressions>
+        <item key="A" value="A" />
+        <item key="B" value="B" />
+        <item key="C" value="A . B" />
+        <item key="D" value="A + B" />
+      </expressions>
+    </component>
+  </components>
+</configuration>
