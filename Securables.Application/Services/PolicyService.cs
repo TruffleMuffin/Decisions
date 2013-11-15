@@ -1,8 +1,8 @@
-﻿using Securables.Contracts;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using Securables.Contracts;
 
 namespace Securables.Application.Services
 {
@@ -32,13 +32,13 @@ namespace Securables.Application.Services
         /// Gets the <see cref="AbstractPolicy" /> with the specified key.
         /// </summary>
         /// <param name="component">The component the policy will be found in.</param>
-        /// <param name="key">The key.</param>
+        /// <param name="alias">The key that can be used to lookup the policy.</param>
         /// <returns>
         /// An environment, likely an instance of a class from an external assembly.
         /// </returns>
-        public AbstractPolicy Get(string component, string key)
+        public AbstractPolicy Get(string component, string alias)
         {
-            return policies[component][key];
+            return policies[component][alias];
         }
     }
 }

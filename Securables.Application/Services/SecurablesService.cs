@@ -1,6 +1,10 @@
-﻿using Securables.Contracts;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using Securables.Application.Providers;
+using Securables.Contracts;
 
 namespace Securables.Application.Services
 {
@@ -9,6 +13,24 @@ namespace Securables.Application.Services
     /// </summary>
     internal class SecurablesService : ISecurablesService
     {
+        private readonly ConcurrentDictionary<string, ExpressionProvider> providers = new ConcurrentDictionary<string, ExpressionProvider>();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SecurablesService" /> class.
+        /// </summary>
+        /// <param name="configPath">The config path.</param>
+        /// <param name="service">The service.</param>
+        public SecurablesService(string configPath, PolicyService service)
+        {
+            var settings = XElement.Load(Path.GetFullPath(configPath));
+            foreach (var expressionSection in settings.Elements("components"))
+            {
+                var component = expressionSection.Attribute("name").Value;
+                var expressionProvider = new ExpressionProvider(settings.Element("expressions"), service, component);
+                providers.AddOrUpdate(component, expressionProvider, (key, oldValue) => expressionProvider);
+            }
+        }
+
         /// <summary>
         /// Determines the result of the specified <see cref="context" />.
         /// </summary>
