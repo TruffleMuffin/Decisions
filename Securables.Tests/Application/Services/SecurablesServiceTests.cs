@@ -25,6 +25,9 @@ namespace Securables.Tests.Application.Services
 
         [AsyncTest]
         [Row("A", Decision.Permit)]
+        [Row("B", Decision.Deny)]
+        [Row("C", Decision.Permit)]
+        [Row("D", Decision.Deny)]
         async Task CheckAsync_Decision_Expected(string alias, Decision expected)
         {
             var result = await target.CheckAsync(new DecisionContext

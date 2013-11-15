@@ -5,8 +5,8 @@
       <expressions>
         <item key="A" value="A" />
         <item key="B" value="B" />
-        <item key="C" value="A . B" />
-        <item key="D" value="A + B" />
+        <item key="C" value="A OR B" />
+        <item key="D" value="A AND B" />
       </expressions>
     </component>
   </components>
