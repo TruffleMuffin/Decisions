@@ -45,6 +45,24 @@ namespace Securables.Tests.Application.Services
         }
 
         [AsyncTest]
+        async Task CheckAsync_ManyDecision()
+        {
+            var decisions = new[]
+                {
+                    new DecisionContext { Component = "Example", Role = "A", EntityId = "1", UserId = "gareth" },
+                    new DecisionContext { Component = "Example", Role = "B", EntityId = "1", UserId = "gareth" },
+                    new DecisionContext { Component = "Example", Role = "C", EntityId = "1", UserId = "gareth" },
+                    new DecisionContext { Component = "Example", Role = "D", EntityId = "1", UserId = "gareth" }
+                };
+            var results = await target.CheckAsync(decisions);
+            Assert.Count(4, results);
+            Assert.AreEqual(Decision.Permit, results["Example/gareth/A/1"]);
+            Assert.AreEqual(Decision.Deny, results["Example/gareth/B/1"]);
+            Assert.AreEqual(Decision.Permit, results["Example/gareth/C/1"]);
+            Assert.AreEqual(Decision.Deny, results["Example/gareth/D/1"]);
+        }
+
+        [AsyncTest]
         [Row("H", Decision.Permit, 4)]
         [Row("I", Decision.Permit, 1)]
         async Task CheckAsync_Decision_Expected_TimeConstraint(string alias, Decision expected, int seconds)

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Securables.Application.Providers;
@@ -56,7 +57,18 @@ namespace Securables.Application.Services
         /// </returns>
         public async Task<IDictionary<string, Decision>> CheckAsync(IEnumerable<DecisionContext> contexts)
         {
-            return await Task.FromResult(new Dictionary<string, Decision>());
+            return await Task.Run(() =>
+                {
+                    var tasks = new Dictionary<string, Task<Decision>>();
+                    foreach (var context in contexts)
+                    {
+                        tasks.Add(context.Id, CheckAsync(context));
+                    }
+
+                    Task.WaitAll(tasks.Values.ToArray());
+
+                    return tasks.ToDictionary(a => a.Key, a => a.Value.Result);
+                });
         }
     }
 }
