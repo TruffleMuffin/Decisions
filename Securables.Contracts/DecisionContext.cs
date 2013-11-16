@@ -13,7 +13,7 @@
         /// <summary>
         /// Gets or sets the Globally Unique Identifier that identifies this specific instance uniquely.
         /// </summary>
-        public string Id { get { return string.Format(ID_FORMAT, Component, UserId, Role, EntityId); } }
+        public string Id { get { return string.Format(ID_FORMAT, Component, SourceId, Role, TargetId); } }
 
         /// <summary>
         /// Gets or sets the name of the component which the decision should be made within.
@@ -21,9 +21,9 @@
         public string Component { get; set; }
 
         /// <summary>
-        /// Gets or sets the user id the decision should be made for.
+        /// Gets or sets the source id the decision should be made for.
         /// </summary>
-        public string UserId { get; set; }
+        public string SourceId { get; set; }
 
         /// <summary>
         /// Gets or sets the role the decision should be about.
@@ -31,8 +31,8 @@
         public string Role { get; set; }
 
         /// <summary>
-        /// Gets or sets the entity id which the decision should be on.
+        /// Gets or sets the target id which the decision should be on.
         /// </summary>
-        public string EntityId { get; set; }
+        public string TargetId { get; set; }
     }
 }

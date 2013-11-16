@@ -25,7 +25,7 @@ namespace Securables
             // Decision routes
             routes.MapHttpRoute(
                 name: "DecideApi",
-                routeTemplate: "Api/Decide/{componentName}/{userId}/{roleName}/{entityId}",
+                routeTemplate: "Api/Decide/{componentName}/{sourceId}/{roleName}/{targetId}",
                 defaults: new { controller = "Decide", action = "Get" },
                 constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) });
         }

@@ -51,8 +51,8 @@ namespace Securables.Tests.Application.Services
                 {
                     Component = "Example",
                     Role = alias,
-                    EntityId = "1",
-                    UserId = "gareth"
+                    TargetId = "1",
+                    SourceId = "gareth"
                 });
             Assert.AreEqual(expected, result);
         }
@@ -62,10 +62,10 @@ namespace Securables.Tests.Application.Services
         {
             var decisions = new[]
                 {
-                    new DecisionContext { Component = "Example", Role = "A", EntityId = "1", UserId = "gareth" },
-                    new DecisionContext { Component = "Example", Role = "B", EntityId = "1", UserId = "gareth" },
-                    new DecisionContext { Component = "Example", Role = "C", EntityId = "1", UserId = "gareth" },
-                    new DecisionContext { Component = "Example", Role = "D", EntityId = "1", UserId = "gareth" }
+                    new DecisionContext { Component = "Example", Role = "A", TargetId = "1", SourceId = "gareth" },
+                    new DecisionContext { Component = "Example", Role = "B", TargetId = "1", SourceId = "gareth" },
+                    new DecisionContext { Component = "Example", Role = "C", TargetId = "1", SourceId = "gareth" },
+                    new DecisionContext { Component = "Example", Role = "D", TargetId = "1", SourceId = "gareth" }
                 };
             var results = await target.CheckAsync(decisions);
             Assert.Count(4, results);
@@ -86,8 +86,8 @@ namespace Securables.Tests.Application.Services
             {
                 Component = "Example",
                 Role = alias,
-                EntityId = "1",
-                UserId = "gareth"
+                TargetId = "1",
+                SourceId = "gareth"
             });
 
             DateTime end = DateTime.Now;
