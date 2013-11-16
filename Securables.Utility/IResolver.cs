@@ -24,5 +24,20 @@ namespace Securables.Utility
         /// The service instance
         /// </returns>
         object Get(Type type);
+
+        /// <summary>
+        /// Releases the specified instance.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        void Release(object instance);
+
+        /// <summary>
+        /// Determines whether Resolver has a component of type registered.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>
+        ///   <c>true</c> if the Resolver has the type registered; otherwise, <c>false</c>.
+        /// </returns>
+        bool Has(Type type);
     }
 }

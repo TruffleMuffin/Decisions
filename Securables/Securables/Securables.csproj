@@ -108,6 +108,10 @@
       <Project>{77470fbd-65a2-4935-972e-d9e75be96adc}</Project>
       <Name>Securables.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Securables.Utility\Securables.Utility.csproj">
+      <Project>{fa47bd64-79e5-45a8-a6d3-4946bbb641ea}</Project>
+      <Name>Securables.Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

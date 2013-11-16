@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.SelfHost;
 using MbUnit.Framework;
-using Securables.Application.Services;
-using Securables.Contracts;
-using Securables.Contracts.Providers;
-using Securables.Tests.Support;
 using Securables.Utility;
 
 namespace Securables.Tests.Utility.Filters
@@ -67,37 +60,6 @@ namespace Securables.Tests.Utility.Filters
 
             var resp = client.GetAsync(string.Format("http://localhost:40000/api/values/{0}", 2)).Result;
             Assert.AreEqual(HttpStatusCode.Unauthorized, resp.StatusCode);
-        }
-
-        class TestResolver : IResolver
-        {
-            private PolicyService policyService;
-            private EnvironmentService environmentService;
-            private SecurablesService securablesService;
-
-            public TestResolver()
-            {
-                environmentService = new EnvironmentService(new[] { new ExampleEnvironmentProvider() });
-                var policies = new Dictionary<string, AbstractPolicy>
-                {
-                    { "A", new AlphaPolicy() }, 
-                    { "B", new BetaPolicy() },
-                    { "G", new DeltaPolicy {AclEnvironmentKey = "Acl"} }, 
-                    { "H", new DeltaPolicy {AclEnvironmentKey = "LongRunning"} }
-                };
-                policyService = new PolicyService(new[] { new PolicyProvider(policies) }, environmentService);
-                securablesService = new SecurablesService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Securables.config"), policyService);
-            }
-
-            public T Get<T>()
-            {
-                return (T)(object)securablesService; ;
-            }
-
-            public object Get(Type type)
-            {
-                return new ValuesResolver();
-            }
         }
     }
 }

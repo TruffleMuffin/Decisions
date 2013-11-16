@@ -99,6 +99,7 @@
     <Compile Include="Application\Services\Cache\SecurablesServiceTests.cs" />
     <Compile Include="Application\Services\SecurablesServiceTests.cs" />
     <Compile Include="Contracts\SecurablesExtensionsTests.cs" />
+    <Compile Include="Contracts\Services\RemoteSecurablesServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Support\Acl.cs" />
     <Compile Include="Support\AclEnvironment.cs" />
@@ -110,6 +111,8 @@
     <Compile Include="Support\ExampleEnvironmentProvider.cs" />
     <Compile Include="Support\ValuesController.cs" />
     <Compile Include="Utility\Filters\SecurablesCheckAttributeTests.cs" />
+    <Compile Include="Utility\Filters\TestResolver.cs" />
+    <Compile Include="Web\API\DecideControllerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -126,6 +129,10 @@
     <ProjectReference Include="..\Securables.Utility\Securables.Utility.csproj">
       <Project>{fa47bd64-79e5-45a8-a6d3-4946bbb641ea}</Project>
       <Name>Securables.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Securables\Securables\Securables.csproj">
+      <Project>{c69d36aa-a533-456f-89a6-69d886e927d7}</Project>
+      <Name>Securables</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

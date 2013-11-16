@@ -44,5 +44,25 @@ namespace Securables.Utility
             return Resolver.Get(type);
         }
 
+        /// <summary>
+        /// Determines whether Resolver has a component of type registered.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>
+        ///   <c>true</c> if the Resolver has the type registered; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool Has(Type type)
+        {
+            return Resolver.Has(type);
+        }
+
+        /// <summary>
+        /// Releases the specified instance.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        public static void Release(object instance)
+        {
+            Resolver.Release(instance);
+        }
     }
 }

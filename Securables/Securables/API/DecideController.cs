@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
+using Securables.Contracts;
 
 namespace Securables.API
 {
@@ -8,6 +9,17 @@ namespace Securables.API
     /// </summary>
     public class DecideController : ApiController
     {
+        private readonly ISecurablesService service;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DecideController"/> class.
+        /// </summary>
+        /// <param name="service">The service.</param>
+        public DecideController(ISecurablesService service)
+        {
+            this.service = service;
+        }
+
         /// <summary>
         /// Handles a Decision request.
         /// HTTP Verb: GET
@@ -21,7 +33,20 @@ namespace Securables.API
         /// </returns>
         public async Task<bool> Get(string componentName, string sourceId, string roleName, string targetId)
         {
-            return await Task.FromResult(false);
+            return await service.CheckAsync(Resolve(componentName, sourceId, roleName, targetId));
+        }
+
+        /// <summary>
+        /// Resolves the <see cref="DecisionContext"/> based on the provided parameters.
+        /// </summary>
+        /// <param name="componentName">Name of the component.</param>
+        /// <param name="sourceId">The source id.</param>
+        /// <param name="roleName">Name of the role.</param>
+        /// <param name="targetId">The target id.</param>
+        /// <returns>A <see cref="DecisionContext"/></returns>
+        private static DecisionContext Resolve(string componentName, string sourceId, string roleName, string targetId)
+        {
+            return new DecisionContext { Component = componentName, SourceId = sourceId, Role = roleName, TargetId = targetId };
         }
     }
 }
