@@ -2,13 +2,14 @@
 using System.Web.Http;
 using System.Web.Http.Routing;
 using Newtonsoft.Json.Serialization;
+using Securables.Utility;
 
 namespace Securables
 {
     /// <summary>
     /// The Securables Web Application
     /// </summary>
-    public class Application : System.Web.HttpApplication
+    public class WebApplication : System.Web.HttpApplication
     {
         /// <summary>
         /// Called when the first resource (such as a page) in an ASP.NET application is requested. The Application_Start method is called only one time during the life cycle of an application. You can use this method to perform startup tasks such as loading data into the cache and initializing static values.
@@ -16,6 +17,9 @@ namespace Securables
         /// </summary>
         protected void Application_Start()
         {
+            // Resolve dependancies via Inversion of Control
+            GlobalConfiguration.Configuration.DependencyResolver = new InjectorDependencyResolver();
+
             // Set Json Serializer to use camel case for Bankbone
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 

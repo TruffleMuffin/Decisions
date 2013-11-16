@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Securables.Application" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Securables.WebApplication" Language="C#" %>

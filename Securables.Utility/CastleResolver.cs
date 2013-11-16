@@ -61,6 +61,27 @@ namespace Securables.Utility
         }
 
         /// <summary>
+        /// Releases the specified instance.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        public void Release(object instance)
+        {
+            Container.Release(instance);
+        }
+
+        /// <summary>
+        /// Determines whether Resolver has a component of type registered.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>
+        ///   <c>true</c> if the Resolver has the type registered; otherwise, <c>false</c>.
+        /// </returns>
+        public bool Has(Type type)
+        {
+            return Container.Kernel.HasComponent(type);
+        }
+
+        /// <summary>
         /// Ensures the container.
         /// </summary>
         private static IWindsorContainer CreateContainer()
