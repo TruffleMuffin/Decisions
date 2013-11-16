@@ -10,6 +10,9 @@ using Securables.Contracts;
 
 namespace Securables.Application.Providers
 {
+    /// <summary>
+    /// Describes an Expression inflation provider for string based input.
+    /// </summary>
     internal class ExpressionProvider
     {
         private static readonly ParameterExpression PARAMETER;

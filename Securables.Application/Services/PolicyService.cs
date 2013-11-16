@@ -9,7 +9,7 @@ namespace Securables.Application.Services
     /// <summary>
     /// A service for retrieving policies regarding a <see cref="DecisionContext"/> for use in determining its Decision via the <see cref="ISecurablesService"/>.
     /// </summary>
-    internal class PolicyService
+    public sealed class PolicyService
     {
         private readonly ConcurrentDictionary<string, AbstractPolicy> policies = new ConcurrentDictionary<string, AbstractPolicy>();
 
@@ -25,7 +25,7 @@ namespace Securables.Application.Services
 
             foreach (var policyList in providers.Select(policyProvider => policyProvider.GetPolicies().ToList()))
             {
-                policyList.ForEach(a => a.Value.SetEnvironmentProvider(service));
+                policyList.Where(a => a.Value.Service == null).ToList().ForEach(a => a.Value.Service = service);
                 policyList.ForEach(a => policies.AddOrUpdate(a.Key, a.Value, (key, oldValue) => { throw new ArgumentException("A Policy with this key has already been registered.", key); }));
             }
         }

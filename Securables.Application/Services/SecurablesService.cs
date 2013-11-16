@@ -12,7 +12,7 @@ namespace Securables.Application.Services
     /// <summary>
     /// An implemenation of the <see cref="ISecurablesService "/> that handles execution of decisions.
     /// </summary>
-    internal class SecurablesService : ISecurablesService
+    public sealed class SecurablesService : ISecurablesService
     {
         private readonly ConcurrentDictionary<string, ExpressionProvider> providers = new ConcurrentDictionary<string, ExpressionProvider>();
 

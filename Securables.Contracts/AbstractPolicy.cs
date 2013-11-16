@@ -8,7 +8,11 @@ namespace Securables.Contracts
     /// </summary>
     public abstract class AbstractPolicy
     {
-        private IEnvironmentService service;
+        /// <summary>
+        /// Gets or sets the <see cref="IEnvironmentService"/>. The service can be used to retrieve Environments to process a <see cref="AbstractPolicy"/>.
+        /// </summary>
+        /// <remarks>Guaranteed to be set by Securables if not set manually</remarks>
+        public IEnvironmentService Service { get; set; }
         
         /// <summary>
         /// Make a decisions on the Decision of this policy for the provided <see cref="DecisionContext"/>.
@@ -26,16 +30,9 @@ namespace Securables.Contracts
         /// </returns>
         protected async Task<dynamic> GetEnvironmentAsync(string key, DecisionContext context)
         {
-            return await service.GetAsync(key, context);
-        }
+            if (Service == null) return null;
 
-        /// <summary>
-        /// Sets the environment provider for this policy instance. The provider will be used to look up environments that the policy needs to complete its task.
-        /// </summary>
-        /// <param name="provider">The environment provider.</param>
-        internal void SetEnvironmentProvider(IEnvironmentService provider)
-        {
-            this.service = provider;
+            return await Service.GetAsync(key, context);
         }
     }
 }

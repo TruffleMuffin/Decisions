@@ -5,7 +5,7 @@ namespace Securables.Contracts
     /// <summary>
     /// Describes a service for retrieving environment variables for use in the <see cref="ISecurablesService"/>
     /// </summary>
-    internal interface IEnvironmentService
+    public interface IEnvironmentService
     {
         /// <summary>
         /// Gets the environment with the specified alias asynchronously.

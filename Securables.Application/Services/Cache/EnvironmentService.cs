@@ -8,7 +8,7 @@ namespace Securables.Application.Services.Cache
     /// <summary>
     /// An implementation of <see cref="IEnvironmentService"/> that caches environments for short periods of time.
     /// </summary>
-    internal class EnvironmentService : IEnvironmentService
+    public sealed class EnvironmentService : IEnvironmentService
     {
         private const string CACHE_KEY_FORMAT = @"{0}_{1}";
         private readonly IEnvironmentService service;
