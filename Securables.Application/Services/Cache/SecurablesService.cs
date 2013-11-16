@@ -1,7 +1,7 @@
-﻿using Securables.Contracts;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
+using Securables.Contracts;
 
 namespace Securables.Application.Services.Cache
 {

@@ -8,8 +8,6 @@ using Securables.Application.Services;
 using Securables.Contracts;
 using Securables.Contracts.Providers;
 using Securables.Tests.Support;
-using EnvironmentService = Securables.Application.Services.EnvironmentService;
-using SecurablesService = Securables.Application.Services.SecurablesService;
 using CacheSecurablesService = Securables.Application.Services.Cache.SecurablesService;
 
 namespace Securables.Tests.Application.Services.Cache
