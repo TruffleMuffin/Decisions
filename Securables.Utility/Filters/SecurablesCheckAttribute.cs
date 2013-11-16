@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
+using System.Web.Mvc;
 using Securables.Contracts;
+using ActionFilterAttribute = System.Web.Http.Filters.ActionFilterAttribute;
 
 namespace Securables.Utility.Filters
 {
@@ -15,7 +17,7 @@ namespace Securables.Utility.Filters
     /// Will block on OnActionExecuted until the results is returned. 
     /// For best performance, you should attempt to place this on the action itself so it is last in the filter stack to be executed.
     /// </remarks>
-    public class SecurablesCheckAttribute : ActionFilterAttribute
+    public class SecurablesCheckAttribute : ActionFilterAttribute, System.Web.Mvc.IActionFilter
     {
         private readonly ISecurablesService service;
         private Task<bool> checkTask;
@@ -57,6 +59,33 @@ namespace Securables.Utility.Filters
         /// </summary>
         /// <param name="actionExecutedContext">The action executed context.</param>
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
+        {
+            Executed();
+        }
+
+        /// <summary>
+        /// Called before an action method executes.
+        /// </summary>
+        /// <param name="filterContext">The filter context.</param>
+        public void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            var context = (Injector.Get(Resolver) as AbstractDecisionContextResolver).Resolve(filterContext);
+            checkTask = service.CheckAsync(context);
+        }
+
+        /// <summary>
+        /// Called after the action method executes.
+        /// </summary>
+        /// <param name="filterContext">The filter context.</param>
+        public void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            Executed();
+        }
+        
+        /// <summary>
+        /// Called after the action method executes.
+        /// </summary>
+        private void Executed()
         {
             if (checkTask != null)
             {
