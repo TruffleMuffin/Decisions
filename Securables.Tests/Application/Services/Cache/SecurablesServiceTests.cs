@@ -7,8 +7,12 @@ using MbUnit.Framework;
 using Securables.Application.Services;
 using Securables.Contracts;
 using Securables.Contracts.Providers;
-using Securables.Tests.Support;
+using AlphaPolicy = Securables.Tests.Support.AlphaPolicy;
+using BetaPolicy = Securables.Tests.Support.BetaPolicy;
 using CacheSecurablesService = Securables.Application.Services.Cache.SecurablesService;
+using CappaPolicy = Securables.Tests.Support.CappaPolicy;
+using DeltaPolicy = Securables.Tests.Support.DeltaPolicy;
+using ExampleEnvironmentProvider = Securables.Tests.Support.ExampleEnvironmentProvider;
 
 namespace Securables.Tests.Application.Services.Cache
 {
@@ -24,7 +28,7 @@ namespace Securables.Tests.Application.Services.Cache
         void SetUp()
         {
             environmentService = new EnvironmentService(new[] { new ExampleEnvironmentProvider() });
-            var policies = new Dictionary<string, AbstractPolicy>
+            var policies = new Dictionary<string, IPolicy>
                 {
                     { "A", new AlphaPolicy() }, 
                     { "B", new BetaPolicy() }, 
@@ -36,7 +40,7 @@ namespace Securables.Tests.Application.Services.Cache
                     { "H", new DeltaPolicy {AclEnvironmentKey = "LongRunning"} }
                 };
             policyService = new PolicyService(new[] { new PolicyProvider(policies) }, environmentService);
-            service = new SecurablesService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Securables.config"), policyService);
+            service = new SecurablesService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Test-Securables.config"), policyService);
             target = new CacheSecurablesService(service, 2);
         }
 

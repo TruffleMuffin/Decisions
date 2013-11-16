@@ -13,6 +13,6 @@ namespace Securables.Contracts
         /// Gets all the policies this instance of the provider wishes to offer.
         /// </summary>
         /// <returns>A dictionary of policies, the key should be a identifier that is used to link to the decision.</returns>
-        IDictionary<string, AbstractPolicy> GetPolicies();
+        IDictionary<string, IPolicy> GetPolicies();
     }
 }

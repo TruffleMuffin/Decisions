@@ -11,7 +11,7 @@ namespace Securables.Application.Services
     /// </summary>
     public sealed class PolicyService
     {
-        private readonly ConcurrentDictionary<string, AbstractPolicy> policies = new ConcurrentDictionary<string, AbstractPolicy>();
+        private readonly ConcurrentDictionary<string, IPolicy> policies = new ConcurrentDictionary<string, IPolicy>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PolicyService" /> class.
@@ -37,7 +37,7 @@ namespace Securables.Application.Services
         /// <returns>
         /// An environment, likely an instance of a class from an external assembly.
         /// </returns>
-        public AbstractPolicy Get(string alias)
+        public IPolicy Get(string alias)
         {
             return policies[alias];
         }

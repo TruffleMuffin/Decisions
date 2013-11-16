@@ -3,8 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using MbUnit.Framework;
 using Securables.Contracts;
-using Securables.Tests.Support;
+using AclEnvironment = Securables.Tests.Support.AclEnvironment;
 using CacheService = Securables.Application.Services.Cache.EnvironmentService;
+using ExampleEnvironmentProvider = Securables.Tests.Support.ExampleEnvironmentProvider;
 using InnerService = Securables.Application.Services.EnvironmentService;
 
 namespace Securables.Tests.Application.Services.Cache

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Securables", "Securables\Securables\Securables.csproj", "{C69D36AA-A533-456F-89A6-69D886E927D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Securables", "Securables\Securables.csproj", "{C69D36AA-A533-456F-89A6-69D886E927D7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Securables.Contracts", "Securables.Contracts\Securables.Contracts.csproj", "{77470FBD-65A2-4935-972E-D9E75BE96ADC}"
 EndProject
