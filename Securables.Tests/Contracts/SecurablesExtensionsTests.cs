@@ -6,7 +6,11 @@ using MbUnit.Framework;
 using Securables.Application.Services;
 using Securables.Contracts;
 using Securables.Contracts.Providers;
-using Securables.Tests.Support;
+using AlphaPolicy = Securables.Tests.Support.AlphaPolicy;
+using BetaPolicy = Securables.Tests.Support.BetaPolicy;
+using CappaPolicy = Securables.Tests.Support.CappaPolicy;
+using DeltaPolicy = Securables.Tests.Support.DeltaPolicy;
+using ExampleEnvironmentProvider = Securables.Tests.Support.ExampleEnvironmentProvider;
 
 namespace Securables.Tests.Contracts
 {
@@ -21,7 +25,7 @@ namespace Securables.Tests.Contracts
         void SetUp()
         {
             environmentService = new EnvironmentService(new[] { new ExampleEnvironmentProvider() });
-            var policies = new Dictionary<string, AbstractPolicy>
+            var policies = new Dictionary<string, IPolicy>
                 {
                     { "A", new AlphaPolicy() }, 
                     { "B", new BetaPolicy() }, 
@@ -33,7 +37,7 @@ namespace Securables.Tests.Contracts
                     { "H", new DeltaPolicy {AclEnvironmentKey = "LongRunning"} }
                 };
             policyService = new PolicyService(new[] { new PolicyProvider(policies) }, environmentService);
-            target = new SecurablesService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Securables.config"), policyService);
+            target = new SecurablesService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Test-Securables.config"), policyService);
         }
 
         [AsyncTest]

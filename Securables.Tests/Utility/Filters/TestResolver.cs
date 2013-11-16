@@ -7,6 +7,10 @@ using Securables.Contracts;
 using Securables.Contracts.Providers;
 using Securables.Tests.Support;
 using Securables.Utility;
+using AlphaPolicy = Securables.Tests.Support.AlphaPolicy;
+using BetaPolicy = Securables.Tests.Support.BetaPolicy;
+using DeltaPolicy = Securables.Tests.Support.DeltaPolicy;
+using ExampleEnvironmentProvider = Securables.Tests.Support.ExampleEnvironmentProvider;
 
 namespace Securables.Tests.Utility.Filters
 {
@@ -20,7 +24,7 @@ namespace Securables.Tests.Utility.Filters
         public TestResolver()
         {
             environmentService = new EnvironmentService(new[] { new ExampleEnvironmentProvider() });
-            var policies = new Dictionary<string, AbstractPolicy>
+            var policies = new Dictionary<string, IPolicy>
                 {
                     { "A", new AlphaPolicy() }, 
                     { "B", new BetaPolicy() },
@@ -28,7 +32,7 @@ namespace Securables.Tests.Utility.Filters
                     { "H", new DeltaPolicy {AclEnvironmentKey = "LongRunning"} }
                 };
             policyService = new PolicyService(new[] { new PolicyProvider(policies) }, environmentService);
-            securablesService = new SecurablesService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Securables.config"), policyService);
+            securablesService = new SecurablesService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Test-Securables.config"), policyService);
             controller = new DecideController(securablesService);
         }
 

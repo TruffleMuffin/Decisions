@@ -7,7 +7,7 @@ using Securables.Contracts;
 
 namespace Securables.Tests.Support
 {
-    class ExampleEnvironmentProvider : IEnvironmentProvider
+    public class ExampleEnvironmentProvider : IEnvironmentProvider
     {
         private readonly Dictionary<string, object> environments = new Dictionary<string, object>
             {
@@ -15,8 +15,7 @@ namespace Securables.Tests.Support
                 { "Acl", new AclEnvironment { Entries = new List<Acl>{ new Acl { Allow = false } } } },
                 { "LongRunning", new AclEnvironment { Entries = new List<Acl>{ new Acl { Allow = true } } } }
             };
-
-
+        
         public string[] SupportedKeys { get { return environments.Keys.ToArray(); } }
 
         public string Component { get { return "Example"; } }

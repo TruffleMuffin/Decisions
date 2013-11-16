@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Securables.Contracts;
+using Securables.Utility;
+using Securables.Utility.Filters;
 using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Mvc;
-using Securables.Contracts;
-using Securables.Utility;
-using Securables.Utility.Filters;
 
 namespace Securables.Tests.Support
 {
@@ -14,12 +13,12 @@ namespace Securables.Tests.Support
         [SecurablesCheck(typeof(ValuesResolver))]
         public string Get(int id)
         {
-            Console.WriteLine("Executing Controller Action");
             return "value";
         }
 
     }
-    public class ValuesResolver : AbstractDecisionContextResolver
+
+    class ValuesResolver : AbstractDecisionContextResolver
     {
         public override DecisionContext Resolve(HttpActionContext actionContext)
         {

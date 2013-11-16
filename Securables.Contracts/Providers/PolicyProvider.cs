@@ -8,13 +8,13 @@ namespace Securables.Contracts.Providers
     /// </summary>
     public class PolicyProvider : IPolicyProvider
     {
-        private readonly IDictionary<string, AbstractPolicy> policies;
+        private readonly IDictionary<string, IPolicy> policies;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PolicyProvider" /> class.
         /// </summary>
         /// <param name="policies">The provided policies.</param>
-        public PolicyProvider(IDictionary<string, AbstractPolicy> policies)
+        public PolicyProvider(IDictionary<string, IPolicy> policies)
         {
             this.policies = policies;
         }
@@ -25,7 +25,7 @@ namespace Securables.Contracts.Providers
         /// <returns>
         /// A dictionary of policies, the key should be a identifier that is used to link to the decision.
         /// </returns>
-        public IDictionary<string, AbstractPolicy> GetPolicies()
+        public IDictionary<string, IPolicy> GetPolicies()
         {
             return policies;
         }

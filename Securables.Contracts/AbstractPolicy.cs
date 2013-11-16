@@ -6,7 +6,7 @@ namespace Securables.Contracts
     /// Describes the basic Securable policy. This extensibility point allows developers to write their own policies that can be used
     /// as part of the Decision process executed on <see cref="ISecurablesService"/>.
     /// </summary>
-    public abstract class AbstractPolicy
+    public abstract class AbstractPolicy : IPolicy
     {
         /// <summary>
         /// Gets or sets the <see cref="IEnvironmentService"/>. The service can be used to retrieve Environments to process a <see cref="AbstractPolicy"/>.

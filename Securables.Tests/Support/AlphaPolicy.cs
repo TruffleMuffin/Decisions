@@ -5,7 +5,7 @@ namespace Securables.Tests.Support
     /// <summary>
     /// An implementation of <see cref="AbstractPolicy"/> which always Permits.
     /// </summary>
-    class AlphaPolicy : AbstractPolicy
+    public class AlphaPolicy : AbstractPolicy
     {
         /// <summary>
         /// Make a decisions on the Decision of this policy for the provided <see cref="DecisionContext" />.

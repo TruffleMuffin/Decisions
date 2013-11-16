@@ -1,8 +1,11 @@
-﻿using System.Net.Http;
+﻿using Newtonsoft.Json.Serialization;
+using Securables.API;
+using Securables.Application.Services;
+using Securables.Contracts;
+using Securables.Utility;
+using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Routing;
-using Newtonsoft.Json.Serialization;
-using Securables.Utility;
 
 namespace Securables
 {
@@ -32,6 +35,10 @@ namespace Securables
                 routeTemplate: "Api/Decide/{componentName}/{sourceId}/{roleName}/{targetId}",
                 defaults: new { controller = "Decide", action = "Get" },
                 constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) });
+
+
+            Injector.Get<ISecurablesService>();
+            Injector.Get<DecideController>();
         }
     }
 }

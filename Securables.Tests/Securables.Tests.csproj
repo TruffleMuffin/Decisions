@@ -130,13 +130,13 @@
       <Project>{fa47bd64-79e5-45a8-a6d3-4946bbb641ea}</Project>
       <Name>Securables.Utility</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Securables\Securables\Securables.csproj">
+    <ProjectReference Include="..\Securables\Securables.csproj">
       <Project>{c69d36aa-a533-456f-89a6-69d886e927d7}</Project>
       <Name>Securables</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Securables.config">
+    <None Include="Test-Securables.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>

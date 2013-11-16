@@ -46,6 +46,7 @@
     <Compile Include="DecisionContext.cs" />
     <Compile Include="IEnvironmentProvider.cs" />
     <Compile Include="IEnvironmentService.cs" />
+    <Compile Include="IPolicy.cs" />
     <Compile Include="IPolicyProvider.cs" />
     <Compile Include="ISecurablesService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -6,7 +6,7 @@ namespace Securables.Tests.Support
     /// <summary>
     /// An implementation of <see cref="AbstractPolicy"/> which will Permit if the acl entries contains a true
     /// </summary>
-    class DeltaPolicy : AbstractPolicy
+    public class DeltaPolicy : AbstractPolicy
     {
         public string AclEnvironmentKey { get; set; }
         
