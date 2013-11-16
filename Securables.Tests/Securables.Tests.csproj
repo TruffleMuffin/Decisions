@@ -62,7 +62,6 @@
     <Compile Include="Support\CurrentUserEnvironment.cs" />
     <Compile Include="Support\DeltaPolicy.cs" />
     <Compile Include="Support\ExampleEnvironmentProvider.cs" />
-    <Compile Include="Support\ExamplePolicyProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
