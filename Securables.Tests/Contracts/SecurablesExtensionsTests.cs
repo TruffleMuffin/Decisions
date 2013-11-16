@@ -8,14 +8,14 @@ using Securables.Contracts;
 using Securables.Contracts.Providers;
 using Securables.Tests.Support;
 
-namespace Securables.Tests.Application.Services
+namespace Securables.Tests.Contracts
 {
     [TestFixture]
-    class SecurablesServiceTests
+    class SecurablesExtensionsTests
     {
         private PolicyService policyService;
         private EnvironmentService environmentService;
-        private SecurablesService target;
+        private ISecurablesService target;
 
         [SetUp]
         void SetUp()
@@ -37,46 +37,21 @@ namespace Securables.Tests.Application.Services
         }
 
         [AsyncTest]
-        [Row("A", true)]
-        [Row("B", false)]
-        [Row("C", true)]
-        [Row("D", false)]
-        [Row("E", true)]
-        [Row("F", false)]
-        [Row("G", false)]
-        [Row("H", true)]
-        async Task CheckAsync_Decision_Expected(string alias, bool expected)
+        async Task CheckAsync_ManyDecision()
         {
-            var result = await target.CheckAsync(new DecisionContext
+            var decisions = new[]
                 {
-                    Component = "Example",
-                    Role = alias,
-                    TargetId = "1",
-                    SourceId = "gareth"
-                });
-            Assert.AreEqual(expected, result);
-        }
-        
-        [AsyncTest]
-        [Row("H", true, 4)]
-        [Row("I", true, 1)]
-        async Task CheckAsync_Decision_Expected_TimeConstraint(string alias, bool expected, int seconds)
-        {
-            DateTime start = DateTime.Now;
-
-            var result = await target.CheckAsync(new DecisionContext
-            {
-                Component = "Example",
-                Role = alias,
-                TargetId = "1",
-                SourceId = "gareth"
-            });
-
-            DateTime end = DateTime.Now;
-
-            Assert.AreEqual(expected, result);
-            Assert.AreApproximatelyEqual(end, start, TimeSpan.FromSeconds(seconds));
+                    new DecisionContext { Component = "Example", Role = "A", TargetId = "1", SourceId = "gareth" },
+                    new DecisionContext { Component = "Example", Role = "B", TargetId = "1", SourceId = "gareth" },
+                    new DecisionContext { Component = "Example", Role = "C", TargetId = "1", SourceId = "gareth" },
+                    new DecisionContext { Component = "Example", Role = "D", TargetId = "1", SourceId = "gareth" }
+                };
+            var results = await target.CheckAsync(decisions);
+            Assert.Count(4, results);
+            Assert.AreEqual(true, results["Example/gareth/A/1"]);
+            Assert.AreEqual(false, results["Example/gareth/B/1"]);
+            Assert.AreEqual(true, results["Example/gareth/C/1"]);
+            Assert.AreEqual(false, results["Example/gareth/D/1"]);
         }
     }
 }
-

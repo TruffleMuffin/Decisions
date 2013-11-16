@@ -47,28 +47,5 @@ namespace Securables.Application.Services
                     return expression(context);
                 });
         }
-
-        /// <summary>
-        /// Determines the results of the specified <see cref="contexts" />.
-        /// </summary>
-        /// <param name="contexts">The contexts.</param>
-        /// <returns>
-        /// A set of Decision indicating the results of the query.
-        /// </returns>
-        public async Task<IDictionary<string, bool>> CheckAsync(IEnumerable<DecisionContext> contexts)
-        {
-            return await Task.Run(() =>
-                {
-                    var tasks = new Dictionary<string, Task<bool>>();
-                    foreach (var context in contexts)
-                    {
-                        tasks.Add(context.Id, CheckAsync(context));
-                    }
-
-                    Task.WaitAll(tasks.Values.ToArray());
-
-                    return tasks.ToDictionary(a => a.Key, a => a.Value.Result);
-                });
-        }
     }
 }
