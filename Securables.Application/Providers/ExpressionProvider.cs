@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq.Expressions;
@@ -18,7 +19,7 @@ namespace Securables.Application.Providers
         private static readonly ParameterExpression PARAMETER;
         private static readonly MethodInfo METHOD_INFO;
 
-        private readonly IDictionary<string, Predicate<DecisionContext>> compiled = new Dictionary<string, Predicate<DecisionContext>>();
+        private readonly ConcurrentDictionary<string, Predicate<DecisionContext>> compiled = new ConcurrentDictionary<string, Predicate<DecisionContext>>();
         private readonly IDictionary<string, string> expressions;
         private readonly PolicyService provider;
 
@@ -75,7 +76,8 @@ namespace Securables.Application.Providers
             if (compiled.ContainsKey(context.Role) == false)
             {
                 var expression = Expression.Lambda<Predicate<DecisionContext>>(Parse(expressions[context.Role]), PARAMETER);
-                compiled[context.Role] = expression.Compile();
+                var compiledExpression = expression.Compile();
+                compiled.AddOrUpdate(context.Role, compiledExpression, (key, oldValue) => compiledExpression);
             }
 
             return compiled[context.Role];
