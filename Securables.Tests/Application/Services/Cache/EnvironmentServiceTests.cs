@@ -19,7 +19,7 @@ namespace Securables.Tests.Application.Services.Cache
         void SetUp()
         {
             service = new InnerService(new[] { new ExampleEnvironmentProvider() });
-            target = new CacheService(service);
+            target = new CacheService(service, 2);
         }
 
         [AsyncTest]

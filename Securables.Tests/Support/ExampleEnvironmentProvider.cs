@@ -16,7 +16,7 @@ namespace Securables.Tests.Support
                 { "LongRunning", new AclEnvironment { Entries = new List<Acl>{ new Acl { Allow = true } } } }
             };
 
-        public CacheOptions Cache { get { return new CacheOptions { Cacheable = true, Period = TimeSpan.FromSeconds(2) }; } }
+
         public string[] SupportedKeys { get { return environments.Keys.ToArray(); } }
 
         public string Component { get { return "Example"; } }

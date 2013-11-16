@@ -45,17 +45,5 @@ namespace Securables.Application.Services
             if (environments.TryGetValue(alias, out provider)) return await provider.GetAsync(alias, context);
             return null;
         }
-
-        /// <summary>
-        /// Gets the cache options for the specified alias.
-        /// </summary>
-        /// <param name="alias">The alias.</param>
-        /// <returns>A <see cref="CacheOptions"/></returns>
-        internal CacheOptions GetCacheOptions(string alias)
-        {
-            IEnvironmentProvider provider;
-            if (environments.TryGetValue(alias, out provider)) return provider.Cache;
-            return null;
-        }
     }
 }

@@ -10,11 +10,6 @@ namespace Securables.Contracts
     public interface IEnvironmentProvider
     {
         /// <summary>
-        /// Gets the cache options for Environments provided by this instance.
-        /// </summary>
-        CacheOptions Cache { get; }
-
-        /// <summary>
         /// Gets the keys that this instance supports retrieval of environments for.
         /// </summary>
         string[] SupportedKeys { get; }
