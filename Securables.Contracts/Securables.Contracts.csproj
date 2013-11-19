@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractPolicy.cs" />
-    <Compile Include="Decision.cs" />
     <Compile Include="DecisionContext.cs" />
     <Compile Include="IEnvironmentProvider.cs" />
     <Compile Include="IEnvironmentService.cs" />
