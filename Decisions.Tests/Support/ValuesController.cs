@@ -34,10 +34,10 @@ namespace Decisions.Tests.Support
         {
             if ((int)values["id"] == 1)
             {
-                return new DecisionContext { Component = "Example", Role = "A", TargetId = "1", SourceId = "gareth" };
+                return DecisionContext.Create().For("Example").As("gareth").On("A").Against("id", 1);
             }
 
-            return new DecisionContext { Component = "Example", Role = "B", TargetId = "1", SourceId = "gareth" };
+            return DecisionContext.Create().For("Example").As("gareth").On("B").Against("id", 1);
             
         }
     }

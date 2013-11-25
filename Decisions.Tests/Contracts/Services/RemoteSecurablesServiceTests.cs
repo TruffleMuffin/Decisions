@@ -31,7 +31,7 @@ namespace Decisions.Tests.Contracts.Services
 
             target = new RemoteDecisionsService(endpoint);
             var config = new HttpSelfHostConfiguration(endpoint);
-            
+
             config.DependencyResolver = new InjectorDependencyResolver();
 
             // Decision routes
@@ -55,14 +55,16 @@ namespace Decisions.Tests.Contracts.Services
         [AsyncTest]
         async Task Authorized()
         {
-            var result = await target.CheckAsync(new DecisionContext { Component = "Example", Role = "A", TargetId = "1", SourceId = "gareth" });
+            var context = DecisionContext.Create().For("Example").As("gareth").On("A").Against("id", 1);
+            var result = await target.CheckAsync(context);
             Assert.IsTrue(result);
         }
 
         [AsyncTest]
         async Task NotAuthorized()
         {
-            var result = await target.CheckAsync(new DecisionContext { Component = "Example", Role = "B", TargetId = "1", SourceId = "gareth" });
+            var context = DecisionContext.Create().For("Example").As("gareth").On("B").Against("id", 1);
+            var result = await target.CheckAsync(context);
             Assert.IsFalse(result);
         }
     }
