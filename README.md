@@ -1,4 +1,4 @@
-Securables
+Decisions
 ==========
 
 Highly concurrent claims based system for performing bespoke authorization checks.
