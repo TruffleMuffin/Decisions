@@ -1,10 +1,18 @@
-﻿namespace Decisions.Contracts
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq;
+
+namespace Decisions.Contracts
 {
     /// <summary>
     /// Describes a decision context, containing all relevant information for getting a Decision result from the <see cref="IDecisionsService"/>.
     /// </summary>
     public class DecisionContext
     {
+        private readonly ConcurrentDictionary<string, object> targetEntries = new ConcurrentDictionary<string, object>();
+
         /// <summary>
         /// The string format for the Id of this instance
         /// </summary>
@@ -13,7 +21,13 @@
         /// <summary>
         /// Gets or sets the Globally Unique Identifier that identifies this specific instance uniquely.
         /// </summary>
-        public string Id { get { return string.Format(ID_FORMAT, Component, SourceId, Role, TargetId); } }
+        public string Id
+        {
+            get
+            {
+                return string.Format(ID_FORMAT, Component, SourceId, Role, Uri.EscapeDataString(string.Join("|", targetEntries.Select(a => a.Key + "=" + a.Value))));
+            }
+        }
 
         /// <summary>
         /// Gets or sets the name of the component which the decision should be made within.
@@ -31,9 +45,23 @@
         public string Role { get; internal set; }
 
         /// <summary>
-        /// Gets or sets the target id which the decision should be on.
+        /// Gets or sets the target which the decision should be on.
         /// </summary>
-        public string TargetId { get; internal set; }
+        public dynamic Target
+        {
+            get
+            {
+                var expandoObject = new ExpandoObject();
+                var collection = (ICollection<KeyValuePair<string, object>>)expandoObject;
+
+                foreach (var keyValue in targetEntries)
+                {
+                    collection.Add(keyValue);
+                }
+
+                return expandoObject;
+            }
+        }
 
         /// <summary>
         /// Creates an instance of <see cref="DecisionContext"/>
@@ -42,6 +70,16 @@
         public static DecisionContext Create()
         {
             return new DecisionContext();
+        }
+
+        /// <summary>
+        /// Adds a Target property
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        internal void SetTargetProperty(string key, object value)
+        {
+            targetEntries.AddOrUpdate(key, a => value, (currentKey, oldItem) => value);
         }
     }
 }

@@ -42,7 +42,7 @@ namespace Decisions.Tests.Application.Services.Cache
         [AsyncTest]
         async Task CheckAsync_Decision_Expected_TimeConstraint()
         {
-            var context = new DecisionContext { Component = "Example", Role = "H", TargetId = "1", SourceId = "gareth" };
+            var context = DecisionContext.Create().For("Example").As("gareth").On("H").Against("id", 1);
 
             var start = DateTime.Now;
 

@@ -41,17 +41,17 @@ namespace Decisions.Tests.Contracts
         {
             var decisions = new[]
                 {
-                    new DecisionContext { Component = "Example", Role = "A", TargetId = "1", SourceId = "gareth" },
-                    new DecisionContext { Component = "Example", Role = "B", TargetId = "1", SourceId = "gareth" },
-                    new DecisionContext { Component = "Example", Role = "C", TargetId = "1", SourceId = "gareth" },
-                    new DecisionContext { Component = "Example", Role = "D", TargetId = "1", SourceId = "gareth" }
+                    DecisionContext.Create().For("Example").As("gareth").On("A").Against("id", 1),
+                    DecisionContext.Create().For("Example").As("gareth").On("B").Against("id", 1),
+                    DecisionContext.Create().For("Example").As("gareth").On("C").Against("id", 1),
+                    DecisionContext.Create().For("Example").As("gareth").On("D").Against("id", 1)
                 };
             var results = await target.CheckAsync(decisions);
             Assert.Count(4, results);
-            Assert.AreEqual(true, results["Example/gareth/A/1"]);
-            Assert.AreEqual(false, results["Example/gareth/B/1"]);
-            Assert.AreEqual(true, results["Example/gareth/C/1"]);
-            Assert.AreEqual(false, results["Example/gareth/D/1"]);
+            Assert.AreEqual(true, results["Example/gareth/A/id%3D1"]);
+            Assert.AreEqual(false, results["Example/gareth/B/id%3D1"]);
+            Assert.AreEqual(true, results["Example/gareth/C/id%3D1"]);
+            Assert.AreEqual(false, results["Example/gareth/D/id%3D1"]);
         }
     }
 }

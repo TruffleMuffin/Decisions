@@ -114,7 +114,6 @@
     <Compile Include="Support\ValuesController.cs" />
     <Compile Include="Utility\Filters\SecurablesCheckAttributeTests.cs" />
     <Compile Include="Utility\Filters\TestResolver.cs" />
-    <Compile Include="Web\API\DecideControllerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
