@@ -7,6 +7,8 @@ namespace Decisions.Tests.Support
     /// </summary>
     class CurrentUserEnvironment
     {
+        public const string ALIAS = "CurrentUser";
+
         /// <summary>
         /// Gets or sets the user id.
         /// </summary>

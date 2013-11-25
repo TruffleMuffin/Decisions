@@ -10,9 +10,9 @@ namespace Decisions.Contracts
     public interface IEnvironmentProvider
     {
         /// <summary>
-        /// Gets the keys that this instance supports retrieval of environments for.
+        /// Gets the aliases that this instance supports retrieval of environments for.
         /// </summary>
-        string[] SupportedKeys { get; }
+        string[] SupportedAliases { get; }
         
         /// <summary>
         /// Gets the environment with the specified <see cref="alias"/> using the <see cref="context"/> provided.

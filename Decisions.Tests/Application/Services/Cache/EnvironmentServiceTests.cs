@@ -34,11 +34,11 @@ namespace Decisions.Tests.Application.Services.Cache
         {
             var start = DateTime.Now;
 
-            var nonCachedResult = await target.GetAsync("LongRunning", new DecisionContext());
+            var nonCachedResult = await target.GetAsync(LongAclEnvironment.ALIAS, new DecisionContext());
 
             var firstEnd = DateTime.Now;
 
-            var cachedResult = await target.GetAsync("LongRunning", new DecisionContext());
+            var cachedResult = await target.GetAsync(LongAclEnvironment.ALIAS, new DecisionContext());
 
             var secondEnd = DateTime.Now;
 
@@ -46,13 +46,13 @@ namespace Decisions.Tests.Application.Services.Cache
 
             var secondStart = DateTime.Now;
 
-            var nonCachedResult2 = await target.GetAsync("LongRunning", new DecisionContext());
+            var nonCachedResult2 = await target.GetAsync(LongAclEnvironment.ALIAS, new DecisionContext());
 
             var thirdEnd = DateTime.Now;
 
-            Assert.IsInstanceOfType<AclEnvironment>(nonCachedResult);
-            Assert.IsInstanceOfType<AclEnvironment>(cachedResult);
-            Assert.IsInstanceOfType<AclEnvironment>(nonCachedResult2);
+            Assert.IsInstanceOfType<LongAclEnvironment>(nonCachedResult);
+            Assert.IsInstanceOfType<LongAclEnvironment>(cachedResult);
+            Assert.IsInstanceOfType<LongAclEnvironment>(nonCachedResult2);
 
             // The long running environment has a thread.sleep for 3s on it so it should take at least this time to execute.
             Assert.IsTrue(firstEnd.Subtract(start).TotalSeconds > 3);

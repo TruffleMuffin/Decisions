@@ -5,9 +5,9 @@ namespace Decisions.Tests.Support
     /// <summary>
     /// A simple Environment providing information about a random Access Control List
     /// </summary>
-    class AclEnvironment
+    class LongAclEnvironment
     {
-        public const string ALIAS = "Acl";
+        public const string ALIAS = "LongRunning";
 
         /// <summary>
         /// Gets or sets the user id.

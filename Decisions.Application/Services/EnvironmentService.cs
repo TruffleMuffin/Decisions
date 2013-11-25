@@ -24,7 +24,7 @@ namespace Decisions.Application.Services
 
             foreach (var provider in providers)
             {
-                foreach (var key in provider.SupportedKeys)
+                foreach (var key in provider.SupportedAliases)
                 {
                     environments.AddOrUpdate(key, provider, (k, oldValue) => { throw new ArgumentException("A Environment Provider with this key has already been registered.", k); });
                 }

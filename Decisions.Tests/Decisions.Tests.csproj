@@ -109,6 +109,8 @@
     <Compile Include="Support\CurrentUserEnvironment.cs" />
     <Compile Include="Support\DeltaPolicy.cs" />
     <Compile Include="Support\ExampleEnvironmentProvider.cs" />
+    <Compile Include="Support\LongAclEnvironment.cs" />
+    <Compile Include="Support\LongDeltaPolicy.cs" />
     <Compile Include="Support\ValuesController.cs" />
     <Compile Include="Utility\Filters\SecurablesCheckAttributeTests.cs" />
     <Compile Include="Utility\Filters\TestResolver.cs" />

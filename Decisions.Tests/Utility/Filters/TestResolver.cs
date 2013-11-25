@@ -24,8 +24,8 @@ namespace Decisions.Tests.Utility.Filters
                 {
                     { "A", new AlphaPolicy() }, 
                     { "B", new BetaPolicy() },
-                    { "G", new DeltaPolicy {AclEnvironmentKey = "Acl"} }, 
-                    { "H", new DeltaPolicy {AclEnvironmentKey = "LongRunning"} }
+                    { "G", new DeltaPolicy() }, 
+                    { "H", new LongDeltaPolicy() }
                 };
             policyService = new PolicyService(new[] { new PolicyProvider(policies) }, environmentService);
             DecisionsService = new DecisionsService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Test-Decisions.config"), policyService);

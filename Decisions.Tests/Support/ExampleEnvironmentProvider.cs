@@ -13,10 +13,10 @@ namespace Decisions.Tests.Support
             {
                 { "CurrentUser", new CurrentUserEnvironment { UserId = new Guid("880A00AD-5C40-447B-821A-2679E757B267") } }, 
                 { "Acl", new AclEnvironment { Entries = new List<Acl>{ new Acl { Allow = false } } } },
-                { "LongRunning", new AclEnvironment { Entries = new List<Acl>{ new Acl { Allow = true } } } }
+                { "LongRunning", new LongAclEnvironment { Entries = new List<Acl>{ new Acl { Allow = true } } } }
             };
         
-        public string[] SupportedKeys { get { return environments.Keys.ToArray(); } }
+        public string[] SupportedAliases { get { return environments.Keys.ToArray(); } }
 
         public string Component { get { return "Example"; } }
 
