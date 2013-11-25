@@ -46,7 +46,7 @@ namespace Decisions.API
         /// <returns>A <see cref="DecisionContext"/></returns>
         private static DecisionContext Resolve(string componentName, string sourceId, string roleName, string targetId)
         {
-            return new DecisionContext { Component = componentName, SourceId = sourceId, Role = roleName, TargetId = targetId };
+            return DecisionContext.Create().For(componentName).Source(sourceId).On(roleName).Target(targetId);
         }
     }
 }

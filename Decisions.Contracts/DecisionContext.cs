@@ -18,21 +18,30 @@
         /// <summary>
         /// Gets or sets the name of the component which the decision should be made within.
         /// </summary>
-        public string Component { get; set; }
+        public string Component { get; internal set; }
 
         /// <summary>
         /// Gets or sets the source id the decision should be made for.
         /// </summary>
-        public string SourceId { get; set; }
+        public string SourceId { get; internal set; }
 
         /// <summary>
         /// Gets or sets the role the decision should be about.
         /// </summary>
-        public string Role { get; set; }
+        public string Role { get; internal set; }
 
         /// <summary>
         /// Gets or sets the target id which the decision should be on.
         /// </summary>
-        public string TargetId { get; set; }
+        public string TargetId { get; internal set; }
+
+        /// <summary>
+        /// Creates an instance of <see cref="DecisionContext"/>
+        /// </summary>
+        /// <returns>An empty <see cref="DecisionContext"/></returns>
+        public static DecisionContext Create()
+        {
+            return new DecisionContext();
+        }
     }
 }

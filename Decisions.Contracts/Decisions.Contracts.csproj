@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AbstractPolicy.cs" />
     <Compile Include="DecisionContext.cs" />
+    <Compile Include="FluentExtensions.cs" />
     <Compile Include="IEnvironmentProvider.cs" />
     <Compile Include="IEnvironmentService.cs" />
     <Compile Include="IPolicy.cs" />
