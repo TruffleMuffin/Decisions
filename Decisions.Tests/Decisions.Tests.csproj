@@ -95,11 +95,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\Services\Cache\DecisionsServiceTests.cs" />
     <Compile Include="Application\Services\Cache\EnvironmentServiceTests.cs" />
-    <Compile Include="Application\Services\Cache\SecurablesServiceTests.cs" />
-    <Compile Include="Application\Services\SecurablesServiceTests.cs" />
-    <Compile Include="Contracts\SecurablesExtensionsTests.cs" />
-    <Compile Include="Contracts\Services\RemoteSecurablesServiceTests.cs" />
+    <Compile Include="Application\Services\DecisionssServiceTests.cs" />
+    <Compile Include="Contracts\DecisionsExtensionsTests.cs" />
+    <Compile Include="Contracts\Services\RemoteDecisionsServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Support\Acl.cs" />
     <Compile Include="Support\AclEnvironment.cs" />

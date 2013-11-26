@@ -44,11 +44,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ExpressionProvider.cs" />
     <Compile Include="Services\Cache\CacheItem.cs" />
+    <Compile Include="Services\Cache\DecisionsService.cs" />
     <Compile Include="Services\Cache\EnvironmentService.cs" />
-    <Compile Include="Services\Cache\SecurablesService.cs" />
+    <Compile Include="Services\DecisionsService.cs" />
     <Compile Include="Services\EnvironmentService.cs" />
     <Compile Include="Services\PolicyService.cs" />
-    <Compile Include="Services\SecurablesService.cs" />
     <Compile Include="XmlExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
