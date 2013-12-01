@@ -55,7 +55,7 @@ namespace Decisions.Tests.Contracts.Services
         [AsyncTest]
         async Task Authorized()
         {
-            var context = DecisionContext.Create().For("Example").As("gareth").On("A").Against("id", 1);
+            var context = DecisionContext.Create().Within("Example").As("gareth").Has("A").On(new { id = 1 });
             var result = await target.CheckAsync(context);
             Assert.IsTrue(result);
         }
@@ -63,7 +63,7 @@ namespace Decisions.Tests.Contracts.Services
         [AsyncTest]
         async Task NotAuthorized()
         {
-            var context = DecisionContext.Create().For("Example").As("gareth").On("B").Against("id", 1);
+            var context = DecisionContext.Create().Within("Example").As("gareth").Has("B").On(new { id = 1 });
             var result = await target.CheckAsync(context);
             Assert.IsFalse(result);
         }

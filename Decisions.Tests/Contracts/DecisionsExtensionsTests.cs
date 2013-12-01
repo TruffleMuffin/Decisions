@@ -41,10 +41,10 @@ namespace Decisions.Tests.Contracts
         {
             var decisions = new[]
                 {
-                    DecisionContext.Create().For("Example").As("gareth").On("A").Against("id", 1),
-                    DecisionContext.Create().For("Example").As("gareth").On("B").Against("id", 1),
-                    DecisionContext.Create().For("Example").As("gareth").On("C").Against("id", 1),
-                    DecisionContext.Create().For("Example").As("gareth").On("D").Against("id", 1)
+                    DecisionContext.Create().Within("Example").As("gareth").Has("A").On(new { id = 1 }),
+                    DecisionContext.Create().Within("Example").As("gareth").Has("B").On(new { id = 1 }),
+                    DecisionContext.Create().Within("Example").As("gareth").Has("C").On(new { id = 1 }),
+                    DecisionContext.Create().Within("Example").As("gareth").Has("D").On(new { id = 1 })
                 };
             var results = await target.CheckAsync(decisions);
             Assert.Count(4, results);

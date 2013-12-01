@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
+using System.Reflection;
 
 namespace Decisions.Contracts
 {
@@ -11,8 +9,6 @@ namespace Decisions.Contracts
     /// </summary>
     public class DecisionContext
     {
-        private readonly ConcurrentDictionary<string, object> targetEntries = new ConcurrentDictionary<string, object>();
-
         /// <summary>
         /// The string format for the Id of this instance
         /// </summary>
@@ -25,7 +21,7 @@ namespace Decisions.Contracts
         {
             get
             {
-                return string.Format(ID_FORMAT, Component, SourceId, Role, Uri.EscapeDataString(string.Join("|", targetEntries.Select(a => a.Key + "=" + a.Value))));
+                return string.Format(ID_FORMAT, Component, SourceId, Role, Uri.EscapeDataString(string.Join("|", SerializeTarget())));
             }
         }
 
@@ -47,21 +43,7 @@ namespace Decisions.Contracts
         /// <summary>
         /// Gets or sets the target which the decision should be on.
         /// </summary>
-        public dynamic Target
-        {
-            get
-            {
-                var expandoObject = new ExpandoObject();
-                var collection = (ICollection<KeyValuePair<string, object>>)expandoObject;
-
-                foreach (var keyValue in targetEntries)
-                {
-                    collection.Add(keyValue);
-                }
-
-                return expandoObject;
-            }
-        }
+        public dynamic Target { get; set; }
 
         /// <summary>
         /// Creates an instance of <see cref="DecisionContext"/>
@@ -73,13 +55,30 @@ namespace Decisions.Contracts
         }
 
         /// <summary>
-        /// Adds a Target property
+        /// Sets the target property.
         /// </summary>
-        /// <param name="key">The key.</param>
-        /// <param name="value">The value.</param>
-        internal void SetTargetProperty(string key, object value)
+        /// <param name="anonymousObject">The anonymous object.</param>
+        internal void SetTargetProperty(object anonymousObject)
         {
-            targetEntries.AddOrUpdate(key, a => value, (currentKey, oldItem) => value);
+            this.Target = anonymousObject;
+        }
+
+        /// <summary>
+        /// Serializes the target into an IEnumerable of strings representing its Key/Value pairs for Properties.
+        /// </summary>
+        /// <returns>A string for each Property on Target</returns>
+        private IEnumerable<string> SerializeTarget()
+        {
+            // If there is no target, do not attempt to serialize
+            if (Target == null)
+            {
+                yield break;
+            }
+
+            foreach (var prop in Target.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public))
+            {
+                yield return prop.Name + "=" + prop.GetValue(Target, null);
+            }
         }
     }
 }

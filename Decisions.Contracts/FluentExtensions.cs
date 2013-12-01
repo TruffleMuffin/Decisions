@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 
 namespace Decisions.Contracts
@@ -15,7 +16,7 @@ namespace Decisions.Contracts
         /// <param name="context">The context.</param>
         /// <param name="component">The component.</param>
         /// <returns>The modified <see cref="DecisionContext"/></returns>
-        public static DecisionContext For(this DecisionContext context, string component)
+        public static DecisionContext Within(this DecisionContext context, string component)
         {
             context = context ?? new DecisionContext();
             context.Component = component;
@@ -39,15 +40,14 @@ namespace Decisions.Contracts
         /// Sets a target key/value for the context
         /// </summary>
         /// <param name="context">The context.</param>
-        /// <param name="key">The key.</param>
-        /// <param name="value">The value.</param>
+        /// <param name="anonymousObject">The anonymous object.</param>
         /// <returns>
         /// The modified <see cref="DecisionContext" />
         /// </returns>
-        public static DecisionContext Against(this DecisionContext context, string key, object value)
+        public static DecisionContext On(this DecisionContext context, object anonymousObject)
         {
             context = context ?? new DecisionContext();
-            context.SetTargetProperty(key, value);
+            context.SetTargetProperty(anonymousObject);
             return context;
         }
 
@@ -59,9 +59,13 @@ namespace Decisions.Contracts
         /// <returns>
         /// The modified <see cref="DecisionContext" />
         /// </returns>
-        public static DecisionContext Against(this DecisionContext context, string target)
+        public static DecisionContext On(this DecisionContext context, string target)
         {
             context = context ?? new DecisionContext();
+            
+            var expandoObject = new ExpandoObject();
+            var collection = (ICollection<KeyValuePair<string, object>>)expandoObject;
+
             foreach (var keyValue in target.Split('|').Select(a => a.Split('=')).Select(a => new KeyValuePair<string, string>(a.First(), a.Last())))
             {
                 // currently the value is a string. Try some common primitive type casts so that the Target as a better object to work with
@@ -69,18 +73,20 @@ namespace Decisions.Contracts
                 Guid guidValue;
                 if (int.TryParse(keyValue.Value, out intValue))
                 {
-                    context.SetTargetProperty(keyValue.Key, intValue);
+                    collection.Add(new KeyValuePair<string, object>(keyValue.Key, intValue));
                 }
                 else if (Guid.TryParse(keyValue.Value, out guidValue))
                 {
-                    context.SetTargetProperty(keyValue.Key, guidValue);
+                    collection.Add(new KeyValuePair<string, object>(keyValue.Key, guidValue));
                 }
                 else
                 {
                     // otherwise just use the string
-                    context.SetTargetProperty(keyValue.Key, keyValue.Value);
+                    collection.Add(new KeyValuePair<string, object>(keyValue.Key, keyValue.Value));
                 }
             }
+            context.SetTargetProperty(expandoObject);
+
             return context;
         }
 
@@ -90,7 +96,7 @@ namespace Decisions.Contracts
         /// <param name="context">The context.</param>
         /// <param name="role">The role.</param>
         /// <returns>The modified <see cref="DecisionContext"/></returns>
-        public static DecisionContext On(this DecisionContext context, string role)
+        public static DecisionContext Has(this DecisionContext context, string role)
         {
             context = context ?? new DecisionContext();
             context.Role = role;

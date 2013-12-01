@@ -14,7 +14,7 @@ namespace Decisions.Tests.Support
         /// <returns></returns>
         public override bool Decide(DecisionContext context)
         {
-            return true;
+            return context.Target.id == 1;
         }
     }
 }
