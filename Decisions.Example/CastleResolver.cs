@@ -5,7 +5,7 @@ using Castle.Windsor;
 using Castle.Windsor.Configuration.Interpreters;
 using Decisions.Contracts;
 
-namespace Decisions.Utility
+namespace Decisions.Example
 {
     /// <summary>
     /// The IoC resolver for castle

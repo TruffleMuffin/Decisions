@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Decisions.Application.Services.Cache
+namespace Decisions.Services.Cache
 {
     /// <summary>
     /// A cacheable item

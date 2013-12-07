@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Decisions.Contracts;
 
-namespace Decisions.Application.Services
+namespace Decisions.Services
 {
     /// <summary>
     /// A service for retrieving policies regarding a <see cref="DecisionContext"/> for use in determining its Decision via the <see cref="IDecisionService"/>.

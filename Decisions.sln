@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Decisions", "Decisions\Decisions.csproj", "{C69D36AA-A533-456F-89A6-69D886E927D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Decisions.Example", "Decisions.Example\Decisions.Example.csproj", "{C69D36AA-A533-456F-89A6-69D886E927D7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Decisions.Contracts", "Decisions.Contracts\Decisions.Contracts.csproj", "{77470FBD-65A2-4935-972E-D9E75BE96ADC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Decisions.Application", "Decisions.Application\Decisions.Application.csproj", "{289F50D0-6DDF-4AD2-A7AC-77AC19E45409}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Decisions", "Decisions\Decisions.csproj", "{289F50D0-6DDF-4AD2-A7AC-77AC19E45409}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Decisions.Tests", "Decisions.Tests\Decisions.Tests.csproj", "{93573997-F3B7-42D4-846F-CD228CBDED3D}"
 EndProject

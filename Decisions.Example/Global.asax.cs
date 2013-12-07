@@ -6,7 +6,7 @@ using Decisions.Contracts;
 using Decisions.Utility;
 using Newtonsoft.Json.Serialization;
 
-namespace Decisions
+namespace Decisions.Example
 {
     /// <summary>
     /// The Decisions Web Application

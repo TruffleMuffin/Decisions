@@ -1,7 +1,7 @@
 ﻿using System.Xml;
 using System.Xml.Linq;
 
-namespace Decisions.Application
+namespace Decisions
 {
     internal static class XmlExtensions
     {

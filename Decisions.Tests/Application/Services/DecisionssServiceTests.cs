@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Decisions.Application.Services;
 using Decisions.Contracts;
 using Decisions.Contracts.Providers;
+using Decisions.Services;
 using Decisions.Tests.Support;
 using MbUnit.Framework;
 

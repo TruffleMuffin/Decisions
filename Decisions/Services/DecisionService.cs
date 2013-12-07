@@ -2,10 +2,10 @@
 using System.IO;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Decisions.Application.Providers;
 using Decisions.Contracts;
+using Decisions.Providers;
 
-namespace Decisions.Application.Services
+namespace Decisions.Services
 {
     /// <summary>
     /// An implemenation of the <see cref="IDecisionService "/> that handles execution of decisions.

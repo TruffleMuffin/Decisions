@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Decisions.Contracts;
 
-namespace Decisions.Application.Services
+namespace Decisions.Services
 {
     /// <summary>
     /// A service for retrieving environments regarding a <see cref="DecisionContext"/> for use in determining its Decision via the <see cref="IDecisionService"/>.

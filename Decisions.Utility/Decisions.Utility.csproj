@@ -30,12 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core">
-      <HintPath>..\packages\Castle.Core.3.2.0\lib\net45\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Windsor">
-      <HintPath>..\packages\Castle.Windsor.3.2.0\lib\net45\Castle.Windsor.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -86,7 +80,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractDecisionContextResolver.cs" />
-    <Compile Include="CastleResolver.cs" />
     <Compile Include="Filters\SecurablesCheckAttribute.cs" />
     <Compile Include="InjectorDependencyResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

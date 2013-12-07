@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Decisions.Application.Services;
 using Decisions.Contracts;
+using Decisions.Services;
 using Decisions.Tests.Support;
 using MbUnit.Framework;
 
@@ -12,13 +12,13 @@ namespace Decisions.Tests.Application.Services.Cache
     class EnvironmentServiceTests
     {
         private EnvironmentService service;
-        private Decisions.Application.Services.Cache.EnvironmentService target;
+        private Decisions.Services.Cache.EnvironmentService target;
 
         [SetUp]
         void SetUp()
         {
             service = new EnvironmentService(new[] { new ExampleEnvironmentProvider() });
-            target = new Decisions.Application.Services.Cache.EnvironmentService(service, 2);
+            target = new Decisions.Services.Cache.EnvironmentService(service, 2);
         }
 
         [AsyncTest]

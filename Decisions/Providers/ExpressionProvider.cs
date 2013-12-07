@@ -6,10 +6,10 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using Decisions.Application.Services;
 using Decisions.Contracts;
+using Decisions.Services;
 
-namespace Decisions.Application.Providers
+namespace Decisions.Providers
 {
     /// <summary>
     /// Describes an Expression inflation provider for string based input.

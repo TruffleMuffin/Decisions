@@ -8,7 +8,6 @@ using System.Web.Http.SelfHost;
 using Decisions.Contracts;
 using Decisions.Contracts.Services;
 using Decisions.Tests.Support;
-using Decisions.Tests.Utility.Filters;
 using Decisions.Utility;
 using MbUnit.Framework;
 

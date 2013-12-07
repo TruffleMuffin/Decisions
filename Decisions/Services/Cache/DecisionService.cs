@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using Decisions.Contracts;
 
-namespace Decisions.Application.Services.Cache
+namespace Decisions.Services.Cache
 {
     /// <summary>
     /// An implementation of <see cref="IDecisionService"/> that caches decisions for short periods of time.

@@ -6,7 +6,7 @@ using Decisions.Contracts;
 using Decisions.Contracts.Providers;
 using Decisions.Services;
 
-namespace Decisions.Tests.Support
+namespace Decisions.Example.Support
 {
     internal class TestResolver : IResolver
     {

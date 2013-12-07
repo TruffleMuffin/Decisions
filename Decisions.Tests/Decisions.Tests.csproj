@@ -121,9 +121,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Decisions.Application\Decisions.Application.csproj">
+    <ProjectReference Include="..\Decisions\Decisions.csproj">
       <Project>{289f50d0-6ddf-4ad2-a7ac-77ac19e45409}</Project>
-      <Name>Decisions.Application</Name>
+      <Name>Decisions</Name>
     </ProjectReference>
     <ProjectReference Include="..\Decisions.Contracts\Decisions.Contracts.csproj">
       <Project>{77470fbd-65a2-4935-972e-d9e75be96adc}</Project>
@@ -133,9 +133,9 @@
       <Project>{fa47bd64-79e5-45a8-a6d3-4946bbb641ea}</Project>
       <Name>Decisions.Utility</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Decisions\Decisions.csproj">
+    <ProjectReference Include="..\Decisions.Example\Decisions.Example.csproj">
       <Project>{c69d36aa-a533-456f-89a6-69d886e927d7}</Project>
-      <Name>Decisions</Name>
+      <Name>Decisions.Example</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

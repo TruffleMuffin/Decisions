@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Decisions.Application.Services;
 using Decisions.Contracts;
 using Decisions.Contracts.Providers;
+using Decisions.Services;
 using Decisions.Tests.Support;
 using MbUnit.Framework;
 
@@ -17,7 +17,7 @@ namespace Decisions.Tests.Application.Services.Cache
         private PolicyService policyService;
         private EnvironmentService environmentService;
         private DecisionService service;
-        private Decisions.Application.Services.Cache.DecisionService target;
+        private Decisions.Services.Cache.DecisionService target;
 
         [SetUp]
         void SetUp()
@@ -36,7 +36,7 @@ namespace Decisions.Tests.Application.Services.Cache
                 };
             policyService = new PolicyService(new[] { new PolicyProvider(policies) }, environmentService);
             service = new DecisionService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Test-Decisions.config"), policyService);
-            target = new Decisions.Application.Services.Cache.DecisionService(service, 2);
+            target = new Decisions.Services.Cache.DecisionService(service, 2);
         }
 
         [AsyncTest]
