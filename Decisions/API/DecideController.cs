@@ -24,29 +24,29 @@ namespace Decisions.API
         /// Handles a Decision request.
         /// HTTP Verb: GET
         /// </summary>
-        /// <param name="componentName">Name of the component the decision should be run for.</param>
+        /// <param name="namespace">The namespace.</param>
         /// <param name="sourceId">The identifier of the source of the request.</param>
-        /// <param name="roleName">Name of the role the user claims to have on the entity within the <see cref="componentName"/>.</param>
+        /// <param name="roleName">Name of the role the user claims to have on the entity within the <see cref="@namespace" />.</param>
         /// <param name="targetId">The identifier of the target of the request.</param>
         /// <returns>
         /// A Decision indicating the result of the query.
         /// </returns>
-        public async Task<bool> Get(string componentName, string sourceId, string roleName, string targetId)
+        public async Task<bool> Get(string @namespace, string sourceId, string roleName, string targetId)
         {
-            return await service.CheckAsync(Resolve(componentName, sourceId, roleName, targetId));
+            return await service.CheckAsync(Resolve(@namespace, sourceId, roleName, targetId));
         }
 
         /// <summary>
         /// Resolves the <see cref="DecisionContext"/> based on the provided parameters.
         /// </summary>
-        /// <param name="componentName">Name of the component.</param>
+        /// <param name="namespace">The namespace.</param>
         /// <param name="sourceId">The source id.</param>
         /// <param name="roleName">Name of the role.</param>
         /// <param name="targetId">The target id.</param>
         /// <returns>A <see cref="DecisionContext"/></returns>
-        private static DecisionContext Resolve(string componentName, string sourceId, string roleName, string targetId)
+        private static DecisionContext Resolve(string @namespace, string sourceId, string roleName, string targetId)
         {
-            return DecisionContext.Create().Within(componentName).As(sourceId).Has(roleName).On(targetId);
+            return DecisionContext.Create().Using(@namespace).As(sourceId).Has(roleName).On(targetId);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace Decisions.Tests.Contracts.Services
             // Decision routes
             config.Routes.MapHttpRoute(
                 name: "DecideApi",
-                routeTemplate: "Api/Decide/{componentName}/{sourceId}/{roleName}/{targetId}",
+                routeTemplate: "Api/Decide/{namespace}/{sourceId}/{roleName}/{targetId}",
                 defaults: new { controller = "Decide", action = "Get" },
                 constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) });
 
@@ -55,7 +55,7 @@ namespace Decisions.Tests.Contracts.Services
         [AsyncTest]
         async Task Authorized()
         {
-            var context = DecisionContext.Create().Within("Example").As("gareth").Has("A").On(new { id = 1 });
+            var context = DecisionContext.Create().Using("Example").As("gareth").Has("A").On(new { id = 1 });
             var result = await target.CheckAsync(context);
             Assert.IsTrue(result);
         }
@@ -63,7 +63,7 @@ namespace Decisions.Tests.Contracts.Services
         [AsyncTest]
         async Task NotAuthorized()
         {
-            var context = DecisionContext.Create().Within("Example").As("gareth").Has("B").On(new { id = 1 });
+            var context = DecisionContext.Create().Using("Example").As("gareth").Has("B").On(new { id = 1 });
             var result = await target.CheckAsync(context);
             Assert.IsFalse(result);
         }

@@ -22,7 +22,7 @@ namespace Decisions.Application.Services
         public DecisionsService(string configPath, PolicyService service)
         {
             var settings = XElement.Load(Path.GetFullPath(configPath));
-            foreach (var expressionSection in settings.Element("components").Elements("component"))
+            foreach (var expressionSection in settings.Elements("namespace"))
             {
                 var component = expressionSection.Attribute("name").Value;
                 var expressionProvider = new ExpressionProvider(expressionSection.Element("decisions"), service);
@@ -41,7 +41,7 @@ namespace Decisions.Application.Services
         {
             return await Task.Run(() =>
                 {
-                    var expression = providers[context.Component].Inflate(context);
+                    var expression = providers[context.Namespace].Inflate(context);
                     return expression(context);
                 });
         }

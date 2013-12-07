@@ -21,14 +21,14 @@ namespace Decisions.Contracts
         {
             get
             {
-                return string.Format(ID_FORMAT, Component, SourceId, Role, Uri.EscapeDataString(string.Join("|", SerializeTarget())));
+                return string.Format(ID_FORMAT, Namespace, SourceId, Role, Uri.EscapeDataString(string.Join("|", SerializeTarget())));
             }
         }
 
         /// <summary>
-        /// Gets or sets the name of the component which the decision should be made within.
+        /// Gets or sets the name of the namespace which the decision should be made within.
         /// </summary>
-        public string Component { get; internal set; }
+        public string Namespace { get; internal set; }
 
         /// <summary>
         /// Gets or sets the source id the decision should be made for.

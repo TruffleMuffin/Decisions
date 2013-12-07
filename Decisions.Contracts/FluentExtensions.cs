@@ -11,15 +11,17 @@ namespace Decisions.Contracts
     public static class FluentExtensions
     {
         /// <summary>
-        /// Sets the component for the context
+        /// Sets the namespace for the context to be executed using.
         /// </summary>
         /// <param name="context">The context.</param>
-        /// <param name="component">The component.</param>
-        /// <returns>The modified <see cref="DecisionContext"/></returns>
-        public static DecisionContext Within(this DecisionContext context, string component)
+        /// <param name="namespace">The namespace the context should be executed using.</param>
+        /// <returns>
+        /// The modified <see cref="DecisionContext" />
+        /// </returns>
+        public static DecisionContext Using(this DecisionContext context, string @namespace)
         {
             context = context ?? new DecisionContext();
-            context.Component = component;
+            context.Namespace = @namespace;
             return context;
         }
 

@@ -41,10 +41,10 @@ namespace Decisions.Tests.Support
         {
             if (values.ContainsKey("id") && (int)values["id"] == 1)
             {
-                return DecisionContext.Create().Within("Example").As("gareth").Has("A").On(new { id = 1 });
+                return DecisionContext.Create().Using("Example").As("gareth").Has("A").On(new { id = 1 });
             }
 
-            return DecisionContext.Create().Within("Example").As("gareth").Has("B").On(new { id = 1 });
+            return DecisionContext.Create().Using("Example").As("gareth").Has("B").On(new { id = 1 });
             
         }
     }

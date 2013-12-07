@@ -47,7 +47,7 @@ namespace Decisions.Tests.Application.Services
         [Row("H", true)]
         async Task CheckAsync_Decision_Expected(string alias, bool expected)
         {
-            var result = await target.CheckAsync(DecisionContext.Create().Within("Example").As("gareth").Has(alias).On(new { id = 1 }));
+            var result = await target.CheckAsync(DecisionContext.Create().Using("Example").As("gareth").Has(alias).On(new { id = 1 }));
             Assert.AreEqual(expected, result);
         }
         
@@ -58,7 +58,7 @@ namespace Decisions.Tests.Application.Services
         {
             DateTime start = DateTime.Now;
 
-            var result = await target.CheckAsync(DecisionContext.Create().Within("Example").As("gareth").Has(alias).On(new { id = 1 }));
+            var result = await target.CheckAsync(DecisionContext.Create().Using("Example").As("gareth").Has(alias).On(new { id = 1 }));
 
             DateTime end = DateTime.Now;
 

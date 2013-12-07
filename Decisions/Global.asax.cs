@@ -31,7 +31,7 @@ namespace Decisions
             // Decision routes
             routes.MapHttpRoute(
                 name: "DecideApi",
-                routeTemplate: "Api/Decide/{componentName}/{sourceId}/{roleName}/{targetId}",
+                routeTemplate: "Api/Decide/{namespace}/{sourceId}/{roleName}/{targetId}",
                 defaults: new { controller = "Decide", action = "Get" },
                 constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) });
 
