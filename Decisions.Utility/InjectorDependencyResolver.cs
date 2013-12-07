@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http.Dependencies;
+using Decisions.Contracts;
 
 namespace Decisions.Utility
 {

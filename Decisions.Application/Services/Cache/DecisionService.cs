@@ -6,29 +6,29 @@ using Decisions.Contracts;
 namespace Decisions.Application.Services.Cache
 {
     /// <summary>
-    /// An implementation of <see cref="IDecisionsService"/> that caches decisions for short periods of time.
+    /// An implementation of <see cref="IDecisionService"/> that caches decisions for short periods of time.
     /// </summary>
-    public sealed class DecisionsService : IDecisionsService
+    public sealed class DecisionService : IDecisionService
     {
-        private readonly IDecisionsService service;
+        private readonly IDecisionService service;
         private readonly ConcurrentDictionary<string, CacheItem> cache = new ConcurrentDictionary<string, CacheItem>();
         private readonly int cacheDuration;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DecisionsService"/> class.
+        /// Initializes a new instance of the <see cref="DecisionService"/> class.
         /// </summary>
         /// <param name="service">The service.</param>
-        public DecisionsService(IDecisionsService service)
+        public DecisionService(IDecisionService service)
             : this(service, 5)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DecisionsService"/> class.
+        /// Initializes a new instance of the <see cref="DecisionService"/> class.
         /// </summary>
         /// <param name="service">The service.</param>
         /// <param name="cacheDuration">Duration of the cache in seconds.</param>
-        public DecisionsService(IDecisionsService service, int cacheDuration)
+        public DecisionService(IDecisionService service, int cacheDuration)
         {
             this.service = service;
             this.cacheDuration = cacheDuration;

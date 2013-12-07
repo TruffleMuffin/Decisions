@@ -88,9 +88,7 @@
     <Compile Include="AbstractDecisionContextResolver.cs" />
     <Compile Include="CastleResolver.cs" />
     <Compile Include="Filters\SecurablesCheckAttribute.cs" />
-    <Compile Include="Injector.cs" />
     <Compile Include="InjectorDependencyResolver.cs" />
-    <Compile Include="IResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

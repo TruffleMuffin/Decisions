@@ -8,18 +8,18 @@ using Decisions.Contracts;
 namespace Decisions.Application.Services
 {
     /// <summary>
-    /// An implemenation of the <see cref="IDecisionsService "/> that handles execution of decisions.
+    /// An implemenation of the <see cref="IDecisionService "/> that handles execution of decisions.
     /// </summary>
-    public sealed class DecisionsService : IDecisionsService
+    public sealed class DecisionService : IDecisionService
     {
         private readonly ConcurrentDictionary<string, ExpressionProvider> providers = new ConcurrentDictionary<string, ExpressionProvider>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DecisionsService" /> class.
+        /// Initializes a new instance of the <see cref="DecisionService" /> class.
         /// </summary>
         /// <param name="configPath">The config path.</param>
         /// <param name="service">The service.</param>
-        public DecisionsService(string configPath, PolicyService service)
+        public DecisionService(string configPath, PolicyService service)
         {
             var settings = XElement.Load(Path.GetFullPath(configPath));
             foreach (var expressionSection in settings.Elements("namespace"))

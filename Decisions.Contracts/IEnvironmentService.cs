@@ -3,7 +3,7 @@
 namespace Decisions.Contracts
 {
     /// <summary>
-    /// Describes a service for retrieving environment variables for use in the <see cref="IDecisionsService"/>
+    /// Describes a service for retrieving environment variables for use in the <see cref="IDecisionService"/>
     /// </summary>
     public interface IEnvironmentService
     {

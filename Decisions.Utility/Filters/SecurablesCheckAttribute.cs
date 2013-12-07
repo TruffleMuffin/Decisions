@@ -11,7 +11,7 @@ using ActionFilterAttribute = System.Web.Http.Filters.ActionFilterAttribute;
 namespace Decisions.Utility.Filters
 {
     /// <summary>
-    /// An action filter that can be used to make calls to <see cref="IDecisionsService" /> in a non-blocking (for the action execution) manner.
+    /// An action filter that can be used to make calls to <see cref="IDecisionService" /> in a non-blocking (for the action execution) manner.
     /// </summary>
     /// <remarks>
     /// Will block on OnActionExecuted until the results is returned.
@@ -19,7 +19,7 @@ namespace Decisions.Utility.Filters
     /// </remarks>
     public sealed class DecisionsCheckAttribute : ActionFilterAttribute, System.Web.Mvc.IActionFilter
     {
-        private readonly IDecisionsService service;
+        private readonly IDecisionService service;
         private Task<bool> checkTask;
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Decisions.Utility.Filters
         /// </summary>
         /// <param name="resolver">The resolver. An instance of <see cref="AbstractDecisionContextResolver" /></param>
         /// <param name="lazy">if set to <c>true</c> can lazily resolve the result of the Decision, otherwise will resolve before Action executed.</param>
-        public DecisionsCheckAttribute(Type resolver, bool lazy = true) : this(resolver, lazy, Injector.Get<IDecisionsService>()) { }
+        public DecisionsCheckAttribute(Type resolver, bool lazy = true) : this(resolver, lazy, Injector.Get<IDecisionService>()) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DecisionsCheckAttribute" /> class.
@@ -45,7 +45,7 @@ namespace Decisions.Utility.Filters
         /// <param name="resolver">The resolver. An instance of <see cref="AbstractDecisionContextResolver" /></param>
         /// <param name="lazy">if set to <c>true</c> can lazily resolve the result of the Decision, otherwise will resolve before Action executed.</param>
         /// <param name="service">The service.</param>
-        public DecisionsCheckAttribute(Type resolver, bool lazy, IDecisionsService service)
+        public DecisionsCheckAttribute(Type resolver, bool lazy, IDecisionService service)
         {
             this.service = service;
             this.Resolver = resolver;

@@ -15,7 +15,7 @@ namespace Decisions.Tests.Contracts
     {
         private PolicyService policyService;
         private EnvironmentService environmentService;
-        private IDecisionsService target;
+        private IDecisionService target;
 
         [SetUp]
         void SetUp()
@@ -33,7 +33,7 @@ namespace Decisions.Tests.Contracts
                     { "H", new DeltaPolicy() }
                 };
             policyService = new PolicyService(new[] { new PolicyProvider(policies) }, environmentService);
-            target = new DecisionsService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Test-Decisions.config"), policyService);
+            target = new DecisionService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Test-Decisions.config"), policyService);
         }
 
         [AsyncTest]
@@ -41,17 +41,17 @@ namespace Decisions.Tests.Contracts
         {
             var decisions = new[]
                 {
-                    DecisionContext.Create().Using("Example").As("gareth").Has("A").On(new { id = 1 }),
-                    DecisionContext.Create().Using("Example").As("gareth").Has("B").On(new { id = 1 }),
-                    DecisionContext.Create().Using("Example").As("gareth").Has("C").On(new { id = 1 }),
-                    DecisionContext.Create().Using("Example").As("gareth").Has("D").On(new { id = 1 })
+                    DecisionContext.Create().Using("Example").As("trufflemuffin").Has("A").On(new { id = 1 }),
+                    DecisionContext.Create().Using("Example").As("trufflemuffin").Has("B").On(new { id = 1 }),
+                    DecisionContext.Create().Using("Example").As("trufflemuffin").Has("C").On(new { id = 1 }),
+                    DecisionContext.Create().Using("Example").As("trufflemuffin").Has("D").On(new { id = 1 })
                 };
             var results = await target.CheckAsync(decisions);
             Assert.Count(4, results);
-            Assert.AreEqual(true, results["Example/gareth/A/id%3D1"]);
-            Assert.AreEqual(false, results["Example/gareth/B/id%3D1"]);
-            Assert.AreEqual(true, results["Example/gareth/C/id%3D1"]);
-            Assert.AreEqual(false, results["Example/gareth/D/id%3D1"]);
+            Assert.AreEqual(true, results["Example/trufflemuffin/A/id%3D1"]);
+            Assert.AreEqual(false, results["Example/trufflemuffin/B/id%3D1"]);
+            Assert.AreEqual(true, results["Example/trufflemuffin/C/id%3D1"]);
+            Assert.AreEqual(false, results["Example/trufflemuffin/D/id%3D1"]);
         }
     }
 }

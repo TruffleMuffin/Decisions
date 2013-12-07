@@ -1,9 +1,10 @@
-﻿using System.Net;
+﻿using Decisions.Contracts;
+using Decisions.Tests.Support;
+using MbUnit.Framework;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.SelfHost;
-using Decisions.Utility;
-using MbUnit.Framework;
 
 namespace Decisions.Tests.Utility.Filters
 {

@@ -15,7 +15,7 @@ namespace Decisions.Tests.Application.Services
     {
         private PolicyService policyService;
         private EnvironmentService environmentService;
-        private DecisionsService target;
+        private DecisionService target;
 
         [SetUp]
         void SetUp()
@@ -33,7 +33,7 @@ namespace Decisions.Tests.Application.Services
                     { "H", new LongDeltaPolicy() }
                 };
             policyService = new PolicyService(new[] { new PolicyProvider(policies) }, environmentService);
-            target = new DecisionsService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Test-Decisions.config"), policyService);
+            target = new DecisionService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Test-Decisions.config"), policyService);
         }
 
         [AsyncTest]
@@ -47,7 +47,7 @@ namespace Decisions.Tests.Application.Services
         [Row("H", true)]
         async Task CheckAsync_Decision_Expected(string alias, bool expected)
         {
-            var result = await target.CheckAsync(DecisionContext.Create().Using("Example").As("gareth").Has(alias).On(new { id = 1 }));
+            var result = await target.CheckAsync(DecisionContext.Create().Using("Example").As("trufflemuffin").Has(alias).On(new { id = 1 }));
             Assert.AreEqual(expected, result);
         }
         
@@ -58,7 +58,7 @@ namespace Decisions.Tests.Application.Services
         {
             DateTime start = DateTime.Now;
 
-            var result = await target.CheckAsync(DecisionContext.Create().Using("Example").As("gareth").Has(alias).On(new { id = 1 }));
+            var result = await target.CheckAsync(DecisionContext.Create().Using("Example").As("trufflemuffin").Has(alias).On(new { id = 1 }));
 
             DateTime end = DateTime.Now;
 

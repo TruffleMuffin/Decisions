@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Decisions.Utility
+namespace Decisions.Contracts
 {
     /// <summary>
     /// An inversion of control injector for resolving objects.
@@ -20,7 +20,12 @@ namespace Decisions.Utility
         /// </value>
         public static IResolver Resolver
         {
-            get { return resolver ?? (resolver = new CastleResolver()); }
+            get
+            {
+                if (resolver == null) throw new NotImplementedException("A resolve must be specified for Decisions.Contracts.Injector.");
+
+                return resolver;
+            }
             set { resolver = value; }
         }
 

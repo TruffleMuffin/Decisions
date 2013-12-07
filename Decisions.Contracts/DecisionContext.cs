@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Decisions.Contracts
 {
     /// <summary>
-    /// Describes a decision context, containing all relevant information for getting a Decision result from the <see cref="IDecisionsService"/>.
+    /// Describes a decision context, containing all relevant information for getting a Decision result from the <see cref="IDecisionService"/>.
     /// </summary>
     public class DecisionContext
     {
@@ -52,6 +53,28 @@ namespace Decisions.Contracts
         public static DecisionContext Create()
         {
             return new DecisionContext();
+        }
+
+        /// <summary>
+        /// Applies the provided operation onto the <see cref="DecisionContext" />.
+        /// </summary>
+        /// <param name="lambda">The lambda.</param>
+        /// <returns>
+        /// The modified <see cref="DecisionContext" />
+        /// </returns>
+        public static DecisionContext Create(Func<DecisionContext, DecisionContext> lambda)
+        {
+            return lambda(Create());
+        }
+
+        /// <summary>
+        /// Checks the specified context against the <see cref="IDecisionService" />.
+        /// </summary>
+        /// <param name="lambda">The lambda.</param>
+        /// <returns></returns>
+        public static Task<bool> Check(Func<DecisionContext, DecisionContext> lambda)
+        {
+            return Injector.Get<IDecisionService>().CheckAsync(lambda(Create()));
         }
 
         /// <summary>

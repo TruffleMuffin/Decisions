@@ -2,7 +2,7 @@
 {
     /// <summary>
     /// Describes Securable policy. This extensibility point allows developers to write their own policies that can be used
-    /// as part of the Decision process executed on <see cref="IDecisionsService"/>.
+    /// as part of the Decision process executed on <see cref="IDecisionService"/>.
     /// </summary>
     public interface IPolicy
     {

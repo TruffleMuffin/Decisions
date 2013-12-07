@@ -7,7 +7,7 @@ using Decisions.Contracts;
 namespace Decisions.Application.Services
 {
     /// <summary>
-    /// A service for retrieving policies regarding a <see cref="DecisionContext"/> for use in determining its Decision via the <see cref="IDecisionsService"/>.
+    /// A service for retrieving policies regarding a <see cref="DecisionContext"/> for use in determining its Decision via the <see cref="IDecisionService"/>.
     /// </summary>
     public sealed class PolicyService
     {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace Decisions.Contracts
 {
     /// <summary>
-    /// A set of extensions to the <see cref="IDecisionsService"/> to make common tasks a little simpler to execute.
+    /// A set of extensions to the <see cref="IDecisionService"/> to make common tasks a little simpler to execute.
     /// </summary>
     public static class DecisionsExtensions
     {
@@ -17,7 +17,7 @@ namespace Decisions.Contracts
         /// <returns>
         /// A set of Decision indicating the results of the query.
         /// </returns>
-        public static async Task<IDictionary<string, bool>> CheckAsync(this IDecisionsService service, IEnumerable<DecisionContext> contexts)
+        public static async Task<IDictionary<string, bool>> CheckAsync(this IDecisionService service, IEnumerable<DecisionContext> contexts)
         {
             return await Task.Run(() =>
                 {

@@ -5,7 +5,7 @@ namespace Decisions.Contracts
     /// <summary>
     /// Describes a operations that can be performed using Decisions.
     /// </summary>
-    public interface IDecisionsService
+    public interface IDecisionService
     {
         /// <summary>
         /// Determines the result of the specified <see cref="context"/>.

@@ -9,13 +9,13 @@ namespace Decisions.API
     /// </summary>
     public class DecideController : ApiController
     {
-        private readonly IDecisionsService service;
+        private readonly IDecisionService service;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DecideController"/> class.
         /// </summary>
         /// <param name="service">The service.</param>
-        public DecideController(IDecisionsService service)
+        public DecideController(IDecisionService service)
         {
             this.service = service;
         }

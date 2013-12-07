@@ -5,7 +5,7 @@ namespace Decisions.Contracts
     /// <summary>
     /// Describes a Environment Provider that can be linked into the Decisions component to provide bespoke environments. This is an extensibility point
     /// which will allow developers to create for their components multiple environment providers - one for each subomponent - which return environments
-    /// that will describe information that is used as part of a <see cref="AbstractPolicy"/> in order to execute it in conjunction with the <see cref="IDecisionsService"/>.
+    /// that will describe information that is used as part of a <see cref="AbstractPolicy"/> in order to execute it in conjunction with the <see cref="IDecisionService"/>.
     /// </summary>
     public interface IEnvironmentProvider
     {

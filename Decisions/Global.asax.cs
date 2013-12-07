@@ -36,7 +36,7 @@ namespace Decisions
                 constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) });
 
 
-            Injector.Get<IDecisionsService>();
+            Injector.Get<IDecisionService>();
             Injector.Get<DecideController>();
         }
     }

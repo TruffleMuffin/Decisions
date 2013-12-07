@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Decisions.Contracts
 {
@@ -10,6 +11,16 @@ namespace Decisions.Contracts
     /// </summary>
     public static class FluentExtensions
     {
+        /// <summary>
+        /// Checks the specified context against the <see cref="IDecisionService"/>.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <returns></returns>
+        public static Task<bool> Check(this DecisionContext context)
+        {
+            return Injector.Get<IDecisionService>().CheckAsync(context);
+        }
+        
         /// <summary>
         /// Sets the namespace for the context to be executed using.
         /// </summary>

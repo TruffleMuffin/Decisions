@@ -1,10 +1,13 @@
 ﻿using System.Net.Http;
+using System.Security.Principal;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Routing;
 using System.Web.Http.SelfHost;
 using Decisions.Contracts;
 using Decisions.Contracts.Services;
+using Decisions.Tests.Support;
 using Decisions.Tests.Utility.Filters;
 using Decisions.Utility;
 using MbUnit.Framework;
@@ -21,7 +24,7 @@ namespace Decisions.Tests.Contracts.Services
     class RemoteDecisionsServiceTests
     {
         private HttpSelfHostServer server;
-        private RemoteDecisionsService target;
+        private RemoteDecisionService target;
 
         [SetUp]
         void SetUp()
@@ -29,7 +32,7 @@ namespace Decisions.Tests.Contracts.Services
             Injector.Resolver = new TestResolver();
             var endpoint = "http://localhost:40000";
 
-            target = new RemoteDecisionsService(endpoint);
+            target = new RemoteDecisionService(endpoint);
             var config = new HttpSelfHostConfiguration(endpoint);
 
             config.DependencyResolver = new InjectorDependencyResolver();
@@ -53,9 +56,21 @@ namespace Decisions.Tests.Contracts.Services
         }
 
         [AsyncTest]
+        async Task Authorized_WithDefaults()
+        {
+            Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity("trufflemuffin"), new string[0]);
+
+            var context = DecisionContext.Create().Using("Example").Has("A").On(new { id = 1 });
+            var result = await target.CheckAsync(context);
+            Assert.IsTrue(result);
+
+            Thread.CurrentPrincipal = null;
+        }
+
+        [AsyncTest]
         async Task Authorized()
         {
-            var context = DecisionContext.Create().Using("Example").As("gareth").Has("A").On(new { id = 1 });
+            var context = DecisionContext.Create().Using("Example").As("trufflemuffin").Has("A").On(new { id = 1 });
             var result = await target.CheckAsync(context);
             Assert.IsTrue(result);
         }
@@ -63,7 +78,7 @@ namespace Decisions.Tests.Contracts.Services
         [AsyncTest]
         async Task NotAuthorized()
         {
-            var context = DecisionContext.Create().Using("Example").As("gareth").Has("B").On(new { id = 1 });
+            var context = DecisionContext.Create().Using("Example").As("trufflemuffin").Has("B").On(new { id = 1 });
             var result = await target.CheckAsync(context);
             Assert.IsFalse(result);
         }

@@ -5,7 +5,7 @@ namespace Decisions.Contracts
     /// <summary>
     /// Describes a Policy Provider that can be linked into the Decisions component to provide bespoke policies. This is an extensibility point
     /// which will allow developers to create for their components multiple policy providers - one for each subcomponent - which return policies
-    /// that will describe an aspect of the security check this wish to run via the <see cref="IDecisionsService"/>.
+    /// that will describe an aspect of the security check this wish to run via the <see cref="IDecisionService"/>.
     /// </summary>
     public interface IPolicyProvider
     {

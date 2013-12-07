@@ -99,6 +99,8 @@
     <Compile Include="Application\Services\Cache\EnvironmentServiceTests.cs" />
     <Compile Include="Application\Services\DecisionssServiceTests.cs" />
     <Compile Include="Contracts\DecisionsExtensionsTests.cs" />
+    <Compile Include="Contracts\DecisionContextTests.cs" />
+    <Compile Include="Contracts\FluentExtensionsTests.cs" />
     <Compile Include="Contracts\Services\RemoteDecisionsServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Support\Acl.cs" />
@@ -111,9 +113,9 @@
     <Compile Include="Support\ExampleEnvironmentProvider.cs" />
     <Compile Include="Support\LongAclEnvironment.cs" />
     <Compile Include="Support\LongDeltaPolicy.cs" />
+    <Compile Include="Support\TestResolver.cs" />
     <Compile Include="Support\ValuesController.cs" />
     <Compile Include="Utility\Filters\SecurablesCheckAttributeTests.cs" />
-    <Compile Include="Utility\Filters\TestResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

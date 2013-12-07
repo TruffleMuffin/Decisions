@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Decisions.Utility
+namespace Decisions.Contracts
 {
     /// <summary>
     /// A resolver supporting the <see cref="Injector"/> class.

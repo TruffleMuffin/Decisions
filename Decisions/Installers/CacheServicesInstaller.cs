@@ -19,7 +19,7 @@ namespace Decisions.Installers
         /// <param name="store">The configuration store.</param>
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<DecisionsService>().DependsOn(Dependency.OnAppSettingsValue("configPath", "Decisions.ConfigurationPath")));
+            container.Register(Component.For<DecisionService>().DependsOn(Dependency.OnAppSettingsValue("configPath", "Decisions.ConfigurationPath")));
             container.Register(
                 Component
                 .For<IEnvironmentService>()
@@ -31,10 +31,10 @@ namespace Decisions.Installers
             );
             container.Register(
                 Component
-                .For<IDecisionsService>()
-                .ImplementedBy<Application.Services.Cache.DecisionsService>()
+                .For<IDecisionService>()
+                .ImplementedBy<Application.Services.Cache.DecisionService>()
                 .DependsOn(
-                    Dependency.OnComponent<IDecisionsService, DecisionsService>(),
+                    Dependency.OnComponent<IDecisionService, DecisionService>(),
                     Dependency.OnAppSettingsValue("cacheDuration", "Decisions.DecisionsCacheDuration")
                 )
             );

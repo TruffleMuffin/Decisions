@@ -16,8 +16,8 @@ namespace Decisions.Tests.Application.Services.Cache
     {
         private PolicyService policyService;
         private EnvironmentService environmentService;
-        private DecisionsService service;
-        private Decisions.Application.Services.Cache.DecisionsService target;
+        private DecisionService service;
+        private Decisions.Application.Services.Cache.DecisionService target;
 
         [SetUp]
         void SetUp()
@@ -35,14 +35,14 @@ namespace Decisions.Tests.Application.Services.Cache
                     { "H", new LongDeltaPolicy() }
                 };
             policyService = new PolicyService(new[] { new PolicyProvider(policies) }, environmentService);
-            service = new DecisionsService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Test-Decisions.config"), policyService);
-            target = new Decisions.Application.Services.Cache.DecisionsService(service, 2);
+            service = new DecisionService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Test-Decisions.config"), policyService);
+            target = new Decisions.Application.Services.Cache.DecisionService(service, 2);
         }
 
         [AsyncTest]
         async Task CheckAsync_Decision_Expected_TimeConstraint()
         {
-            var context = DecisionContext.Create().Using("Example").As("gareth").Has("H").On(new { id = 1 });
+            var context = DecisionContext.Create().Using("Example").As("trufflemuffin").Has("H").On(new { id = 1 });
 
             var start = DateTime.Now;
 

@@ -5,16 +5,14 @@ using Decisions.API;
 using Decisions.Application.Services;
 using Decisions.Contracts;
 using Decisions.Contracts.Providers;
-using Decisions.Tests.Support;
-using Decisions.Utility;
 
-namespace Decisions.Tests.Utility.Filters
+namespace Decisions.Tests.Support
 {
     internal class TestResolver : IResolver
     {
         private PolicyService policyService;
         private EnvironmentService environmentService;
-        private DecisionsService DecisionsService;
+        private DecisionService DecisionService;
         private DecideController controller;
 
         public TestResolver()
@@ -28,13 +26,13 @@ namespace Decisions.Tests.Utility.Filters
                     { "H", new LongDeltaPolicy() }
                 };
             policyService = new PolicyService(new[] { new PolicyProvider(policies) }, environmentService);
-            DecisionsService = new DecisionsService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Test-Decisions.config"), policyService);
-            controller = new DecideController(DecisionsService);
+            DecisionService = new DecisionService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Test-Decisions.config"), policyService);
+            controller = new DecideController(DecisionService);
         }
 
         public T Get<T>()
         {
-            return (T)(object)DecisionsService;
+            return (T)(object)DecisionService;
         }
 
         public object Get(Type type)
