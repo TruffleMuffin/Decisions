@@ -61,5 +61,14 @@ namespace Decisions.Tests.Utility.Filters
             var resp = client.GetAsync(string.Format("http://localhost:40000/api/values/{0}", 2)).Result;
             Assert.AreEqual(HttpStatusCode.Unauthorized, resp.StatusCode);
         }
+
+        [Test]
+        void NotAuthorized_NotLazy()
+        {
+            var client = new HttpClient();
+
+            var resp = client.GetAsync(string.Format("http://localhost:40000/api/values")).Result;
+            Assert.AreEqual(HttpStatusCode.Unauthorized, resp.StatusCode);
+        }
     }
 }

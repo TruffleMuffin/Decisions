@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Decisions.Contracts;
 using Decisions.Utility;
 using Decisions.Utility.Filters;
+using MbUnit.Framework;
 
 namespace Decisions.Tests.Support
 {
@@ -16,6 +17,12 @@ namespace Decisions.Tests.Support
             return "value";
         }
 
+        [DecisionsCheck(typeof(ValuesResolver), false)]
+        public string Get()
+        {
+            Assert.Fail("Executed Action");
+            return string.Empty;
+        }
     }
 
     class ValuesResolver : AbstractDecisionContextResolver
@@ -32,7 +39,7 @@ namespace Decisions.Tests.Support
 
         private DecisionContext Resolve(IDictionary<string, object> values)
         {
-            if ((int)values["id"] == 1)
+            if (values.ContainsKey("id") && (int)values["id"] == 1)
             {
                 return DecisionContext.Create().Within("Example").As("gareth").Has("A").On(new { id = 1 });
             }

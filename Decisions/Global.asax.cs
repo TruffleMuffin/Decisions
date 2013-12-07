@@ -1,10 +1,10 @@
-﻿using Decisions.API;
+﻿using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Routing;
+using Decisions.API;
 using Decisions.Contracts;
 using Decisions.Utility;
 using Newtonsoft.Json.Serialization;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Routing;
 
 namespace Decisions
 {

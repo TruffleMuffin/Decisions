@@ -11,13 +11,13 @@ using ActionFilterAttribute = System.Web.Http.Filters.ActionFilterAttribute;
 namespace Decisions.Utility.Filters
 {
     /// <summary>
-    /// An action filter that can be used to make calls to <see cref="IDecisionsService"/> in a non-blocking (for the action execution) manner.
+    /// An action filter that can be used to make calls to <see cref="IDecisionsService" /> in a non-blocking (for the action execution) manner.
     /// </summary>
     /// <remarks>
-    /// Will block on OnActionExecuted until the results is returned. 
+    /// Will block on OnActionExecuted until the results is returned.
     /// For best performance, you should attempt to place this on the action itself so it is last in the filter stack to be executed.
     /// </remarks>
-    public class DecisionsCheckAttribute : ActionFilterAttribute, System.Web.Mvc.IActionFilter
+    public sealed class DecisionsCheckAttribute : ActionFilterAttribute, System.Web.Mvc.IActionFilter
     {
         private readonly IDecisionsService service;
         private Task<bool> checkTask;
@@ -28,20 +28,28 @@ namespace Decisions.Utility.Filters
         private Type Resolver { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DecisionsCheckAttribute" /> class.
+        /// Gets or sets a value indicating whether this <see cref="DecisionsCheckAttribute"/> can lazily resolve the result of the Decision.
         /// </summary>
-        /// <param name="resolver">The resolver. An instance of <see cref="AbstractDecisionContextResolver"/></param>
-        public DecisionsCheckAttribute(Type resolver) : this(resolver, Injector.Get<IDecisionsService>()) { }
+        private bool Lazy { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DecisionsCheckAttribute" /> class.
         /// </summary>
         /// <param name="resolver">The resolver. An instance of <see cref="AbstractDecisionContextResolver" /></param>
+        /// <param name="lazy">if set to <c>true</c> can lazily resolve the result of the Decision, otherwise will resolve before Action executed.</param>
+        public DecisionsCheckAttribute(Type resolver, bool lazy = true) : this(resolver, lazy, Injector.Get<IDecisionsService>()) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DecisionsCheckAttribute" /> class.
+        /// </summary>
+        /// <param name="resolver">The resolver. An instance of <see cref="AbstractDecisionContextResolver" /></param>
+        /// <param name="lazy">if set to <c>true</c> can lazily resolve the result of the Decision, otherwise will resolve before Action executed.</param>
         /// <param name="service">The service.</param>
-        public DecisionsCheckAttribute(Type resolver, IDecisionsService service)
+        public DecisionsCheckAttribute(Type resolver, bool lazy, IDecisionsService service)
         {
             this.service = service;
             this.Resolver = resolver;
+            this.Lazy = lazy;
         }
 
         /// <summary>
@@ -52,6 +60,7 @@ namespace Decisions.Utility.Filters
         {
             var context = (Injector.Get(Resolver) as AbstractDecisionContextResolver).Resolve(actionContext);
             checkTask = service.CheckAsync(context);
+            if (!Lazy) Executed();
         }
 
         /// <summary>
@@ -60,7 +69,10 @@ namespace Decisions.Utility.Filters
         /// <param name="actionExecutedContext">The action executed context.</param>
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
         {
-            Executed();
+            if (Lazy)
+            {
+                Executed();
+            }
         }
 
         /// <summary>
@@ -71,6 +83,7 @@ namespace Decisions.Utility.Filters
         {
             var context = (Injector.Get(Resolver) as AbstractDecisionContextResolver).Resolve(filterContext);
             checkTask = service.CheckAsync(context);
+            if (!Lazy) Executed();
         }
 
         /// <summary>
@@ -79,9 +92,12 @@ namespace Decisions.Utility.Filters
         /// <param name="filterContext">The filter context.</param>
         public void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            Executed();
+            if (Lazy)
+            {
+                Executed();
+            }
         }
-        
+
         /// <summary>
         /// Called after the action method executes.
         /// </summary>
