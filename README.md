@@ -26,3 +26,33 @@ var context = new DecisionContext { Namespace = "Example", SourceId = "User", Ro
 var decision = await decisionsService.CheckAsync(context);
 if(!decision) throw new UnauthorizedAccessException();
 ```
+
+### Fluent
+
+```c#
+var decisionsService = Injector.Get<IDecisionsService>();
+var context = DecisionContext.Create().Using("Example").As("User").Has("Role").On(new { @id = 1 });
+var decision = await decisionsService.CheckAsync(context);
+if(!decision) throw new UnauthorizedAccessException();
+```
+
+### Simplied Fluent
+
+```c#
+var decision = await DecisionContext.Create().Using("Example").As("User").Has("Role").On(new { @id = 1 }).Check();
+if(!decision) throw new UnauthorizedAccessException();
+```
+
+### Lamda Simplied Fluent
+
+```c#
+var decision = await DecisionContext.Check(a => a.Using("Example").As("User").Has("Role").On(new { @id = 1 }));
+if(!decision) throw new UnauthorizedAccessException();
+```
+
+### Lamda Simplied Fluent with Defaults
+
+```c#
+var decision = await DecisionContext.Check(a => a.Using("Example").Has("Role").On(new { @id = 1 }));
+if(!decision) throw new UnauthorizedAccessException();
+```
