@@ -43,14 +43,14 @@ var decision = await DecisionContext.Create().Using("Example").As("User").Has("R
 if(!decision) throw new UnauthorizedAccessException();
 ```
 
-### Lamda Simplied Fluent
+### Lamda Simplified Fluent
 
 ```c#
 var decision = await DecisionContext.Check(a => a.Using("Example").As("User").Has("Role").On(new { @id = 1 }));
 if(!decision) throw new UnauthorizedAccessException();
 ```
 
-### Lamda Simplied Fluent with Defaults
+### Lamda Simplified Fluent with Defaults
 
 ```c#
 var decision = await DecisionContext.Check(a => a.Using("Example").Has("Role").On(new { @id = 1 }));
