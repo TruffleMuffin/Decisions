@@ -6,7 +6,7 @@ Highly concurrent claims based system for performing bespoke authorization check
 Overview
 =========
 
-Self contained WebAPI based website that will use RESTful endpoints to describe claims that can then be configured to execute bespoke code for decision resolution.
+Self contained WebAPI based website that will use RESTful endpoints to describe claims that can then be configured to execute bespoke code for decision resolution. Please forgive the lack of detailed documentation, however if you read below you can get a brief introduction into how this project should be used which you can then see in action using the Test and Example projects.
 
 Installation
 -------------------------
@@ -55,4 +55,20 @@ if(!decision) throw new UnauthorizedAccessException();
 ```c#
 var decision = await DecisionContext.Check(a => a.Using("Example").Has("Role").On(new { @id = 1 }));
 if(!decision) throw new UnauthorizedAccessException();
+```
+
+Policies
+-------------------------
+
+Policies are a building block of Decisions. Implementing one allows you to provide custom logic while executing a Decision based on the current Context. The Policy can then be registered with a PolicyProvider like the Example implementation to be executed in a Decision.Recommended approach for a Policy is outlined below.
+
+```c#
+public class AlphaPolicy : AbstractPolicy
+{
+    public override bool Decide(DecisionContext context)
+    {
+    	// You should implement your custom logic here
+        return context.Target.id == 1;
+    }
+}
 ```
