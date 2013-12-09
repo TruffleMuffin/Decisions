@@ -51,7 +51,7 @@ namespace Decisions.Services.Cache
                     return (bool)item.Value;
                 }
 
-                cache.TryRemove(Key(context), out item);
+                // TODO: Find a way to empty cache items in a non-performance hitting manner
             }
 
             var result = await service.CheckAsync(context);
