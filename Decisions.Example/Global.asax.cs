@@ -22,6 +22,9 @@ namespace Decisions.Example
             // Resolve dependancies via Inversion of Control
             GlobalConfiguration.Configuration.DependencyResolver = new InjectorDependencyResolver();
 
+            // Initialise the Resolver
+            Injector.Resolver = new CastleResolver();
+
             // Set Json Serializer to use camel case for Bankbone
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
