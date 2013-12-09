@@ -44,22 +44,35 @@ namespace Decisions.Example
 
             foreach (var item in policies.Elements("item"))
             {
+                // Validate that a key is present
                 var key = item.Attribute("key");
                 if (key == null || string.IsNullOrWhiteSpace((string)key))
                 {
                     throw new ConfigurationErrorsException("All policies must specify a unique 'key'.", item.ToXmlNode());
                 }
 
+                // Validate that a value is present
                 var value = item.Attribute("value");
                 if (value == null || string.IsNullOrWhiteSpace((string)value))
                 {
                     throw new ConfigurationErrorsException("All policies must specify an IPolicy policy type 'value'.", item.ToXmlNode());
                 }
 
-                var type = Type.GetType((string)value, false);
+                // Extract type and assembly information specified by the value
+                var typeName = (string)value;
+                string assembly = null;
+                if (typeName.Contains(","))
+                {
+                    var typeSplit = typeName.Split(',');
+                    assembly = typeSplit[1].Trim();
+                    typeName = typeSplit[0].Trim();
+                }
+
+                // Validate the type is correct
+                var type = assembly == null ? Type.GetType(typeName, false) : Assembly.Load(assembly).GetType(typeName, false);
                 if (type == null || type.GetInterface(typeof(IPolicy).FullName) == null)
                 {
-                    throw new ConfigurationErrorsException("All policies must implement 'Decision.IPolicy'.", item.ToXmlNode());
+                    throw new ConfigurationErrorsException("All policies must implement 'Decisions.Contracts.IPolicy'.", item.ToXmlNode());
                 }
 
                 container.Register(Component.For(type).Forward<IPolicy>().Named(key.Value).DependsOn(Dependencies(type, item).ToArray()));
