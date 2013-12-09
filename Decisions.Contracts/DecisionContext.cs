@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -98,6 +99,16 @@ namespace Decisions.Contracts
                 yield break;
             }
 
+            // If this is a System.Dynamic.ExpandoObject then we need to use casting as Reflection can't find the Properties
+            if (Target is ExpandoObject)
+            {
+                foreach (var prop in (ICollection<KeyValuePair<String, Object>>)Target)
+                {
+                    yield return prop.Key + "=" + prop.Value;
+                }
+            }
+
+            // If the Target is another type, we can use reflection to find all the set properties
             foreach (var prop in Target.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public))
             {
                 yield return prop.Name + "=" + prop.GetValue(Target, null);
