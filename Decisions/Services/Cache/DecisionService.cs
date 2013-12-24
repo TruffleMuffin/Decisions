@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using Decisions.Contracts;
+using TruffleCache;
 
 namespace Decisions.Services.Cache
 {
@@ -11,31 +11,34 @@ namespace Decisions.Services.Cache
     public sealed class DecisionService : IDecisionService
     {
         private readonly IDecisionService service;
-        private readonly ConcurrentDictionary<string, CacheItem> cache = new ConcurrentDictionary<string, CacheItem>();
+        private readonly Cache<Decision> cache;
         private readonly int cacheDuration;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DecisionService"/> class.
+        /// Initializes a new instance of the <see cref="DecisionService" /> class.
         /// </summary>
         /// <param name="service">The service.</param>
-        public DecisionService(IDecisionService service)
-            : this(service, 5)
+        /// <param name="cache">The cache.</param>
+        public DecisionService(IDecisionService service, Cache<Decision> cache)
+            : this(service, cache, 5)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DecisionService"/> class.
+        /// Initializes a new instance of the <see cref="DecisionService" /> class.
         /// </summary>
         /// <param name="service">The service.</param>
+        /// <param name="cache">The cache.</param>
         /// <param name="cacheDuration">Duration of the cache in seconds.</param>
-        public DecisionService(IDecisionService service, int cacheDuration)
+        public DecisionService(IDecisionService service, Cache<Decision> cache, int cacheDuration)
         {
             this.service = service;
+            this.cache = cache;
             this.cacheDuration = cacheDuration;
         }
 
         /// <summary>
-        /// Determines the result of the specified <see cref="context" />.
+        /// Determines the result of the specified context.
         /// </summary>
         /// <param name="context">The context.</param>
         /// <returns>
@@ -43,23 +46,15 @@ namespace Decisions.Services.Cache
         /// </returns>
         public async Task<bool> CheckAsync(DecisionContext context)
         {
-            CacheItem item;
-            if (cache.TryGetValue(Key(context), out item))
-            {
-                if (item.CachedUntil > DateTime.Now)
-                {
-                    return (bool)item.Value;
-                }
+            var result = cache.Get(Key(context));
 
-                // TODO: Find a way to empty cache items in a non-performance hitting manner
+            if (result == null)
+            {
+                result = new Decision { Id = context.Id, Result = await service.CheckAsync(context) };
+                cache.Set(Key(context), result, TimeSpan.FromSeconds(cacheDuration));
             }
 
-            var result = await service.CheckAsync(context);
-
-            item = new CacheItem { Value = result, CachedUntil = DateTime.Now.AddSeconds(cacheDuration) };
-            cache.AddOrUpdate(Key(context), item, (key, oldValue) => item);
-
-            return result;
+            return result.Result;
         }
 
         /// <summary>

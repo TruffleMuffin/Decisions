@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using Decisions.Contracts;
+using TruffleCache;
 
 namespace Decisions.Services.Cache
 {
@@ -12,26 +12,29 @@ namespace Decisions.Services.Cache
     {
         private const string CACHE_KEY_FORMAT = @"{0}_{1}";
         private readonly IEnvironmentService service;
-        private readonly ConcurrentDictionary<string, CacheItem> cache = new ConcurrentDictionary<string, CacheItem>();
+        private readonly Cache<object> cache;
         private readonly int cacheDuration;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EnvironmentService"/> class.
+        /// Initializes a new instance of the <see cref="EnvironmentService" /> class.
         /// </summary>
         /// <param name="service">The service.</param>
-        public EnvironmentService(IEnvironmentService service)
-            : this(service, 15)
+        /// <param name="cache">The cache.</param>
+        public EnvironmentService(IEnvironmentService service, Cache<object> cache)
+            : this(service, cache, 15)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EnvironmentService"/> class.
+        /// Initializes a new instance of the <see cref="EnvironmentService" /> class.
         /// </summary>
         /// <param name="service">The service.</param>
+        /// <param name="cache">The cache.</param>
         /// <param name="cacheDuration">Duration of the cache in seconds.</param>
-        public EnvironmentService(IEnvironmentService service, int cacheDuration)
+        public EnvironmentService(IEnvironmentService service, Cache<object> cache, int cacheDuration)
         {
             this.service = service;
+            this.cache = cache;
             this.cacheDuration = cacheDuration;
         }
 
@@ -45,21 +48,13 @@ namespace Decisions.Services.Cache
         /// </returns>
         public async Task<dynamic> GetAsync(string alias, DecisionContext context)
         {
-            CacheItem item;
-            if (cache.TryGetValue(Key(alias, context), out item))
+            var result = cache.Get(Key(alias, context));
+
+            if (result == null)
             {
-                if (item.CachedUntil > DateTime.Now)
-                {
-                    return item.Value;
-                }
-
-                cache.TryRemove(Key(alias, context), out item);
+                result = await service.GetAsync(alias, context);
+                cache.Set(Key(alias, context), result, TimeSpan.FromSeconds(cacheDuration));
             }
-
-            var result = await service.GetAsync(alias, context);
-
-            item = new CacheItem { Value = result, CachedUntil = DateTime.Now.AddSeconds(cacheDuration) };
-            cache.AddOrUpdate(Key(alias, context), item, (key, oldValue) => item);
 
             return result;
         }

@@ -6,7 +6,7 @@ namespace Decisions.Example.Support
     /// <summary>
     /// An implementation of <see cref="AbstractPolicy"/> which will Permit if the current user is a match
     /// </summary>
-    class CappaPolicy : AbstractPolicy
+    public class CappaPolicy : AbstractPolicy
     {
         public Guid MatchUserId { get; set; }
         

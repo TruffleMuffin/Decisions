@@ -1,6 +1,4 @@
-﻿using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Routing;
+﻿using System.Web.Http;
 using Decisions.API;
 using Decisions.Contracts;
 using Decisions.Utility;
@@ -29,16 +27,8 @@ namespace Decisions.Example
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
             // Register routing for the application
-            var routes = GlobalConfiguration.Configuration.Routes;
-
-            // Decision routes
-            routes.MapHttpRoute(
-                name: "DecideApi",
-                routeTemplate: "Api/Decide/{namespace}/{sourceId}/{roleName}/{targetId}",
-                defaults: new { controller = "Decide", action = "Get" },
-                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) });
-
-
+            GlobalConfiguration.Configuration.MapHttpAttributeRoutes();
+            
             Injector.Get<IDecisionService>();
             Injector.Get<DecideController>();
         }

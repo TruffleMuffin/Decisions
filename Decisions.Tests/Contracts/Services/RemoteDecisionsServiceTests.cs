@@ -1,13 +1,11 @@
-﻿using System.Net.Http;
-using System.Security.Principal;
+﻿using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Routing;
 using System.Web.Http.SelfHost;
 using Decisions.Contracts;
 using Decisions.Contracts.Services;
-using Decisions.Tests.Support;
+using Decisions.Example.Support;
 using Decisions.Utility;
 using MbUnit.Framework;
 
@@ -37,11 +35,7 @@ namespace Decisions.Tests.Contracts.Services
             config.DependencyResolver = new InjectorDependencyResolver();
 
             // Decision routes
-            config.Routes.MapHttpRoute(
-                name: "DecideApi",
-                routeTemplate: "Api/Decide/{namespace}/{sourceId}/{roleName}/{targetId}",
-                defaults: new { controller = "Decide", action = "Get" },
-                constraints: new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) });
+            config.MapHttpAttributeRoutes();
 
             server = new HttpSelfHostServer(config);
             server.OpenAsync().Wait();

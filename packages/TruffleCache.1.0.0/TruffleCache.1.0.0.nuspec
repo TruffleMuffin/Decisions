@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>TruffleCache</id>
+    <version>1.0.0</version>
+    <title>TruffleCache</title>
+    <authors>TruffleMuffin</authors>
+    <owners>TruffleMuffin</owners>
+    <projectUrl>https://github.com/TruffleMuffin/TruffleCache</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A Cache library written to extend and make MemcachedSharp easier to use.</description>
+    <releaseNotes>Initial Version.</releaseNotes>
+    <copyright>Copyright 2014</copyright>
+    <language />
+    <dependencies>
+      <dependency id="MemcachedSharp" version="1.0.0" />
+    </dependencies>
+  </metadata>
+</package>

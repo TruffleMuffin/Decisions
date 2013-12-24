@@ -31,6 +31,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.3.2.0\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\packages\Castle.Windsor.3.2.0\lib\net45\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="MemcachedSharp">
+      <HintPath>..\packages\MemcachedSharp.1.0.0\lib\net45\MemcachedSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CompilerServices.AsyncTargetingPack.Net45">
+      <HintPath>..\packages\Microsoft.CompilerServices.AsyncTargetingPack.1.0.1\lib\net45\Microsoft.CompilerServices.AsyncTargetingPack.Net45.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -51,18 +63,23 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TruffleCache">
+      <HintPath>..\packages\TruffleCache.1.0.0\lib\net45\TruffleCache.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\DecideController.cs" />
+    <Compile Include="Installers\CacheServicesInstaller.cs" />
+    <Compile Include="Installers\EndpointInstaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\ConfigPolicyProvider.cs" />
     <Compile Include="Providers\ExpressionProvider.cs" />
-    <Compile Include="Services\Cache\CacheItem.cs" />
+    <Compile Include="Services\Cache\Decision.cs" />
     <Compile Include="Services\Cache\DecisionService.cs" />
     <Compile Include="Services\Cache\EnvironmentService.cs" />
     <Compile Include="Services\DecisionService.cs" />
     <Compile Include="Services\EnvironmentService.cs" />
     <Compile Include="Services\PolicyService.cs" />
-    <Compile Include="XmlExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Decisions.Contracts\Decisions.Contracts.csproj">

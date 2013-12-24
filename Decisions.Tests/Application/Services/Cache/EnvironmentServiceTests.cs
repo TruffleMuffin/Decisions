@@ -2,9 +2,10 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Decisions.Contracts;
+using Decisions.Example.Support;
 using Decisions.Services;
-using Decisions.Tests.Support;
 using MbUnit.Framework;
+using TruffleCache;
 
 namespace Decisions.Tests.Application.Services.Cache
 {
@@ -18,15 +19,20 @@ namespace Decisions.Tests.Application.Services.Cache
         void SetUp()
         {
             service = new EnvironmentService(new[] { new ExampleEnvironmentProvider() });
-            target = new Decisions.Services.Cache.EnvironmentService(service, 2);
+            target = new Decisions.Services.Cache.EnvironmentService(service, new Cache<object>(new TestCacheStore(), "Environment"), 2);
         }
 
         [AsyncTest]
         async Task GetAsync_NotARecognisedAlias_Null()
         {
-            var result = await target.GetAsync("SomeRandomAlias", new DecisionContext());
-
-            Assert.IsNull(result);
+            try
+            {
+                await target.GetAsync("SomeRandomAlias", new DecisionContext());
+            }
+            catch (Exception e)
+            {
+                Assert.IsInstanceOfType<NotSupportedException>(e);
+            }
         }
 
         [AsyncTest]
@@ -55,14 +61,14 @@ namespace Decisions.Tests.Application.Services.Cache
             Assert.IsInstanceOfType<LongAclEnvironment>(nonCachedResult2);
 
             // The long running environment has a thread.sleep for 3s on it so it should take at least this time to execute.
-            Assert.IsTrue(firstEnd.Subtract(start).TotalSeconds > 3);
+            Assert.IsTrue(firstEnd.Subtract(start).TotalSeconds >= 3, "Long Running 1st: " + firstEnd.Subtract(start).TotalSeconds);
 
             // After first execution, it should be cached for 2s meaning the next call should take far less time to aquire the result.
-            Assert.IsTrue(secondEnd.Subtract(firstEnd).TotalSeconds < 1);
+            Assert.IsTrue(secondEnd.Subtract(firstEnd).TotalSeconds <= 1, "Cached Hit: " + secondEnd.Subtract(firstEnd).TotalSeconds);
 
             // After the second execution there is a wait in this thread for 3s, making sure that the cache period has expired. So now the next execution
             // should take the original amount of time as its going back to get the environment fresh.
-            Assert.IsTrue(thirdEnd.Subtract(secondStart).TotalSeconds > 3);
+            Assert.IsTrue(thirdEnd.Subtract(secondStart).TotalSeconds >= 3, "Long Running 2nd: " + thirdEnd.Subtract(secondStart).TotalSeconds);
         }
     }
 }

@@ -42,6 +42,12 @@
     <Reference Include="MbUnit40, Version=3.4.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
       <HintPath>..\packages\Gallio_MbUnit.3.4.14.0\lib\net40\MbUnit40.dll</HintPath>
     </Reference>
+    <Reference Include="MemcachedSharp">
+      <HintPath>..\packages\MemcachedSharp.1.0.0\lib\net45\MemcachedSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CompilerServices.AsyncTargetingPack.Net45">
+      <HintPath>..\packages\Microsoft.CompilerServices.AsyncTargetingPack.1.0.1\lib\net45\Microsoft.CompilerServices.AsyncTargetingPack.Net45.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -93,6 +99,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TruffleCache">
+      <HintPath>..\packages\TruffleCache.1.0.0\lib\net45\TruffleCache.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\Services\Cache\DecisionsServiceTests.cs" />
@@ -101,21 +110,11 @@
     <Compile Include="Contracts\DecisionsExtensionsTests.cs" />
     <Compile Include="Contracts\DecisionContextTests.cs" />
     <Compile Include="Contracts\FluentExtensionsTests.cs" />
+    <Compile Include="Contracts\Providers\DefaultEnvironmentProviderTests.cs" />
     <Compile Include="Contracts\Services\RemoteDecisionsServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Support\Acl.cs" />
-    <Compile Include="Support\AclEnvironment.cs" />
-    <Compile Include="Support\AlphaPolicy.cs" />
-    <Compile Include="Support\BetaPolicy.cs" />
-    <Compile Include="Support\CappaPolicy.cs" />
-    <Compile Include="Support\CurrentUserEnvironment.cs" />
-    <Compile Include="Support\DeltaPolicy.cs" />
-    <Compile Include="Support\ExampleEnvironmentProvider.cs" />
-    <Compile Include="Support\LongAclEnvironment.cs" />
-    <Compile Include="Support\LongDeltaPolicy.cs" />
-    <Compile Include="Support\TestResolver.cs" />
-    <Compile Include="Support\ValuesController.cs" />
-    <Compile Include="Utility\Filters\SecurablesCheckAttributeTests.cs" />
+    <Compile Include="TestCacheStore.cs" />
+    <Compile Include="Utility\Filters\DecisionCheckAttributeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

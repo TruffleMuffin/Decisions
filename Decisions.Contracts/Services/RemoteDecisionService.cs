@@ -33,7 +33,7 @@ namespace Decisions.Contracts.Services
         }
 
         /// <summary>
-        /// Determines the result of the specified <see cref="context" />.
+        /// Determines the result of the specified context.
         /// </summary>
         /// <param name="context">The context.</param>
         /// <returns>
@@ -44,7 +44,16 @@ namespace Decisions.Contracts.Services
             // Apply Defaults
             context.SourceId = context.SourceId ?? defaultProvider.SourceId;
 
-            return bool.Parse(await client.GetStringAsync("Api/Decide/" + context.Id));
+            // Wrap the Remote call in a Try/Catch to provide good debug information if an error occurs.
+            try
+            {
+                var result = await client.GetStringAsync("Api/Decide/" + context.Id);
+                return bool.Parse(result);
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException(string.Format("A GET for {0} returned error: {1}", "Api/Decide/" + context.Id, e.Message));
+            }
         }
     }
 }

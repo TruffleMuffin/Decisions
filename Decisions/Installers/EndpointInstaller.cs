@@ -3,7 +3,7 @@ using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Decisions.API;
 
-namespace Decisions.Example.Installers
+namespace Decisions.Installers
 {
     /// <summary>
     /// Installs Decisions Endpoints

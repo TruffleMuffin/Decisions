@@ -14,7 +14,10 @@ namespace Decisions.Contracts.Providers
         {
             get
             {
-                if (Thread.CurrentPrincipal == null || Thread.CurrentPrincipal.Identity == null) return null;
+                if (Thread.CurrentPrincipal == null || string.IsNullOrWhiteSpace(Thread.CurrentPrincipal.Identity.Name))
+                {
+                    return "AnonymousUser";
+                }
 
                 return Thread.CurrentPrincipal.Identity.Name;
             }

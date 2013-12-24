@@ -1,10 +1,10 @@
-﻿using System.Net;
+﻿using Decisions.Contracts;
+using Decisions.Example.Support;
+using MbUnit.Framework;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.SelfHost;
-using Decisions.Contracts;
-using Decisions.Tests.Support;
-using MbUnit.Framework;
 
 namespace Decisions.Tests.Utility.Filters
 {
@@ -15,7 +15,7 @@ namespace Decisions.Tests.Utility.Filters
      */
 
     [TestFixture]
-    class DecisionsCheckAttributeTests
+    class DecisionCheckAttributeTests
     {
         private HttpSelfHostServer server;
 
@@ -26,9 +26,7 @@ namespace Decisions.Tests.Utility.Filters
 
             var config = new HttpSelfHostConfiguration("http://localhost:40000");
 
-            config.Routes.MapHttpRoute(
-                "API Default", "api/{controller}/{id}",
-                new { id = RouteParameter.Optional });
+            config.Routes.MapHttpRoute("API Default", "api/{controller}/{id}", new { id = RouteParameter.Optional });
 
             server = new HttpSelfHostServer(config);
             server.OpenAsync().Wait();
@@ -68,7 +66,7 @@ namespace Decisions.Tests.Utility.Filters
         {
             var client = new HttpClient();
 
-            var resp = client.GetAsync(string.Format("http://localhost:40000/api/values")).Result;
+            var resp = client.GetAsync(string.Format("http://localhost:40000/api/values/{0}", 2)).Result;
             Assert.AreEqual(HttpStatusCode.Unauthorized, resp.StatusCode);
         }
     }

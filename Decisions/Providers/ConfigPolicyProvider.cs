@@ -1,19 +1,19 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Xml.Linq;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Decisions.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Xml.Linq;
 
-namespace Decisions.Example
+namespace Decisions.Providers
 {
     /// <summary>
     /// Implements a <see cref="IPolicyProvider"/> which uses a Config file to load and register <see cref="IPolicy"/>. 
     /// </summary>
-    /// <remarks>Uses a <see cref="WindsorContainer"/> to initialise the <see cref="IPolicy"/> classes.</remarks>
+    /// <remarks>Uses a <see cref="Castle.Windsor.WindsorContainer"/> to initialise the <see cref="IPolicy"/> classes.</remarks>
     public class ConfigPolicyProvider : IPolicyProvider
     {
         // internal windsor container, so we don't need to worry about scope issues with components being added to the same
@@ -48,14 +48,14 @@ namespace Decisions.Example
                 var key = item.Attribute("key");
                 if (key == null || string.IsNullOrWhiteSpace((string)key))
                 {
-                    throw new ConfigurationErrorsException("All policies must specify a unique 'key'.", item.ToXmlNode());
+                    throw new ArgumentException("All policies must specify a unique 'key'.", item.ToString());
                 }
 
                 // Validate that a value is present
                 var value = item.Attribute("value");
                 if (value == null || string.IsNullOrWhiteSpace((string)value))
                 {
-                    throw new ConfigurationErrorsException("All policies must specify an IPolicy policy type 'value'.", item.ToXmlNode());
+                    throw new ArgumentException("All policies must specify an IPolicy policy type 'value'.", key.ToString());
                 }
 
                 // Extract type and assembly information specified by the value
@@ -72,7 +72,7 @@ namespace Decisions.Example
                 var type = assembly == null ? Type.GetType(typeName, false) : Assembly.Load(assembly).GetType(typeName, false);
                 if (type == null || type.GetInterface(typeof(IPolicy).FullName) == null)
                 {
-                    throw new ConfigurationErrorsException("All policies must implement 'Decisions.Contracts.IPolicy'.", item.ToXmlNode());
+                    throw new ArgumentException("All policies must implement 'Decisions.Contracts.IPolicy'.", typeName);
                 }
 
                 container.Register(Component.For(type).Forward<IPolicy>().Named(key.Value).DependsOn(Dependencies(type, item).ToArray()));
@@ -91,11 +91,11 @@ namespace Decisions.Example
         }
 
         /// <summary>
-        /// Loads <see cref="Dependency"/>s for the specified type.
+        /// Loads <see cref="Castle.MicroKernel.Registration.Dependency"/>s for the specified type.
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="item">The item.</param>
-        /// <returns>A set of <see cref="Dependency"/>s</returns>
+        /// <returns>A set of <see cref="Castle.MicroKernel.Registration.Dependency"/>s</returns>
         private static IEnumerable<Dependency> Dependencies(Type type, XElement item)
         {
             // Efficiency block to avoid doing reflection work if there are no more attributes than the bare minimum (key and value)
@@ -105,7 +105,7 @@ namespace Decisions.Example
                 var constructors = type.GetConstructors();
                 var parameters = constructors
                     .SelectMany(x => x.GetParameters())
-                    .Where(x => x.ParameterType.IsPrimitive)
+                    .Where(x => x.ParameterType.IsPrimitive || x.ParameterType.IsEnum || x.ParameterType.FullName == "System.String")
                     .ToArray();
 
                 foreach (var attribute in attributes)
@@ -119,8 +119,15 @@ namespace Decisions.Example
                     }
 
                     // Convert type
-                    var value = Convert.ChangeType(attribute.Value, info.ParameterType);
-                    yield return Dependency.OnValue(name, value);
+                    if (info.ParameterType.IsEnum)
+                    {
+                        yield return Dependency.OnValue(name, Enum.Parse(info.ParameterType, attribute.Value));
+                    }
+                    else
+                    {
+                        var value = Convert.ChangeType(attribute.Value, info.ParameterType);
+                        yield return Dependency.OnValue(name, value);
+                    }
                 }
             }
         }

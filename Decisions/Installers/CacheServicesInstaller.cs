@@ -2,10 +2,12 @@
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Decisions.Contracts;
-using Decisions.Services;
+using Decisions.Services.Cache;
+using TruffleCache;
+using DecisionService = Decisions.Services.DecisionService;
 using EnvironmentService = Decisions.Services.Cache.EnvironmentService;
 
-namespace Decisions.Example.Installers
+namespace Decisions.Installers
 {
     /// <summary>
     /// Installs Decisions using Cache services as wrappers to the actual services.
@@ -19,6 +21,8 @@ namespace Decisions.Example.Installers
         /// <param name="store">The configuration store.</param>
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            container.Register(Component.For<Cache<Decision>>().DependsOn(Dependency.OnValue("keyPrefix", "Decisions")));
+            container.Register(Component.For<Cache<object>>().DependsOn(Dependency.OnValue("keyPrefix", "Environments")));
             container.Register(Component.For<DecisionService>().DependsOn(Dependency.OnAppSettingsValue("configPath", "Decisions.ConfigurationPath")));
             container.Register(
                 Component

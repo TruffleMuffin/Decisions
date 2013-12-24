@@ -79,8 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbstractDecisionContextResolver.cs" />
-    <Compile Include="Filters\SecurablesCheckAttribute.cs" />
+    <Compile Include="Filters\DecisionCheckAttribute.cs" />
     <Compile Include="InjectorDependencyResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

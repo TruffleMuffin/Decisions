@@ -53,13 +53,13 @@ namespace Decisions.Providers
                 var key = item.Attribute("key");
                 if (key == null || string.IsNullOrWhiteSpace((string)key))
                 {
-                    throw new ConfigurationErrorsException("All expressions must specify a unique 'key'.", item.ToXmlNode());
+                    throw new ArgumentException("All expressions must specify a unique 'key'.", key.ToString());
                 }
 
                 var value = item.Attribute("value");
                 if (value == null || string.IsNullOrWhiteSpace((string)value))
                 {
-                    throw new ConfigurationErrorsException("All expressions must specify a 'value'.", item.ToXmlNode());
+                    throw new ArgumentException("All expressions must specify a 'value'.", value.ToString());
                 }
 
                 expressions[(string)key] = Reduce((string)value);

@@ -26,11 +26,12 @@ namespace Decisions.API
         /// </summary>
         /// <param name="namespace">The namespace.</param>
         /// <param name="sourceId">The identifier of the source of the request.</param>
-        /// <param name="roleName">Name of the role the user claims to have on the entity within the <see cref="@namespace" />.</param>
+        /// <param name="roleName">Name of the role the user claims to have on the entity within the namespace.</param>
         /// <param name="targetId">The identifier of the target of the request.</param>
         /// <returns>
         /// A Decision indicating the result of the query.
         /// </returns>
+        [Route("Api/Decide/{namespace}/{sourceId}/{roleName}/{targetId}")]
         public async Task<bool> Get(string @namespace, string sourceId, string roleName, string targetId)
         {
             return await service.CheckAsync(Resolve(@namespace, sourceId, roleName, targetId));
