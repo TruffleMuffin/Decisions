@@ -2,7 +2,7 @@
 using System.Web.Http;
 using Decisions.Contracts;
 
-namespace Decisions.API
+namespace Decisions.Utility.API
 {
     /// <summary>
     /// Describes the Decide endpoint for the Decisions API.

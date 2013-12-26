@@ -5,12 +5,12 @@ using Castle.Windsor;
 using Castle.Windsor.Configuration.Interpreters;
 using Decisions.Contracts;
 
-namespace Decisions.Example
+namespace Decisions.Castle
 {
     /// <summary>
     /// The IoC resolver for castle
     /// </summary>
-    internal sealed class CastleResolver : IResolver
+    public sealed class CastleResolver : IResolver
     {
         /// <summary>
         /// The windsor castle configuration containers (lazy and explicitly set)

@@ -4,10 +4,12 @@ using Castle.Windsor;
 using Decisions.Contracts;
 using Decisions.Services.Cache;
 using TruffleCache;
+using CacheDecisionService = Decisions.Services.Cache.DecisionService;
 using DecisionService = Decisions.Services.DecisionService;
-using EnvironmentService = Decisions.Services.Cache.EnvironmentService;
+using CacheEnvironmentService = Decisions.Services.Cache.EnvironmentService;
+using EnvironmentService = Decisions.Services.EnvironmentService;
 
-namespace Decisions.Installers
+namespace Decisions.Castle.Installers
 {
     /// <summary>
     /// Installs Decisions using Cache services as wrappers to the actual services.
@@ -27,16 +29,16 @@ namespace Decisions.Installers
             container.Register(
                 Component
                 .For<IEnvironmentService>()
-                .ImplementedBy<EnvironmentService>()
+                .ImplementedBy<CacheEnvironmentService>()
                 .DependsOn(
-                    Dependency.OnComponent<IEnvironmentService, Services.EnvironmentService>(),
+                    Dependency.OnComponent<IEnvironmentService, EnvironmentService>(),
                     Dependency.OnAppSettingsValue("cacheDuration", "Decisions.EnvironmentCacheDuration")
                 )
             );
             container.Register(
                 Component
                 .For<IDecisionService>()
-                .ImplementedBy<Services.Cache.DecisionService>()
+                .ImplementedBy<CacheDecisionService>()
                 .DependsOn(
                     Dependency.OnComponent<IDecisionService, DecisionService>(),
                     Dependency.OnAppSettingsValue("cacheDuration", "Decisions.DecisionsCacheDuration")

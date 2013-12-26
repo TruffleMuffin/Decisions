@@ -85,8 +85,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="TruffleCache">
-      <HintPath>..\packages\TruffleCache.1.0.0\lib\net45\TruffleCache.dll</HintPath>
+    <Reference Include="TruffleCache, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\TruffleCache.1.1.0\lib\net45\TruffleCache.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -96,7 +97,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CastleResolver.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -125,6 +125,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Decisions.Castle\Decisions.Castle.csproj">
+      <Project>{972b4c4e-b07e-4600-ae0a-e9f7f2276b19}</Project>
+      <Name>Decisions.Castle</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Decisions\Decisions.csproj">
       <Project>{289f50d0-6ddf-4ad2-a7ac-77ac19e45409}</Project>
       <Name>Decisions</Name>

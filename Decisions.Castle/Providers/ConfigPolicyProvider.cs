@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Castle.MicroKernel.Registration;
+using Castle.Windsor;
+using Decisions.Contracts;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
-using Castle.MicroKernel.Registration;
-using Castle.Windsor;
-using Decisions.Contracts;
 
-namespace Decisions.Providers
+namespace Decisions.Castle.Providers
 {
     /// <summary>
     /// Implements a <see cref="IPolicyProvider"/> which uses a Config file to load and register <see cref="IPolicy"/>. 
@@ -31,7 +31,7 @@ namespace Decisions.Providers
         /// Initializes a new instance of the <see cref="ConfigPolicyProvider"/> class.
         /// </summary>
         /// <param name="settings">The settings.</param>
-        /// <exception cref="System.Configuration.ConfigurationErrorsException">
+        /// <exception cref="System.ArgumentException">
         /// All policies must specify a unique 'key'.
         /// or
         /// All policies must specify an IPolicy policy type 'value'.

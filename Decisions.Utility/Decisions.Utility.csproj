@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\DecideController.cs" />
     <Compile Include="Filters\DecisionCheckAttribute.cs" />
     <Compile Include="InjectorDependencyResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

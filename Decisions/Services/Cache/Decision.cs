@@ -1,8 +1,11 @@
-﻿namespace Decisions.Services.Cache
+﻿using System;
+
+namespace Decisions.Services.Cache
 {
     /// <summary>
     /// Describes the result of a Decision
     /// </summary>
+    [Serializable]
     public class Decision
     {
         /// <summary>

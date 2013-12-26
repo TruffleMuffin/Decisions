@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Decisions.API;
 using Decisions.Contracts;
 using Decisions.Contracts.Providers;
 using Decisions.Services;
+using Decisions.Utility.API;
 
 namespace Decisions.Example.Support
 {

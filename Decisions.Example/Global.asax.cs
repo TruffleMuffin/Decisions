@@ -1,7 +1,8 @@
 ﻿using System.Web.Http;
-using Decisions.API;
+using Decisions.Castle;
 using Decisions.Contracts;
 using Decisions.Utility;
+using Decisions.Utility.API;
 using Newtonsoft.Json.Serialization;
 
 namespace Decisions.Example
@@ -31,6 +32,8 @@ namespace Decisions.Example
             
             Injector.Get<IDecisionService>();
             Injector.Get<DecideController>();
+
+            GlobalConfiguration.Configuration.EnsureInitialized();
         }
     }
 }

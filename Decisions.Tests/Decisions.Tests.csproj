@@ -99,8 +99,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TruffleCache">
-      <HintPath>..\packages\TruffleCache.1.0.0\lib\net45\TruffleCache.dll</HintPath>
+    <Reference Include="TruffleCache, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\TruffleCache.1.1.0\lib\net45\TruffleCache.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -1,9 +1,9 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using Decisions.API;
+using Decisions.Utility.API;
 
-namespace Decisions.Installers
+namespace Decisions.Castle.Installers
 {
     /// <summary>
     /// Installs Decisions Endpoints

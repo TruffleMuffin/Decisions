@@ -1,0 +1,385 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TruffleCache</name>
+    </assembly>
+    <members>
+        <member name="T:TruffleCache.Cache`1">
+            <summary>
+            A default implementation. This should suffice for most requirements.
+            </summary>
+            <typeparam name="T">The type of item stored in cache.</typeparam>
+            <remarks>It is highly recommended that you construct with a keyPrefix to avoid Key collisions.</remarks>
+        </member>
+        <member name="T:TruffleCache.CacheBase`1">
+            <summary>
+            This is the base class for Caches implemented by TruffleCache. It provides a number of default methods and some extensibility points.
+            If you need to implement a specialist Cache, you can extend this class to get the majority of Cache methods available from the get go.
+            </summary>
+            <typeparam name="T">The type of entity to store in the cache</typeparam>
+            <remarks>Default Expiry of cache items is 24 hours. If you wish to extend this set an AppSetting for "TruffleCache.ExpiryInHours".</remarks>
+        </member>
+        <member name="F:TruffleCache.CacheBase`1.cache">
+            <summary>
+            The <see cref="T:TruffleCache.ICacheStore"/> this cache is using.
+            </summary>
+        </member>
+        <member name="F:TruffleCache.CacheBase`1.defaultExpiry">
+            <summary>
+            The default expiry that this cache is using.
+            </summary>
+        </member>
+        <member name="M:TruffleCache.CacheBase`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:TruffleCache.CacheBase`1"/> class.
+            </summary>
+        </member>
+        <member name="M:TruffleCache.CacheBase`1.#ctor(TruffleCache.ICacheStore)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TruffleCache.CacheBase`1"/> class.
+            </summary>
+            <param name="cache">The cache.</param>
+        </member>
+        <member name="M:TruffleCache.CacheBase`1.Set(System.String,`0)">
+            <summary>
+            Add/Replaces an item in the cache with the default expiry.
+            </summary>
+            <param name="key">The unique key for the item.</param>
+            <param name="value">The instance of the object to add to the cache.</param>
+        </member>
+        <member name="M:TruffleCache.CacheBase`1.SetAsync(System.String,`0)">
+            <summary>
+            Add/Replaces an item in the cache with the default expiry
+            </summary>
+            <param name="key">The unique key for the item.</param>
+            <param name="value">The instance of the object to add to the cache.</param>
+        </member>
+        <member name="M:TruffleCache.CacheBase`1.Set(System.String,`0,System.TimeSpan)">
+            <summary>
+            Add/Replaces an item in the cache
+            </summary>
+            <param name="key">The unique key for the item.</param>
+            <param name="value">The instance of the object to add to the cache.</param>
+            <param name="expiresIn">The duration after which the item will expire from the cache.</param>
+        </member>
+        <member name="M:TruffleCache.CacheBase`1.SetAsync(System.String,`0,System.TimeSpan)">
+            <summary>
+            Add/Replaces an item in the cache
+            </summary>
+            <param name="key">The unique key for the item.</param>
+            <param name="value">The instance of the object to add to the cache.</param>
+            <param name="expiresIn">The duration after which the item will expire from the cache.</param>
+        </member>
+        <member name="M:TruffleCache.CacheBase`1.Remove(System.String)">
+            <summary>
+            Removes an item with a given key from the cache
+            </summary>
+            <param name="key">The unique key for the item to remove.</param>
+            <returns>True if removed, otherwise False.</returns>
+        </member>
+        <member name="M:TruffleCache.CacheBase`1.RemoveAsync(System.String)">
+            <summary>
+            Removes an item with a given key from the cache
+            </summary>
+            <param name="key">The unique key for the item to remove.</param>
+            <returns>True if removed, otherwise False.</returns>
+        </member>
+        <member name="M:TruffleCache.CacheBase`1.Get(System.String)">
+            <summary>
+            Gets an item with a given key from the cache.
+            </summary>
+            <param name="key">The unique key for the item.</param>
+            <returns>The item from the cache.</returns>
+        </member>
+        <member name="M:TruffleCache.CacheBase`1.GetAsync(System.String)">
+            <summary>
+            Gets an item with a given key from the cache.
+            </summary>
+            <param name="key">The unique key for the item.</param>
+            <returns>The item from the cache.</returns>
+        </member>
+        <member name="M:TruffleCache.CacheBase`1.Get(System.String[])">
+            <summary>
+            Gets multiple items from the cache.
+            </summary>
+            <param name="keys">The keys of the items to retrieve from cache.</param>
+            <returns>
+            A dictionary of the items from the cache, with the cache key being used as the dictionary key
+            </returns>
+        </member>
+        <member name="M:TruffleCache.CacheBase`1.GetAsync(System.String[])">
+            <summary>
+            Gets multiple items from the cache.
+            </summary>
+            <param name="keys">The keys of the items to retrieve from cache.</param>
+            <returns>
+            A dictionary of the items from the cache, with the cache key being used as the dictionary key
+            </returns>
+        </member>
+        <member name="M:TruffleCache.CacheBase`1.CleanKey(System.String)">
+            <summary>
+            Removes invalid characters from the provided key.
+            </summary>
+            <param name="key">The key.</param>
+            <returns>The key with only valid characters</returns>
+        </member>
+        <member name="P:TruffleCache.CacheBase`1.ProcessKey">
+            <summary>
+            Gets the function to apply to Keys in this instance.
+            </summary>
+        </member>
+        <member name="M:TruffleCache.Cache`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:TruffleCache.Cache`1"/> class.
+            </summary>
+        </member>
+        <member name="M:TruffleCache.Cache`1.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TruffleCache.Cache`1"/> class.
+            </summary>
+            <param name="cachePrefix">The key prefix.</param>
+        </member>
+        <member name="M:TruffleCache.Cache`1.#ctor(TruffleCache.ICacheStore,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TruffleCache.Cache`1"/> class.
+            </summary>
+            <param name="store">The store.</param>
+            <param name="cachePrefix">The key prefix.</param>
+        </member>
+        <member name="P:TruffleCache.Cache`1.ProcessKey">
+            <summary>
+            Gets the function to apply to Keys in this instance.
+            </summary>
+        </member>
+        <member name="T:TruffleCache.HashCache`1">
+            <summary>
+            A special implementation. This should be used when you have long keys that exceed the limits of the <see cref="T:TruffleCache.ICacheStore"/>. If you are 
+            using MemcacheD then this limit is approximately 250 bytes. This cache will MD5 Hash Keys before attempting to use them to ensure they are smaller
+            than the limit.
+            </summary>
+            <typeparam name="T">The type of item stored in cache.</typeparam>
+            <remarks>This cache has a performance impact due to the MD5 Hash that applies to the Key on all methods.</remarks>
+        </member>
+        <member name="M:TruffleCache.HashCache`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:TruffleCache.HashCache`1"/> class.
+            </summary>
+        </member>
+        <member name="M:TruffleCache.HashCache`1.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TruffleCache.HashCache`1"/> class.
+            </summary>
+            <param name="cachePrefix">The key prefix.</param>
+        </member>
+        <member name="M:TruffleCache.HashCache`1.#ctor(TruffleCache.ICacheStore,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TruffleCache.HashCache`1"/> class.
+            </summary>
+            <param name="store">The store.</param>
+            <param name="cachePrefix">The key prefix.</param>
+        </member>
+        <member name="M:TruffleCache.HashCache`1.GetHashedKey(System.String)">
+            <summary>
+            Gets the MD5 Hashed version of the specified Key
+            </summary>
+            <param name="key">The key.</param>
+            <returns>A string</returns>
+        </member>
+        <member name="P:TruffleCache.HashCache`1.ProcessKey">
+            <summary>
+            Gets the function to apply to Keys in this instance.
+            </summary>
+        </member>
+        <member name="T:TruffleCache.ICacheStore">
+            <summary>
+            Describes a Cache Store
+            </summary>
+        </member>
+        <member name="M:TruffleCache.ICacheStore.SetAsync(System.String,System.Object,System.TimeSpan)">
+            <summary>
+            Adds the specified instance to the cache
+            </summary>
+            <param name="key">The unqiue key to use for the item in the cache.</param>
+            <param name="value">The value to add in the cache.</param>
+            <param name="expiresIn">The timespan after which the item is expired from the cache.</param>
+            <returns>
+            True if the item was sucessfully added to the cache, false otherwise
+            </returns>
+        </member>
+        <member name="M:TruffleCache.ICacheStore.GetAsync(System.String[])">
+            <summary>
+            Gets multiple items from the cache.
+            </summary>
+            <param name="keys">The keys of the items to return.</param>
+            <returns>
+            A dictionary of the items from the cache, with the key being
+            used as the dictionary key
+            </returns>
+        </member>
+        <member name="M:TruffleCache.ICacheStore.GetAsync``1(System.String)">
+            <summary>
+            Gets the specified item from the cache.
+            </summary>
+            <typeparam name="T">The type of object in the cache</typeparam>
+            <param name="key">The unqiue key to use for the item in the cache.</param>
+            <returns>
+            The instance that was retrieved from the cache
+            </returns>
+        </member>
+        <member name="M:TruffleCache.ICacheStore.RemoveAsync(System.String)">
+            <summary>
+            Removes the specified key from the cache.
+            </summary>
+            <param name="key">The unqiue key to use for the item in the cache.</param>
+            <returns>
+            True if the item was removed from the cache, false otherwise
+            </returns>
+        </member>
+        <member name="T:TruffleCache.MemcachedStore">
+            <summary>
+            An implementation of the <see cref="T:TruffleCache.ICacheStore"/> using the <see cref="T:MemcachedSharp.MemcachedClient"/>.
+            </summary>
+        </member>
+        <member name="M:TruffleCache.MemcachedStore.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:TruffleCache.MemcachedStore"/> class.
+            </summary>
+        </member>
+        <member name="M:TruffleCache.MemcachedStore.#ctor(MemcachedSharp.MemcachedClient)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TruffleCache.MemcachedStore"/> class.
+            </summary>
+            <param name="client">The client.</param>
+        </member>
+        <member name="M:TruffleCache.MemcachedStore.SetAsync(System.String,System.Object,System.TimeSpan)">
+            <summary>
+            Adds the specified instance to the cache
+            </summary>
+            <param name="key">The unqiue key to use for the item in the cache.</param>
+            <param name="value">The value to add in the cache.</param>
+            <param name="expiresIn">The timespan after which the item is expired from the cache.</param>
+            <returns>
+            True if the item was sucessfully added to the cache, false otherwise
+            </returns>
+        </member>
+        <member name="M:TruffleCache.MemcachedStore.GetAsync(System.String[])">
+            <summary>
+            Gets multiple items from the cache.
+            </summary>
+            <param name="keys">The keys of the items to return.</param>
+            <returns>
+            A dictionary of the items from the cache, with the key being
+            used as the dictionary key
+            </returns>
+        </member>
+        <member name="M:TruffleCache.MemcachedStore.GetAsync``1(System.String)">
+            <summary>
+            Gets the specified item from the cache.
+            </summary>
+            <typeparam name="T">The type of object in the cache</typeparam>
+            <param name="key">The unqiue key to use for the item in the cache.</param>
+            <returns>
+            The instance that was retrieved from the cache
+            </returns>
+        </member>
+        <member name="M:TruffleCache.MemcachedStore.RemoveAsync(System.String)">
+            <summary>
+            Removes the specified key from the cache.
+            </summary>
+            <param name="key">The unqiue key to use for the item in the cache.</param>
+            <returns>
+            True if the item was removed from the cache, false otherwise
+            </returns>
+        </member>
+        <member name="M:TruffleCache.MemcachedStore.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:TruffleCache.MemcachedStore.PrefixKey(System.String)">
+            <summary>
+            Prefixes the key.
+            </summary>
+            <param name="key">The key.</param>
+        </member>
+        <member name="T:TruffleCache.Serializer">
+            <summary>
+            Implements a Serialisation system for arbitary objects
+            </summary>
+        </member>
+        <member name="M:TruffleCache.Serializer.SerializeAsync(System.Object)">
+            <summary>
+            Asynchronously serializes the provided object.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>The serialized object</returns>
+        </member>
+        <member name="M:TruffleCache.Serializer.DeserializeAsync(System.IO.Stream)">
+            <summary>
+            Asynchronously deserializes the provided byte array.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>The object</returns>
+        </member>
+        <member name="M:TruffleCache.Serializer.Serialize(System.Object)">
+            <summary>
+            Synchronously serializes the provided object.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>The serialized object</returns>
+        </member>
+        <member name="M:TruffleCache.Serializer.Deserialize(System.IO.Stream)">
+            <summary>
+            Synchronously deserializes the provided byte array.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>The object</returns>
+        </member>
+        <member name="M:TruffleCache.Serializer.Validate(System.Object)">
+            <summary>
+            Validates the specified object is serializable.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>True if serializable, otherwise False.</returns>
+        </member>
+        <member name="T:TruffleCache.ValueCache`1">
+            <summary>
+            A value type implementation. This specialist cache is for use with value types.
+            </summary>
+            <typeparam name="T">The type of item stored in cache.</typeparam>
+            <remarks>It is highly recommended that you construct with a keyPrefix to avoid Key collisions.</remarks>
+        </member>
+        <member name="M:TruffleCache.ValueCache`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:TruffleCache.ValueCache`1"/> class.
+            </summary>
+        </member>
+        <member name="M:TruffleCache.ValueCache`1.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TruffleCache.ValueCache`1"/> class.
+            </summary>
+            <param name="cachePrefix">The key prefix.</param>
+        </member>
+        <member name="M:TruffleCache.ValueCache`1.#ctor(TruffleCache.ICacheStore,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TruffleCache.ValueCache`1"/> class.
+            </summary>
+            <param name="store">The store.</param>
+            <param name="cachePrefix">The key prefix.</param>
+        </member>
+        <member name="M:TruffleCache.ValueCache`1.GetAsync(System.String[])">
+            <summary>
+            Gets multiple items from the cache.
+            </summary>
+            <param name="keys">The keys of the items to retrieve from cache.</param>
+            <returns>
+            A dictionary of the items from the cache, with the cache key being used as the dictionary key
+            </returns>
+        </member>
+        <member name="P:TruffleCache.ValueCache`1.ProcessKey">
+            <summary>
+            Gets the function to apply to Keys in this instance.
+            </summary>
+        </member>
+    </members>
+</doc>
