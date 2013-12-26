@@ -20,7 +20,7 @@ namespace Decisions.Contracts
         {
             return Injector.Get<IDecisionService>().CheckAsync(context);
         }
-        
+
         /// <summary>
         /// Sets the namespace for the context to be executed using.
         /// </summary>
@@ -75,29 +75,33 @@ namespace Decisions.Contracts
         public static DecisionContext On(this DecisionContext context, string target)
         {
             context = context ?? new DecisionContext();
-            
+
             var expandoObject = new ExpandoObject();
             var collection = (ICollection<KeyValuePair<string, object>>)expandoObject;
 
-            foreach (var keyValue in target.Split('|').Select(a => a.Split('=')).Select(a => new KeyValuePair<string, string>(a.First(), a.Last())))
+            if (target != null)
             {
-                // currently the value is a string. Try some common primitive type casts so that the Target as a better object to work with
-                int intValue;
-                Guid guidValue;
-                if (int.TryParse(keyValue.Value, out intValue))
+                foreach (var keyValue in target.Split('|').Select(a => a.Split('=')).Select(a => new KeyValuePair<string, string>(a.First(), a.Last())))
                 {
-                    collection.Add(new KeyValuePair<string, object>(keyValue.Key, intValue));
-                }
-                else if (Guid.TryParse(keyValue.Value, out guidValue))
-                {
-                    collection.Add(new KeyValuePair<string, object>(keyValue.Key, guidValue));
-                }
-                else
-                {
-                    // otherwise just use the string
-                    collection.Add(new KeyValuePair<string, object>(keyValue.Key, keyValue.Value));
+                    // currently the value is a string. Try some common primitive type casts so that the Target is a better object to work with
+                    int intValue;
+                    Guid guidValue;
+                    if (int.TryParse(keyValue.Value, out intValue))
+                    {
+                        collection.Add(new KeyValuePair<string, object>(keyValue.Key, intValue));
+                    }
+                    else if (Guid.TryParse(keyValue.Value, out guidValue))
+                    {
+                        collection.Add(new KeyValuePair<string, object>(keyValue.Key, guidValue));
+                    }
+                    else
+                    {
+                        // otherwise just use the string
+                        collection.Add(new KeyValuePair<string, object>(keyValue.Key, keyValue.Value));
+                    }
                 }
             }
+
             context.SetTargetProperty(expandoObject);
 
             return context;

@@ -49,6 +49,18 @@ namespace Decisions.Tests.Contracts.Services
         }
 
         [AsyncTest]
+        async Task Authorized_WithDefaults_AndNoTarget()
+        {
+            Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity("trufflemuffin"), new string[0]);
+
+            var context = DecisionContext.Create().Using("Example").Has("Z");
+            var result = await target.CheckAsync(context);
+            Assert.IsTrue(result);
+
+            Thread.CurrentPrincipal = null;
+        }
+
+        [AsyncTest]
         async Task Authorized_WithDefaults()
         {
             Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity("trufflemuffin"), new string[0]);

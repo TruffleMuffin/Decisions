@@ -31,8 +31,8 @@ namespace Decisions.Utility.API
         /// <returns>
         /// A Decision indicating the result of the query.
         /// </returns>
-        [Route("Api/Decide/{namespace}/{sourceId}/{roleName}/{targetId}")]
-        public async Task<bool> Get(string @namespace, string sourceId, string roleName, string targetId)
+        [Route("Api/Decide/{namespace}/{sourceId}/{roleName}/{targetId?}")]
+        public async Task<bool> Get(string @namespace, string sourceId, string roleName, string targetId = null)
         {
             return await service.CheckAsync(Resolve(@namespace, sourceId, roleName, targetId));
         }
