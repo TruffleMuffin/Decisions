@@ -70,6 +70,8 @@
     <Compile Include="CastleResolver.cs" />
     <Compile Include="Installers\CacheServicesInstaller.cs" />
     <Compile Include="Installers\EndpointInstaller.cs" />
+    <Compile Include="Installers\EnvironmentServiceInstaller.cs" />
+    <Compile Include="Installers\PolicyServiceInstaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ConfigPolicyProvider.cs" />
   </ItemGroup>

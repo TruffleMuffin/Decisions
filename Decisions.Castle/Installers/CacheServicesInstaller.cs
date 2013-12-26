@@ -1,4 +1,6 @@
-﻿using Castle.MicroKernel.Registration;
+﻿using System.Collections.Generic;
+using System.Reflection;
+using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Decisions.Contracts;
@@ -26,12 +28,13 @@ namespace Decisions.Castle.Installers
             container.Register(Component.For<Cache<Decision>>().DependsOn(Dependency.OnValue("keyPrefix", "Decisions")));
             container.Register(Component.For<Cache<object>>().DependsOn(Dependency.OnValue("keyPrefix", "Environments")));
             container.Register(Component.For<DecisionService>().DependsOn(Dependency.OnAppSettingsValue("configPath", "Decisions.ConfigurationPath")));
+            
             container.Register(
                 Component
                 .For<IEnvironmentService>()
                 .ImplementedBy<CacheEnvironmentService>()
                 .DependsOn(
-                    Dependency.OnComponent<IEnvironmentService, EnvironmentService>(),
+                    Dependency.OnValue<IEnvironmentService>(container.Resolve<EnvironmentService>()),
                     Dependency.OnAppSettingsValue("cacheDuration", "Decisions.EnvironmentCacheDuration")
                 )
             );
