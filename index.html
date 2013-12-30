@@ -1,57 +1,149 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Decisions : Highly concurrent claims based system for performing bespoke authorization checks." />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Decisions by TruffleMuffin</title>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Decisions</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
-
   <body>
+    <div class="wrapper">
+      <header>
+        <h1>Decisions</h1>
+        <p>Concurrent claims based system for performing bespoke authorization checks.</p>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/TruffleMuffin/Decisions">View on GitHub</a>
+        <p class="view"><a href="https://github.com/TruffleMuffin/Decisions">View the Project on GitHub <small>TruffleMuffin/Decisions</small></a></p>
 
-          <h1 id="project_title">Decisions</h1>
-          <h2 id="project_tagline">Highly concurrent claims based system for performing bespoke authorization checks.</h2>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/TruffleMuffin/Decisions/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/TruffleMuffin/Decisions/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
+        <ul>
+          <li><a href="https://github.com/TruffleMuffin/Decisions/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/TruffleMuffin/Decisions/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/TruffleMuffin/Decisions">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
         <h1>
-<a name="overview" class="anchor" href="#overview"><span class="octicon octicon-link"></span></a>Overview</h1>
+<a name="decisions" class="anchor" href="#decisions"><span class="octicon octicon-link"></span></a>Decisions</h1>
 
-<p>Intended to be a self contained WebAPI based application that will use RESTful endpoints to describe claims that can then be configured to execute bespoke code for decision resolution.</p>
+<p>A Claims based model for resolving bespoke authorization/security operations. Provides a layer of abstraction between authotization details and calling the operation. Thus, allowing the same operation to resolve differently depending on setup of Decisions not a change to your codebase. Useful when you have a lot of private or security driven parts to your application and want to have flexibility to change your security model with minimal risk and time involved.</p>
 
-<h1>
-<a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h1>
+<h2>
+<a name="overview" class="anchor" href="#overview"><span class="octicon octicon-link"></span></a>Overview</h2>
 
-<p>Example can be found in the repositories Test and Web projects.</p>
+<p>Self contained WebAPI application that uses RESTful endpoints to describe claims that can then be configured to execute bespoke code for decision resolution. </p>
+
+<p>Decisions has three key elements. A Policy, a Environment and a Decision. Each Decision is an Expression involving one or more Policies that resolves to a boolean True or False. Each Policy represents an element of the Decision and can use one or more Environments to resolve itself to a boolean True or False.</p>
+
+<h2>
+<a name="decisions-1" class="anchor" href="#decisions-1"><span class="octicon octicon-link"></span></a>Decisions</h2>
+
+<p>A Decision is a simple string that is described as part of the Decisions.config or like file you initialize Decisions with. Example of Decisions are:</p>
+
+<ul>
+<li>True</li>
+<li>False</li>
+<li>True OR False</li>
+<li>True AND False</li>
+<li>True AND (True OR False)</li>
+<li>!False</li>
+</ul><p>You can use Policies as part of Decisions, there are also some short hand conventions. The following can also be used:</p>
+
+<ul>
+<li>. instead of AND</li>
+<li>+ instead of OR</li>
+</ul><h2>
+<a name="environments" class="anchor" href="#environments"><span class="octicon octicon-link"></span></a>Environments</h2>
+
+<p>A Environment is some object that can be retrieved by the information available in the DecisionContext. The object can then be used within a Policy to help resolve it. You will need to implement IEnvironmentProvider in order to provide Environments in your Policies. The following is a simple example that uses the SourceId as a Current Username to resolve further details about that User.</p>
+
+<div class="highlight highlight-c#"><pre><span class="k">public</span> <span class="k">class</span> <span class="nc">EnvironmentProvider</span> <span class="p">:</span> <span class="n">DefaultEnvironmentProvider</span> 
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">override</span> <span class="n">Task</span><span class="p">&lt;</span><span class="kt">dynamic</span><span class="p">&gt;</span> <span class="n">GetAsync</span><span class="p">(</span><span class="kt">string</span> <span class="k">alias</span><span class="p">,</span> <span class="n">DecisionContext</span> <span class="n">context</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">alias</span> <span class="p">==</span> <span class="n">EnvironmentKeys</span><span class="p">.</span><span class="n">CURRENT_USER</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="n">Task</span><span class="p">.</span><span class="n">FromResult</span><span class="p">((</span><span class="kt">object</span><span class="p">)</span><span class="n">userService</span><span class="p">.</span><span class="n">GetUser</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="n">SourceId</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2>
+<a name="policies" class="anchor" href="#policies"><span class="octicon octicon-link"></span></a>Policies</h2>
+
+<p>A Policy is a atomically resolvable operation which alone or with other Policies resolves a Decision. Implementing one allows you to provide custom logic while executing a Decision. The Policy can then be registered with a PolicyProvider like the Example implementation to be executed in a Decision. Recommended approach for implementing a Policy is outlined below.</p>
+
+<div class="highlight highlight-c#"><pre><span class="k">public</span> <span class="k">class</span> <span class="nc">IsCurrentUserPolicy</span> <span class="p">:</span> <span class="n">AbstractPolicy</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">override</span> <span class="kt">bool</span> <span class="nf">Decide</span><span class="p">(</span><span class="n">DecisionContext</span> <span class="n">context</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">var</span> <span class="n">currentUser</span> <span class="p">=</span> <span class="n">GetEnvironment</span><span class="p">(</span><span class="n">EnvironmentKeys</span><span class="p">.</span><span class="n">CURRENT_USER</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span> <span class="k">as</span> <span class="n">User</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">context</span><span class="p">.</span><span class="n">Target</span><span class="p">.</span><span class="n">Id</span> <span class="p">==</span> <span class="n">currentUser</span><span class="p">.</span><span class="n">Id</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Install the Decisions NuGet package into your API WebSite, or whichever Website you would like to host Decisions from. Install the Decisions.Contracts and Decisions.Utility NuGet packages into your Domain/Application layers and apply as set out in the Usage section below.</p>
+
+<p>Once the NuGet packages are installed, you will need to implement policies and setup a Decisions.Config file then weave the implementations together with your chosen Inversion of Control strategy. You should implement a Decisions.Contracts.IResolver and apply it to Injector.Resolver on application startup.</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<h3>
+<a name="basic" class="anchor" href="#basic"><span class="octicon octicon-link"></span></a>Basic</h3>
+
+<div class="highlight highlight-c#"><pre><span class="kt">var</span> <span class="n">decisionsService</span> <span class="p">=</span> <span class="n">Injector</span><span class="p">.</span><span class="n">Get</span><span class="p">&lt;</span><span class="n">IDecisionsService</span><span class="p">&gt;();</span>
+<span class="kt">var</span> <span class="n">context</span> <span class="p">=</span> <span class="k">new</span> <span class="n">DecisionContext</span> <span class="p">{</span> <span class="n">Namespace</span> <span class="p">=</span> <span class="s">"Example"</span><span class="p">,</span> <span class="n">SourceId</span> <span class="p">=</span> <span class="s">"User"</span><span class="p">,</span> <span class="n">Role</span> <span class="p">=</span> <span class="s">"Role"</span><span class="p">,</span> <span class="n">Target</span> <span class="p">=</span> <span class="k">new</span> <span class="p">{</span> <span class="n">@id</span> <span class="p">=</span> <span class="m">1</span> <span class="p">}};</span>
+<span class="kt">var</span> <span class="n">decision</span> <span class="p">=</span> <span class="k">await</span> <span class="n">decisionsService</span><span class="p">.</span><span class="n">CheckAsync</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
+<span class="k">if</span><span class="p">(!</span><span class="n">decision</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="n">UnauthorizedAccessException</span><span class="p">();</span>
+</pre></div>
+
+<h3>
+<a name="fluent" class="anchor" href="#fluent"><span class="octicon octicon-link"></span></a>Fluent</h3>
+
+<div class="highlight highlight-c#"><pre><span class="kt">var</span> <span class="n">decisionsService</span> <span class="p">=</span> <span class="n">Injector</span><span class="p">.</span><span class="n">Get</span><span class="p">&lt;</span><span class="n">IDecisionsService</span><span class="p">&gt;();</span>
+<span class="kt">var</span> <span class="n">context</span> <span class="p">=</span> <span class="n">DecisionContext</span><span class="p">.</span><span class="n">Create</span><span class="p">().</span><span class="n">Using</span><span class="p">(</span><span class="s">"Example"</span><span class="p">).</span><span class="n">As</span><span class="p">(</span><span class="s">"User"</span><span class="p">).</span><span class="n">Has</span><span class="p">(</span><span class="s">"Role"</span><span class="p">).</span><span class="n">On</span><span class="p">(</span><span class="k">new</span> <span class="p">{</span> <span class="n">@id</span> <span class="p">=</span> <span class="m">1</span> <span class="p">});</span>
+<span class="kt">var</span> <span class="n">decision</span> <span class="p">=</span> <span class="k">await</span> <span class="n">decisionsService</span><span class="p">.</span><span class="n">CheckAsync</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
+<span class="k">if</span><span class="p">(!</span><span class="n">decision</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="n">UnauthorizedAccessException</span><span class="p">();</span>
+</pre></div>
+
+<h3>
+<a name="simplied-fluent" class="anchor" href="#simplied-fluent"><span class="octicon octicon-link"></span></a>Simplied Fluent</h3>
+
+<div class="highlight highlight-c#"><pre><span class="kt">var</span> <span class="n">decision</span> <span class="p">=</span> <span class="k">await</span> <span class="n">DecisionContext</span><span class="p">.</span><span class="n">Create</span><span class="p">().</span><span class="n">Using</span><span class="p">(</span><span class="s">"Example"</span><span class="p">).</span><span class="n">As</span><span class="p">(</span><span class="s">"User"</span><span class="p">).</span><span class="n">Has</span><span class="p">(</span><span class="s">"Role"</span><span class="p">).</span><span class="n">On</span><span class="p">(</span><span class="k">new</span> <span class="p">{</span> <span class="n">@id</span> <span class="p">=</span> <span class="m">1</span> <span class="p">}).</span><span class="n">Check</span><span class="p">();</span>
+<span class="k">if</span><span class="p">(!</span><span class="n">decision</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="n">UnauthorizedAccessException</span><span class="p">();</span>
+</pre></div>
+
+<h3>
+<a name="lamda-simplified-fluent" class="anchor" href="#lamda-simplified-fluent"><span class="octicon octicon-link"></span></a>Lamda Simplified Fluent</h3>
+
+<div class="highlight highlight-c#"><pre><span class="kt">var</span> <span class="n">decision</span> <span class="p">=</span> <span class="k">await</span> <span class="n">DecisionContext</span><span class="p">.</span><span class="n">Check</span><span class="p">(</span><span class="n">a</span> <span class="p">=&gt;</span> <span class="n">a</span><span class="p">.</span><span class="n">Using</span><span class="p">(</span><span class="s">"Example"</span><span class="p">).</span><span class="n">As</span><span class="p">(</span><span class="s">"User"</span><span class="p">).</span><span class="n">Has</span><span class="p">(</span><span class="s">"Role"</span><span class="p">).</span><span class="n">On</span><span class="p">(</span><span class="k">new</span> <span class="p">{</span> <span class="n">@id</span> <span class="p">=</span> <span class="m">1</span> <span class="p">}));</span>
+<span class="k">if</span><span class="p">(!</span><span class="n">decision</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="n">UnauthorizedAccessException</span><span class="p">();</span>
+</pre></div>
+
+<h3>
+<a name="lamda-simplified-fluent-with-defaults" class="anchor" href="#lamda-simplified-fluent-with-defaults"><span class="octicon octicon-link"></span></a>Lamda Simplified Fluent with Defaults</h3>
+
+<div class="highlight highlight-c#"><pre><span class="kt">var</span> <span class="n">decision</span> <span class="p">=</span> <span class="k">await</span> <span class="n">DecisionContext</span><span class="p">.</span><span class="n">Check</span><span class="p">(</span><span class="n">a</span> <span class="p">=&gt;</span> <span class="n">a</span><span class="p">.</span><span class="n">Using</span><span class="p">(</span><span class="s">"Example"</span><span class="p">).</span><span class="n">Has</span><span class="p">(</span><span class="s">"Role"</span><span class="p">).</span><span class="n">On</span><span class="p">(</span><span class="k">new</span> <span class="p">{</span> <span class="n">@id</span> <span class="p">=</span> <span class="m">1</span> <span class="p">}));</span>
+<span class="k">if</span><span class="p">(!</span><span class="n">decision</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="n">UnauthorizedAccessException</span><span class="p">();</span>
+</pre></div>
       </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Decisions maintained by <a href="https://github.com/TruffleMuffin">TruffleMuffin</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/TruffleMuffin">TruffleMuffin</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
-
+    <script src="javascripts/scale.fix.js"></script>
     
-
   </body>
 </html>
