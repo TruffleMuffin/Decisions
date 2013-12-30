@@ -1,7 +1,7 @@
 Decisions
 ==========
 
-Highly concurrent claims based system for performing bespoke authorization checks.
+A Claims based model for resolving bespoke authorization/security operations. Provides a layer of abstraction between authotization details and calling the operation. Thus, allowing the same operation to resolve differently depending on setup of Decisions not a change to your codebase. Useful when you have a lot of private or security driven parts to your application and want to have flexibility to change your security model with minimal risk and time involved.
 
 Overview
 -------------------------
