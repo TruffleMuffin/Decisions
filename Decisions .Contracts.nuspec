@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Decisions.Contracts</id>
+    <title>Decisions.Contracts</title>
+    <version>1.0.0</version>
+    <authors>TruffleMuffin</authors>
+    <owners>TruffleMuffin</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A set of interfaces and entities for integrating with the Decisions package.</description>
+    <summary>A set of interfaces and entities for integrating with the Decisions package.</summary>
+    <copyright>Copyright 2014</copyright>
+    <projectUrl>https://github.com/TruffleMuffin/Decisions</projectUrl>
+    <tags>Decisions</tags>
+  </metadata>
+  <files>
+    <file src="Build\Decisions.Contracts.dll" target="lib\net45" />
+    <file src="Build\Decisions.Contracts.XML" target="lib\net45" />
+  </files>
+</package>

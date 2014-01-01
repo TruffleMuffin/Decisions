@@ -11,7 +11,7 @@ using System.Web.Mvc;
 using Decisions.Contracts;
 using ActionFilterAttribute = System.Web.Http.Filters.ActionFilterAttribute;
 
-namespace Decisions.Utility.Filters
+namespace Decisions.WebHost.Filters
 {
     /// <summary>
     /// An action filter that can be used to make calls to <see cref="IDecisionService" /> in a non-blocking (for the action execution) manner.

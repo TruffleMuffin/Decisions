@@ -29,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Decisions.Contracts.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -54,6 +55,7 @@
     <Compile Include="IPolicyProvider.cs" />
     <Compile Include="IResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.gen.cs" />
     <Compile Include="Providers\DefaultEnvironmentProvider.cs" />
     <Compile Include="Providers\DefaultsProvider.cs" />
     <Compile Include="Providers\PolicyProvider.cs" />

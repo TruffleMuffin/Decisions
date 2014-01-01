@@ -4,7 +4,7 @@ using System.IO;
 using Decisions.Contracts;
 using Decisions.Contracts.Providers;
 using Decisions.Services;
-using Decisions.Utility.API;
+using Decisions.WebHost.API;
 
 namespace Decisions.Example.Support
 {

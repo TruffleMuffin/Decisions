@@ -1,7 +1,7 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using Decisions.Utility.API;
+using Decisions.WebHost.API;
 
 namespace Decisions.Castle.Installers
 {

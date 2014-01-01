@@ -1,0 +1,223 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Decisions</name>
+    </assembly>
+    <members>
+        <member name="T:Decisions.Providers.ExpressionProvider">
+            <summary>
+            Describes an Expression inflation provider for string based input.
+            </summary>
+        </member>
+        <member name="M:Decisions.Providers.ExpressionProvider.#cctor">
+            <summary>
+            Initializes the <see cref="T:Decisions.Providers.ExpressionProvider"/> class.
+            </summary>
+        </member>
+        <member name="M:Decisions.Providers.ExpressionProvider.#ctor(System.Xml.Linq.XElement,Decisions.Services.PolicyService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Decisions.Providers.ExpressionProvider"/> class.
+            </summary>
+            <param name="settings">The settings.</param>
+            <param name="provider">The provider.</param>
+            <exception cref="T:System.Configuration.ConfigurationErrorsException">All expressions must specify a unique 'key'.
+            or
+            All expressions must specify a 'value'.</exception>
+            <exception cref="T:System.Configuration.ConfigurationErrorsException">All expressions must specify a unique 'key'.
+            or
+            All expressions must specify a 'value'.</exception>
+        </member>
+        <member name="M:Decisions.Providers.ExpressionProvider.Inflate(Decisions.Contracts.DecisionContext)">
+            <summary>
+            Inflates the specified context into an expression that can be executed.
+            </summary>
+            <param name="context">The context.</param>
+            <returns>A delegate that takes a <see cref="T:Decisions.Contracts.DecisionContext"/> as a parameter to execute</returns>
+        </member>
+        <member name="M:Decisions.Providers.ExpressionProvider.Reduce(System.String)">
+            <summary>
+            Reduces the specified input, removing all extraneous or non-required text.
+            </summary>
+            <param name="input">The input.</param>
+            <returns>A string based on the input</returns>
+        </member>
+        <member name="M:Decisions.Providers.ExpressionProvider.Parse(System.String)">
+            <summary>
+            Parses the specified input.
+            </summary>
+            <param name="input">The input.</param>
+            <returns>An <see cref="T:System.Linq.Expressions.Expression"/> representing the input.</returns>
+        </member>
+        <member name="M:Decisions.Providers.ExpressionProvider.Call(System.String)">
+            <summary>
+            Calls an <see cref="T:Decisions.Contracts.AbstractPolicy"/> registered in the <see cref="T:Decisions.Services.PolicyService"/> with the specified alias.
+            </summary>
+            <param name="alias">The alias.</param>
+            <returns>An <see cref="T:System.Linq.Expressions.Expression"/> representing the result</returns>
+        </member>
+        <member name="M:Decisions.Providers.ExpressionProvider.Combine(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Char,System.Boolean)">
+            <summary>
+            Combines the specified LHS and RHS with the provided operators.
+            </summary>
+            <param name="lhs">The LHS.</param>
+            <param name="rhs">The RHS.</param>
+            <param name="operation">The operation.</param>
+            <param name="not">if set to <c>true</c> [not].</param>
+            <returns>An <see cref="T:System.Linq.Expressions.Expression"/> representing the result of the operation</returns>
+            <exception cref="T:System.InvalidOperationException">When the operation is not recognised.</exception>
+        </member>
+        <member name="T:Decisions.Services.Cache.Decision">
+            <summary>
+            Describes the result of a Decision
+            </summary>
+        </member>
+        <member name="P:Decisions.Services.Cache.Decision.Id">
+            <summary>
+            Gets or sets the Decision identifier.
+            </summary>
+        </member>
+        <member name="P:Decisions.Services.Cache.Decision.Result">
+            <summary>
+            Gets or sets the result of the Decision
+            </summary>
+        </member>
+        <member name="T:Decisions.Services.Cache.DecisionService">
+            <summary>
+            An implementation of <see cref="T:Decisions.Contracts.IDecisionService"/> that caches decisions for short periods of time.
+            </summary>
+        </member>
+        <member name="M:Decisions.Services.Cache.DecisionService.#ctor(Decisions.Contracts.IDecisionService,TruffleCache.Cache{Decisions.Services.Cache.Decision})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Decisions.Services.Cache.DecisionService"/> class.
+            </summary>
+            <param name="service">The service.</param>
+            <param name="cache">The cache.</param>
+        </member>
+        <member name="M:Decisions.Services.Cache.DecisionService.#ctor(Decisions.Contracts.IDecisionService,TruffleCache.Cache{Decisions.Services.Cache.Decision},System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Decisions.Services.Cache.DecisionService"/> class.
+            </summary>
+            <param name="service">The service.</param>
+            <param name="cache">The cache.</param>
+            <param name="cacheDuration">Duration of the cache in seconds.</param>
+        </member>
+        <member name="M:Decisions.Services.Cache.DecisionService.CheckAsync(Decisions.Contracts.DecisionContext)">
+            <summary>
+            Determines the result of the specified context.
+            </summary>
+            <param name="context">The context.</param>
+            <returns>
+            A Decision indicating the result of the query.
+            </returns>
+        </member>
+        <member name="M:Decisions.Services.Cache.DecisionService.Key(Decisions.Contracts.DecisionContext)">
+            <summary>
+            Creates a unique cache key for the context
+            </summary>
+            <param name="context">The context.</param>
+            <returns>A unique string representing the parameters</returns>
+        </member>
+        <member name="T:Decisions.Services.Cache.EnvironmentService">
+            <summary>
+            An implementation of <see cref="T:Decisions.Contracts.IEnvironmentService"/> that caches environments for short periods of time.
+            </summary>
+        </member>
+        <member name="M:Decisions.Services.Cache.EnvironmentService.#ctor(Decisions.Contracts.IEnvironmentService,TruffleCache.Cache{System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Decisions.Services.Cache.EnvironmentService"/> class.
+            </summary>
+            <param name="service">The service.</param>
+            <param name="cache">The cache.</param>
+        </member>
+        <member name="M:Decisions.Services.Cache.EnvironmentService.#ctor(Decisions.Contracts.IEnvironmentService,TruffleCache.Cache{System.Object},System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Decisions.Services.Cache.EnvironmentService"/> class.
+            </summary>
+            <param name="service">The service.</param>
+            <param name="cache">The cache.</param>
+            <param name="cacheDuration">Duration of the cache in seconds.</param>
+        </member>
+        <member name="M:Decisions.Services.Cache.EnvironmentService.GetAsync(System.String,Decisions.Contracts.DecisionContext)">
+            <summary>
+            Gets the environment with the specified alias asynchronously.
+            </summary>
+            <param name="alias">The globally unique alias used to represent a specific environment.</param>
+            <param name="context">The context.</param>
+            <returns>
+            An environment, likely an instance of a class from an external assembly.
+            </returns>
+        </member>
+        <member name="M:Decisions.Services.Cache.EnvironmentService.Key(System.String,Decisions.Contracts.DecisionContext)">
+            <summary>
+            Creates a unique cache key for the alias and context
+            </summary>
+            <param name="alias">The alias.</param>
+            <param name="context">The context.</param>
+            <returns>A unique string representing the parameters</returns>
+        </member>
+        <member name="T:Decisions.Services.DecisionService">
+            <summary>
+            An implemenation of the <see cref="T:Decisions.Contracts.IDecisionService"/> that handles execution of decisions.
+            </summary>
+        </member>
+        <member name="M:Decisions.Services.DecisionService.#ctor(System.String,Decisions.Services.PolicyService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Decisions.Services.DecisionService"/> class.
+            </summary>
+            <param name="configPath">The config path.</param>
+            <param name="service">The service.</param>
+        </member>
+        <member name="M:Decisions.Services.DecisionService.CheckAsync(Decisions.Contracts.DecisionContext)">
+            <summary>
+            Determines the result of the specified context.
+            </summary>
+            <param name="context">The context.</param>
+            <returns>
+            A Decision indicating the result of the query.
+            </returns>
+        </member>
+        <member name="T:Decisions.Services.EnvironmentService">
+            <summary>
+            A service for retrieving environments regarding a <see cref="T:Decisions.Contracts.DecisionContext"/> for use in determining its Decision via the <see cref="T:Decisions.Contracts.IDecisionService"/>.
+            </summary>
+        </member>
+        <member name="M:Decisions.Services.EnvironmentService.#ctor(System.Collections.Generic.IEnumerable{Decisions.Contracts.IEnvironmentProvider})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Decisions.Services.EnvironmentService"/> class.
+            </summary>
+            <param name="providers">The providers.</param>
+        </member>
+        <member name="M:Decisions.Services.EnvironmentService.GetAsync(System.String,Decisions.Contracts.DecisionContext)">
+            <summary>
+            Gets the environment with the specified key asynchronously.
+            </summary>
+            <param name="alias">The key.</param>
+            <param name="context">The context.</param>
+            <returns>
+            An environment, likely an instance of a class from an external assembly.
+            </returns>
+        </member>
+        <member name="T:Decisions.Services.PolicyService">
+            <summary>
+            A service for retrieving policies regarding a <see cref="T:Decisions.Contracts.DecisionContext"/> for use in determining its Decision via the <see cref="T:Decisions.Contracts.IDecisionService"/>.
+            </summary>
+        </member>
+        <member name="M:Decisions.Services.PolicyService.#ctor(System.Collections.Generic.IEnumerable{Decisions.Contracts.IPolicyProvider},Decisions.Contracts.IEnvironmentService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Decisions.Services.PolicyService"/> class.
+            </summary>
+            <param name="providers">The providers.</param>
+            <param name="service">The service.</param>
+            <exception cref="T:System.ArgumentException">Some providers are required to initialize the Decisions.Application.Services.PolicyService</exception>
+        </member>
+        <member name="M:Decisions.Services.PolicyService.Get(System.String)">
+            <summary>
+            Gets the <see cref="T:Decisions.Contracts.AbstractPolicy"/> with the specified key.
+            </summary>
+            <param name="alias">The key that can be used to lookup the policy.</param>
+            <returns>
+            An environment, likely an instance of a class from an external assembly.
+            </returns>
+        </member>
+    </members>
+</doc>

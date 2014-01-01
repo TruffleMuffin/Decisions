@@ -45,13 +45,27 @@
     <Reference Include="Castle.Windsor">
       <HintPath>..\packages\Castle.Windsor.3.2.0\lib\net45\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="MemcachedSharp">
-      <HintPath>..\packages\MemcachedSharp.1.0.0\lib\net45\MemcachedSharp.dll</HintPath>
+    <Reference Include="Decisions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Decisions.1.0.0\lib\net45\Decisions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CompilerServices.AsyncTargetingPack.Net45">
-      <HintPath>..\packages\Microsoft.CompilerServices.AsyncTargetingPack.1.0.1\lib\net45\Microsoft.CompilerServices.AsyncTargetingPack.Net45.dll</HintPath>
+    <Reference Include="Decisions.Castle, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Decisions.Castle.1.0.0\lib\net45\Decisions.Castle.dll</HintPath>
+    </Reference>
+    <Reference Include="Decisions.Contracts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Decisions.Contracts.1.0.0\lib\net45\Decisions.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="Decisions.WebHost, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Decisions.WebHost.1.0.0\lib\net45\Decisions.WebHost.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -69,6 +83,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Http, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.0.0\lib\net45\System.Web.Http.dll</HintPath>
@@ -77,7 +95,26 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.0.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -85,10 +122,6 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="TruffleCache, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\TruffleCache.1.1.0\lib\net45\TruffleCache.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -115,7 +148,9 @@
     <Compile Include="Support\ValuesController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Decisions.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -123,24 +158,6 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Decisions.Castle\Decisions.Castle.csproj">
-      <Project>{972b4c4e-b07e-4600-ae0a-e9f7f2276b19}</Project>
-      <Name>Decisions.Castle</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Decisions\Decisions.csproj">
-      <Project>{289f50d0-6ddf-4ad2-a7ac-77ac19e45409}</Project>
-      <Name>Decisions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Decisions.Contracts\Decisions.Contracts.csproj">
-      <Project>{77470fbd-65a2-4935-972e-d9e75be96adc}</Project>
-      <Name>Decisions.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Decisions.Utility\Decisions.Utility.csproj">
-      <Project>{fa47bd64-79e5-45a8-a6d3-4946bbb641ea}</Project>
-      <Name>Decisions.Utility</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -6,7 +6,7 @@ using System.Web.Http.SelfHost;
 using Decisions.Contracts;
 using Decisions.Contracts.Services;
 using Decisions.Example.Support;
-using Decisions.Utility;
+using Decisions.WebHost;
 using MbUnit.Framework;
 
 namespace Decisions.Tests.Contracts.Services

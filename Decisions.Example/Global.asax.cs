@@ -1,8 +1,8 @@
 ﻿using System.Web.Http;
 using Decisions.Castle;
 using Decisions.Contracts;
-using Decisions.Utility;
-using Decisions.Utility.API;
+using Decisions.WebHost;
+using Decisions.WebHost.API;
 using Newtonsoft.Json.Serialization;
 
 namespace Decisions.Example

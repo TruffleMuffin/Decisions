@@ -129,9 +129,9 @@
       <Project>{77470fbd-65a2-4935-972e-d9e75be96adc}</Project>
       <Name>Decisions.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Decisions.Utility\Decisions.Utility.csproj">
+    <ProjectReference Include="..\Decisions.WebHost\Decisions.WebHost.csproj">
       <Project>{fa47bd64-79e5-45a8-a6d3-4946bbb641ea}</Project>
-      <Name>Decisions.Utility</Name>
+      <Name>Decisions.WebHost</Name>
     </ProjectReference>
     <ProjectReference Include="..\Decisions.Example\Decisions.Example.csproj">
       <Project>{c69d36aa-a533-456f-89a6-69d886e927d7}</Project>

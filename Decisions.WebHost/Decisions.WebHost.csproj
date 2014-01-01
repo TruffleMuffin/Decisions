@@ -7,8 +7,8 @@
     <ProjectGuid>{FA47BD64-79E5-45A8-A6D3-4946BBB641EA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Decisions.Utility</RootNamespace>
-    <AssemblyName>Decisions.Utility</AssemblyName>
+    <RootNamespace>Decisions.WebHost</RootNamespace>
+    <AssemblyName>Decisions.WebHost</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -28,6 +28,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Decisions.WebHost.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -83,9 +84,12 @@
     <Compile Include="Filters\DecisionCheckAttribute.cs" />
     <Compile Include="InjectorDependencyResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.gen.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Decisions.Contracts\Decisions.Contracts.csproj">

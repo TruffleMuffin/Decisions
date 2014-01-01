@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web.Http.Dependencies;
 using Decisions.Contracts;
 
-namespace Decisions.Utility
+namespace Decisions.WebHost
 {
     /// <summary>
     /// An implementation of the <see cref="IDependencyResolver"/> interface which uses <see cref="Injector"/>
