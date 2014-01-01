@@ -12,7 +12,7 @@ namespace Decisions.Example.Support
             return "value";
         }
 
-        [DecisionCheck(Lazy = false, Using = "Example", Has = "A", On = "id={id}")]
+        [DecisionCheck(Lazy = false, Using = "Example", Has = "Y")]
         public string Get()
         {
             throw new ApplicationException("Should never be executed");

@@ -152,6 +152,8 @@ namespace Decisions.Utility.Filters
         /// <exception cref="System.ArgumentException">Decisions.Utility.Filters.DecisionCheckAttribute has no Target</exception>
         private IEnumerable<KeyValuePair<string, object>> ParseOn(IDictionary<string, object> args)
         {
+            if(string.IsNullOrWhiteSpace(On)) yield break;
+
             var elements = On.Split('&');
             foreach (var element in elements.Where(a => a.Contains("=")).Select(a => a.Split('=')))
             {
@@ -176,8 +178,6 @@ namespace Decisions.Utility.Filters
         /// Decisions.Utility.Filters.DecisionCheckAttribute - Using has not been set
         /// or
         /// Decisions.Utility.Filters.DecisionCheckAttribute - Has has not been set
-        /// or
-        /// Decisions.Utility.Filters.DecisionCheckAttribute - On has not been set
         /// </exception>
         private void Validate()
         {
@@ -188,10 +188,6 @@ namespace Decisions.Utility.Filters
             if (string.IsNullOrWhiteSpace(Has))
             {
                 throw new ArgumentException("Has has not been set");
-            }
-            if (string.IsNullOrWhiteSpace(On))
-            {
-                throw new ArgumentException("On has not been set");
             }
         }
 

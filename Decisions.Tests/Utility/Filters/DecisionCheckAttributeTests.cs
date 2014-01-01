@@ -62,11 +62,11 @@ namespace Decisions.Tests.Utility.Filters
         }
 
         [Test]
-        void NotAuthorized_NotLazy()
+        void NotAuthorized_NotLazy_WithoutTarget()
         {
             var client = new HttpClient();
 
-            var resp = client.GetAsync(string.Format("http://localhost:40000/api/values/{0}", 2)).Result;
+            var resp = client.GetAsync(string.Format("http://localhost:40000/api/values/")).Result;
             Assert.AreEqual(HttpStatusCode.Unauthorized, resp.StatusCode);
         }
     }
