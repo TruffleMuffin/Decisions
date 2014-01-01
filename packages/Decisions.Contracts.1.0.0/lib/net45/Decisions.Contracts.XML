@@ -1,0 +1,493 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Decisions.Contracts</name>
+    </assembly>
+    <members>
+        <member name="T:Decisions.Contracts.AbstractPolicy">
+            <summary>
+            Describes the basic Securable policy. This extensibility point allows developers to write their own policies that can be used
+            as part of the Decision process executed on <see cref="T:Decisions.Contracts.IDecisionService"/>.
+            </summary>
+        </member>
+        <member name="T:Decisions.Contracts.IPolicy">
+            <summary>
+            Describes Securable policy. This extensibility point allows developers to write their own policies that can be used
+            as part of the Decision process executed on <see cref="T:Decisions.Contracts.IDecisionService"/>.
+            </summary>
+        </member>
+        <member name="M:Decisions.Contracts.IPolicy.Decide(Decisions.Contracts.DecisionContext)">
+            <summary>
+            Make a decisions on the Decision of this policy for the provided <see cref="T:Decisions.Contracts.DecisionContext"/>.
+            </summary>
+            <returns>True if the policy passes, otherwise false.</returns>
+        </member>
+        <member name="P:Decisions.Contracts.IPolicy.Service">
+            <summary>
+            Gets or sets the <see cref="T:Decisions.Contracts.IEnvironmentService"/>. The service can be used to retrieve Environments to process a <see cref="T:Decisions.Contracts.AbstractPolicy"/>.
+            </summary>
+            <remarks>Guaranteed to be set by Decisions if not set manually</remarks>
+        </member>
+        <member name="M:Decisions.Contracts.AbstractPolicy.Decide(Decisions.Contracts.DecisionContext)">
+            <summary>
+            Make a decisions on the Decision of this policy for the provided <see cref="T:Decisions.Contracts.DecisionContext"/>.
+            </summary>
+            <returns>True if the policy passes, otherwise false.</returns>
+        </member>
+        <member name="M:Decisions.Contracts.AbstractPolicy.GetEnvironment(System.String,Decisions.Contracts.DecisionContext)">
+            <summary>
+            Gets the environment with the specified key asynchronously.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="context">The context.</param>
+            <returns>
+            The environment
+            </returns>
+        </member>
+        <member name="M:Decisions.Contracts.AbstractPolicy.GetEnvironmentAsync(System.String,Decisions.Contracts.DecisionContext)">
+            <summary>
+            Gets the environment with the specified key asynchronously.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="context">The context.</param>
+            <returns>
+            The environment
+            </returns>
+        </member>
+        <member name="P:Decisions.Contracts.AbstractPolicy.Service">
+            <summary>
+            Gets or sets the <see cref="T:Decisions.Contracts.IEnvironmentService"/>. The service can be used to retrieve Environments to process a <see cref="T:Decisions.Contracts.AbstractPolicy"/>.
+            </summary>
+            <remarks>Guaranteed to be set by Decisions if not set manually</remarks>
+        </member>
+        <member name="T:Decisions.Contracts.DecisionContext">
+            <summary>
+            Describes a decision context, containing all relevant information for getting a Decision result from the <see cref="T:Decisions.Contracts.IDecisionService"/>.
+            </summary>
+        </member>
+        <member name="F:Decisions.Contracts.DecisionContext.ID_FORMAT">
+            <summary>
+            The string format for the Id of this instance
+            </summary>
+        </member>
+        <member name="M:Decisions.Contracts.DecisionContext.Create">
+            <summary>
+            Creates an instance of <see cref="T:Decisions.Contracts.DecisionContext"/>
+            </summary>
+            <returns>An empty <see cref="T:Decisions.Contracts.DecisionContext"/></returns>
+        </member>
+        <member name="M:Decisions.Contracts.DecisionContext.Create(System.Func{Decisions.Contracts.DecisionContext,Decisions.Contracts.DecisionContext})">
+            <summary>
+            Applies the provided operation onto the <see cref="T:Decisions.Contracts.DecisionContext"/>.
+            </summary>
+            <param name="lambda">The lambda.</param>
+            <returns>
+            The modified <see cref="T:Decisions.Contracts.DecisionContext"/>
+            </returns>
+        </member>
+        <member name="M:Decisions.Contracts.DecisionContext.Check(System.Func{Decisions.Contracts.DecisionContext,Decisions.Contracts.DecisionContext})">
+            <summary>
+            Checks the specified context against the <see cref="T:Decisions.Contracts.IDecisionService"/>.
+            </summary>
+            <param name="lambda">The lambda.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Decisions.Contracts.DecisionContext.SetTargetProperty(System.Object)">
+            <summary>
+            Sets the target property.
+            </summary>
+            <param name="anonymousObject">The anonymous object.</param>
+        </member>
+        <member name="M:Decisions.Contracts.DecisionContext.SerializeTarget">
+            <summary>
+            Serializes the target into an IEnumerable of strings representing its Key/Value pairs for Properties.
+            </summary>
+            <returns>A string for each Property on Target</returns>
+        </member>
+        <member name="M:Decisions.Contracts.DecisionContext.GetHashCode">
+            <summary>
+            Returns a hash code for this instance.
+            </summary>
+            <returns>
+            A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+            </returns>
+        </member>
+        <member name="M:Decisions.Contracts.DecisionContext.Equals(System.Object)">
+            <summary>
+            Determines whether the specified <see cref="T:System.Object"/> is equal to this instance.
+            </summary>
+            <param name="obj">The <see cref="T:System.Object"/> to compare with this instance.</param>
+            <returns>
+              <c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Decisions.Contracts.DecisionContext.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="P:Decisions.Contracts.DecisionContext.Id">
+            <summary>
+            Gets or sets the Globally Unique Identifier that identifies this specific instance uniquely.
+            </summary>
+        </member>
+        <member name="P:Decisions.Contracts.DecisionContext.Namespace">
+            <summary>
+            Gets or sets the name of the namespace which the decision should be made within.
+            </summary>
+        </member>
+        <member name="P:Decisions.Contracts.DecisionContext.SourceId">
+            <summary>
+            Gets or sets the source id the decision should be made for.
+            </summary>
+        </member>
+        <member name="P:Decisions.Contracts.DecisionContext.Role">
+            <summary>
+            Gets or sets the role the decision should be about.
+            </summary>
+        </member>
+        <member name="P:Decisions.Contracts.DecisionContext.Target">
+            <summary>
+            Gets or sets the target which the decision should be on.
+            </summary>
+        </member>
+        <member name="T:Decisions.Contracts.DecisionsExtensions">
+            <summary>
+            A set of extensions to the <see cref="T:Decisions.Contracts.IDecisionService"/> to make common tasks a little simpler to execute.
+            </summary>
+        </member>
+        <member name="M:Decisions.Contracts.DecisionsExtensions.Check(Decisions.Contracts.IDecisionService,Decisions.Contracts.DecisionContext)">
+            <summary>
+            Determines the result of the specified context.
+            </summary>
+            <param name="service">The service.</param>
+            <param name="context">The context.</param>
+            <returns>
+            A Decision indicating the result of the query.
+            </returns>
+        </member>
+        <member name="M:Decisions.Contracts.DecisionsExtensions.Check(Decisions.Contracts.IDecisionService,System.Collections.Generic.IEnumerable{Decisions.Contracts.DecisionContext})">
+            <summary>
+            Determines the results of the specified contexts.
+            </summary>
+            <param name="service">The service.</param>
+            <param name="contexts">The contexts.</param>
+            <returns>
+            A Decision indicating the result of the query.
+            </returns>
+        </member>
+        <member name="M:Decisions.Contracts.DecisionsExtensions.CheckAsync(Decisions.Contracts.IDecisionService,System.Collections.Generic.IEnumerable{Decisions.Contracts.DecisionContext})">
+            <summary>
+            Determines the results of the specified contexts.
+            </summary>
+            <param name="service">The service.</param>
+            <param name="contexts">The contexts.</param>
+            <returns>
+            A set of Decision indicating the results of the query.
+            </returns>
+        </member>
+        <member name="T:Decisions.Contracts.FluentExtensions">
+            <summary>
+            Fluent extensions <see cref="T:Decisions.Contracts.DecisionContext"/> for constructing the context nicely.
+            </summary>
+        </member>
+        <member name="M:Decisions.Contracts.FluentExtensions.Check(Decisions.Contracts.DecisionContext)">
+            <summary>
+            Checks the specified context against the <see cref="T:Decisions.Contracts.IDecisionService"/>.
+            </summary>
+            <param name="context">The context.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Decisions.Contracts.FluentExtensions.Using(Decisions.Contracts.DecisionContext,System.String)">
+            <summary>
+            Sets the namespace for the context to be executed using.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="namespace">The namespace the context should be executed using.</param>
+            <returns>
+            The modified <see cref="T:Decisions.Contracts.DecisionContext"/>
+            </returns>
+        </member>
+        <member name="M:Decisions.Contracts.FluentExtensions.As(Decisions.Contracts.DecisionContext,System.String)">
+            <summary>
+            Sets the sourceId for the context
+            </summary>
+            <param name="context">The context.</param>
+            <param name="sourceId">The sourceId.</param>
+            <returns>The modified <see cref="T:Decisions.Contracts.DecisionContext"/></returns>
+        </member>
+        <member name="M:Decisions.Contracts.FluentExtensions.On(Decisions.Contracts.DecisionContext,System.Object)">
+            <summary>
+            Sets a target key/value for the context
+            </summary>
+            <param name="context">The context.</param>
+            <param name="anonymousObject">The anonymous object.</param>
+            <returns>
+            The modified <see cref="T:Decisions.Contracts.DecisionContext"/>
+            </returns>
+        </member>
+        <member name="M:Decisions.Contracts.FluentExtensions.On(Decisions.Contracts.DecisionContext,System.String)">
+            <summary>
+            Sets all target key/value pairs encoded within the string for the context
+            </summary>
+            <param name="context">The context.</param>
+            <param name="target">The target.</param>
+            <returns>
+            The modified <see cref="T:Decisions.Contracts.DecisionContext"/>
+            </returns>
+        </member>
+        <member name="M:Decisions.Contracts.FluentExtensions.Has(Decisions.Contracts.DecisionContext,System.String)">
+            <summary>
+            Sets the role for the context
+            </summary>
+            <param name="context">The context.</param>
+            <param name="role">The role.</param>
+            <returns>The modified <see cref="T:Decisions.Contracts.DecisionContext"/></returns>
+        </member>
+        <member name="T:Decisions.Contracts.IDecisionDefaultsProvider">
+            <summary>
+            Describes a Defaults provider for the <see cref="T:Decisions.Contracts.IDecisionService"/>
+            </summary>
+        </member>
+        <member name="P:Decisions.Contracts.IDecisionDefaultsProvider.SourceId">
+            <summary>
+            Gets the default source id.
+            </summary>
+        </member>
+        <member name="T:Decisions.Contracts.IDecisionService">
+            <summary>
+            Describes a operations that can be performed using Decisions.
+            </summary>
+        </member>
+        <member name="M:Decisions.Contracts.IDecisionService.CheckAsync(Decisions.Contracts.DecisionContext)">
+            <summary>
+            Determines the result of the specified context.
+            </summary>
+            <param name="context">The context.</param>
+            <returns>
+            A Decision indicating the result of the query.
+            </returns>
+        </member>
+        <member name="T:Decisions.Contracts.IEnvironmentProvider">
+            <summary>
+            Describes a Environment Provider that can be linked into the Decisions component to provide bespoke environments. This is an extensibility point
+            which will allow developers to create for their components multiple environment providers - one for each subomponent - which return environments
+            that will describe information that is used as part of a <see cref="T:Decisions.Contracts.AbstractPolicy"/> in order to execute it in conjunction with the <see cref="T:Decisions.Contracts.IDecisionService"/>.
+            </summary>
+        </member>
+        <member name="M:Decisions.Contracts.IEnvironmentProvider.GetAsync(System.String,Decisions.Contracts.DecisionContext)">
+            <summary>
+            Gets the environment with the specified alias using the context provided.
+            </summary>
+            <param name="alias">The globally unique alias used to represent a specific environment.</param>
+            <param name="context">The context.</param>
+            <returns>
+            An environment specified to the provided information.
+            </returns>
+        </member>
+        <member name="P:Decisions.Contracts.IEnvironmentProvider.SupportedAliases">
+            <summary>
+            Gets the aliases that this instance supports retrieval of environments for.
+            </summary>
+        </member>
+        <member name="T:Decisions.Contracts.IEnvironmentService">
+            <summary>
+            Describes a service for retrieving environment variables for use in the <see cref="T:Decisions.Contracts.IDecisionService"/>
+            </summary>
+        </member>
+        <member name="M:Decisions.Contracts.IEnvironmentService.GetAsync(System.String,Decisions.Contracts.DecisionContext)">
+            <summary>
+            Gets the environment with the specified alias asynchronously.
+            </summary>
+            <param name="alias">The globally unique alias used to represent a specific environment.</param>
+            <param name="context">The context.</param>
+            <returns>
+            An environment, likely an instance of a class from an external assembly.
+            </returns>
+        </member>
+        <member name="T:Decisions.Contracts.Injector">
+            <summary>
+            An inversion of control injector for resolving objects.
+            </summary>
+        </member>
+        <member name="F:Decisions.Contracts.Injector.resolver">
+            <summary>
+            The resolver to use for Inversion of Control
+            </summary>
+        </member>
+        <member name="M:Decisions.Contracts.Injector.Get``1">
+            <summary>
+            Gets an instance.
+            </summary>
+            <typeparam name="T">The type of the instance.</typeparam>
+            <returns>The instance.</returns>
+        </member>
+        <member name="M:Decisions.Contracts.Injector.Get(System.Type)">
+            <summary>
+            Gets an instance.
+            </summary>
+            <param name="type">The type of the instance.</param>
+            <returns>The instance.</returns>
+        </member>
+        <member name="M:Decisions.Contracts.Injector.Has(System.Type)">
+            <summary>
+            Determines whether Resolver has a component of type registered.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>
+              <c>true</c> if the Resolver has the type registered; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Decisions.Contracts.Injector.Release(System.Object)">
+            <summary>
+            Releases the specified instance.
+            </summary>
+            <param name="instance">The instance.</param>
+        </member>
+        <member name="P:Decisions.Contracts.Injector.Resolver">
+            <summary>
+            Gets or sets the resolver.
+            </summary>
+            <value>
+            The resolver.
+            </value>
+        </member>
+        <member name="T:Decisions.Contracts.IPolicyProvider">
+            <summary>
+            Describes a Policy Provider that can be linked into the Decisions component to provide bespoke policies. This is an extensibility point
+            which will allow developers to create for their components multiple policy providers - one for each subcomponent - which return policies
+            that will describe an aspect of the security check this wish to run via the <see cref="T:Decisions.Contracts.IDecisionService"/>.
+            </summary>
+        </member>
+        <member name="M:Decisions.Contracts.IPolicyProvider.GetPolicies">
+            <summary>
+            Gets all the policies this instance of the provider wishes to offer.
+            </summary>
+            <returns>A dictionary of policies, the key should be a identifier that is used to link to the decision.</returns>
+        </member>
+        <member name="T:Decisions.Contracts.IResolver">
+            <summary>
+            A resolver supporting the <see cref="T:Decisions.Contracts.Injector"/> class.
+            </summary>
+        </member>
+        <member name="M:Decisions.Contracts.IResolver.Get``1">
+            <summary>
+            Gets an instance.
+            </summary>
+            <typeparam name="T">The type of the service to get</typeparam>
+            <returns>
+            The service instance
+            </returns>
+        </member>
+        <member name="M:Decisions.Contracts.IResolver.Get(System.Type)">
+            <summary>
+            Gets an instance.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>
+            The service instance
+            </returns>
+        </member>
+        <member name="M:Decisions.Contracts.IResolver.Release(System.Object)">
+            <summary>
+            Releases the specified instance.
+            </summary>
+            <param name="instance">The instance.</param>
+        </member>
+        <member name="M:Decisions.Contracts.IResolver.Has(System.Type)">
+            <summary>
+            Determines whether Resolver has a component of type registered.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>
+              <c>true</c> if the Resolver has the type registered; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:Decisions.Contracts.Providers.DefaultEnvironmentProvider">
+            <summary>
+            A default implementation of the <see cref="T:Decisions.Contracts.IEnvironmentProvider"/> which will automatically provide supported aliases.
+            </summary>
+        </member>
+        <member name="M:Decisions.Contracts.Providers.DefaultEnvironmentProvider.#ctor(System.Reflection.IReflect)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Decisions.Contracts.Providers.DefaultEnvironmentProvider"/> class.
+            </summary>
+            <param name="supportedType">A <see cref="T:System.Reflection.IReflect"/> of a object with the supported Environment Aliases on.</param>
+        </member>
+        <member name="M:Decisions.Contracts.Providers.DefaultEnvironmentProvider.GetAsync(System.String,Decisions.Contracts.DecisionContext)">
+            <summary>
+            Gets the environment with the specified alias using the context provided.
+            </summary>
+            <param name="alias">The globally unique alias used to represent a specific environment.</param>
+            <param name="context">The context.</param>
+            <returns>
+            An environment specified to the provided information.
+            </returns>
+        </member>
+        <member name="P:Decisions.Contracts.Providers.DefaultEnvironmentProvider.SupportedAliases">
+            <summary>
+            Gets the aliases that this instance supports retrieval of environments for.
+            </summary>
+        </member>
+        <member name="T:Decisions.Contracts.Providers.DefaultsProvider">
+            <summary>
+            A simple implementation of the <see cref="T:Decisions.Contracts.IDecisionDefaultsProvider"/> that uses the Thread.CurrentPrincipal to determine a SourceId from the Identity.Name.
+            </summary>
+        </member>
+        <member name="P:Decisions.Contracts.Providers.DefaultsProvider.SourceId">
+            <summary>
+            Gets the default source id.
+            </summary>
+        </member>
+        <member name="T:Decisions.Contracts.Providers.PolicyProvider">
+            <summary>
+            A simple implementation of the <see cref="T:Decisions.Contracts.IPolicyProvider"/> interface, which should suit
+            the needs of most clients.
+            </summary>
+        </member>
+        <member name="M:Decisions.Contracts.Providers.PolicyProvider.#ctor(System.Collections.Generic.IDictionary{System.String,Decisions.Contracts.IPolicy})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Decisions.Contracts.Providers.PolicyProvider"/> class.
+            </summary>
+            <param name="policies">The provided policies.</param>
+        </member>
+        <member name="M:Decisions.Contracts.Providers.PolicyProvider.GetPolicies">
+            <summary>
+            Gets all the policies this instance of the provider wishes to offer.
+            </summary>
+            <returns>
+            A dictionary of policies, the key should be a identifier that is used to link to the decision.
+            </returns>
+        </member>
+        <member name="T:Decisions.Contracts.Services.RemoteDecisionService">
+            <summary>
+            A implementation of the <see cref="T:Decisions.Contracts.IDecisionService"/> which will use <see cref="T:System.Net.Http.HttpClient"/> to call a remote endpoint.
+            </summary>
+        </member>
+        <member name="M:Decisions.Contracts.Services.RemoteDecisionService.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Decisions.Contracts.Services.RemoteDecisionService"/> class.
+            </summary>
+            <param name="endpointUrl">The endpoint URL.</param>
+        </member>
+        <member name="M:Decisions.Contracts.Services.RemoteDecisionService.#ctor(System.String,Decisions.Contracts.IDecisionDefaultsProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Decisions.Contracts.Services.RemoteDecisionService"/> class.
+            </summary>
+            <param name="endpointUrl">The endpoint URL.</param>
+            <param name="defaultProvider">The default provider.</param>
+        </member>
+        <member name="M:Decisions.Contracts.Services.RemoteDecisionService.CheckAsync(Decisions.Contracts.DecisionContext)">
+            <summary>
+            Determines the result of the specified context.
+            </summary>
+            <param name="context">The context.</param>
+            <returns>
+            A Decision indicating the result of the query.
+            </returns>
+        </member>
+    </members>
+</doc>

@@ -8,7 +8,7 @@ namespace Decisions.Contracts
     public interface IDecisionService
     {
         /// <summary>
-        /// Determines the result of the specified <see cref="context"/>.
+        /// Determines the result of the specified context.
         /// </summary>
         /// <param name="context">The context.</param>
         /// <returns>

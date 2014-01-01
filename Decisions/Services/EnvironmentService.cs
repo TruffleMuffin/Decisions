@@ -43,7 +43,7 @@ namespace Decisions.Services
         {
             IEnvironmentProvider provider;
             if (environments.TryGetValue(alias, out provider)) return await provider.GetAsync(alias, context);
-            return null;
+            throw new NotSupportedException(alias + " is not part of the supported Environments");
         }
     }
 }

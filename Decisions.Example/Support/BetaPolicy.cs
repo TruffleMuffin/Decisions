@@ -5,7 +5,7 @@ namespace Decisions.Example.Support
     /// <summary>
     /// An implementation of <see cref="AbstractPolicy"/> which always Denies.
     /// </summary>
-    class BetaPolicy : AbstractPolicy
+    public class BetaPolicy : AbstractPolicy
     {
         /// <summary>
         /// Make a decisions on the Decision of this policy for the provided <see cref="DecisionContext" />.

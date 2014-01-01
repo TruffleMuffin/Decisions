@@ -42,6 +42,12 @@
     <Reference Include="MbUnit40, Version=3.4.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
       <HintPath>..\packages\Gallio_MbUnit.3.4.14.0\lib\net40\MbUnit40.dll</HintPath>
     </Reference>
+    <Reference Include="MemcachedSharp">
+      <HintPath>..\packages\MemcachedSharp.1.0.0\lib\net45\MemcachedSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CompilerServices.AsyncTargetingPack.Net45">
+      <HintPath>..\packages\Microsoft.CompilerServices.AsyncTargetingPack.1.0.1\lib\net45\Microsoft.CompilerServices.AsyncTargetingPack.Net45.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -93,6 +99,10 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TruffleCache, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\TruffleCache.1.1.0\lib\net45\TruffleCache.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\Services\Cache\DecisionsServiceTests.cs" />
@@ -101,21 +111,11 @@
     <Compile Include="Contracts\DecisionsExtensionsTests.cs" />
     <Compile Include="Contracts\DecisionContextTests.cs" />
     <Compile Include="Contracts\FluentExtensionsTests.cs" />
+    <Compile Include="Contracts\Providers\DefaultEnvironmentProviderTests.cs" />
     <Compile Include="Contracts\Services\RemoteDecisionsServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Support\Acl.cs" />
-    <Compile Include="Support\AclEnvironment.cs" />
-    <Compile Include="Support\AlphaPolicy.cs" />
-    <Compile Include="Support\BetaPolicy.cs" />
-    <Compile Include="Support\CappaPolicy.cs" />
-    <Compile Include="Support\CurrentUserEnvironment.cs" />
-    <Compile Include="Support\DeltaPolicy.cs" />
-    <Compile Include="Support\ExampleEnvironmentProvider.cs" />
-    <Compile Include="Support\LongAclEnvironment.cs" />
-    <Compile Include="Support\LongDeltaPolicy.cs" />
-    <Compile Include="Support\TestResolver.cs" />
-    <Compile Include="Support\ValuesController.cs" />
-    <Compile Include="Utility\Filters\SecurablesCheckAttributeTests.cs" />
+    <Compile Include="TestCacheStore.cs" />
+    <Compile Include="Utility\Filters\DecisionCheckAttributeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -129,9 +129,9 @@
       <Project>{77470fbd-65a2-4935-972e-d9e75be96adc}</Project>
       <Name>Decisions.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Decisions.Utility\Decisions.Utility.csproj">
+    <ProjectReference Include="..\Decisions.WebHost\Decisions.WebHost.csproj">
       <Project>{fa47bd64-79e5-45a8-a6d3-4946bbb641ea}</Project>
-      <Name>Decisions.Utility</Name>
+      <Name>Decisions.WebHost</Name>
     </ProjectReference>
     <ProjectReference Include="..\Decisions.Example\Decisions.Example.csproj">
       <Project>{c69d36aa-a533-456f-89a6-69d886e927d7}</Project>

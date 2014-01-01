@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Decisions.WebHost</id>
+    <title>Decisions.WebHost</title>
+    <version>1.0.0</version>
+    <authors>TruffleMuffin</authors>
+    <owners>TruffleMuffin</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A web hosting extension to the Decsisions package.</description>
+    <summary>A web hosting extension to the Decsisions package.</summary>
+    <copyright>Copyright 2014</copyright>
+    <projectUrl>https://github.com/TruffleMuffin/Decisions</projectUrl>
+    <tags>Decisions WebHost API</tags>
+    <dependencies>
+      <dependency id="Microsoft.AspNet.WebApi.Core" version="5.0.0" />
+      <dependency id="Microsoft.AspNet.WebApi.Client" version="5.0.0" />
+      <dependency id="Microsoft.AspNet.WebPages" version="2.0.30506.0" />
+      <dependency id="Microsoft.AspNet.Mvc" version="4.0.30506.0" />
+      <dependency id="Microsoft.AspNet.Razor" version="2.0.30506.0" />
+      <dependency id="Microsoft.Web.Infrastructure" version="1.0.0.0" />
+      <dependency id="Decisions" version="1.0.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="Build\Decisions.WebHost.dll" target="lib\net45" />
+    <file src="Build\Decisions.WebHost.XML" target="lib\net45" />
+  </files>
+</package>

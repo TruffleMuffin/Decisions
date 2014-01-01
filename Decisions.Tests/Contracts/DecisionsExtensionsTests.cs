@@ -4,8 +4,8 @@ using System.IO;
 using System.Threading.Tasks;
 using Decisions.Contracts;
 using Decisions.Contracts.Providers;
+using Decisions.Example.Support;
 using Decisions.Services;
-using Decisions.Tests.Support;
 using MbUnit.Framework;
 
 namespace Decisions.Tests.Contracts
@@ -47,6 +47,31 @@ namespace Decisions.Tests.Contracts
                     DecisionContext.Create().Using("Example").As("trufflemuffin").Has("D").On(new { id = 1 })
                 };
             var results = await target.CheckAsync(decisions);
+            Assert.Count(4, results);
+            Assert.AreEqual(true, results["Example/trufflemuffin/A/id%3D1"]);
+            Assert.AreEqual(false, results["Example/trufflemuffin/B/id%3D1"]);
+            Assert.AreEqual(true, results["Example/trufflemuffin/C/id%3D1"]);
+            Assert.AreEqual(false, results["Example/trufflemuffin/D/id%3D1"]);
+        }
+
+        [Test]
+        void Check_BlocksThenCompletes()
+        {
+            var results = target.Check(DecisionContext.Create().Using("Example").As("trufflemuffin").Has("A").On(new { id = 1 }));
+            Assert.AreEqual(true, results);
+        }
+
+        [Test]
+        void Check_Many_BlocksThenCompletes()
+        {
+            var decisions = new[]
+                {
+                    DecisionContext.Create().Using("Example").As("trufflemuffin").Has("A").On(new { id = 1 }),
+                    DecisionContext.Create().Using("Example").As("trufflemuffin").Has("B").On(new { id = 1 }),
+                    DecisionContext.Create().Using("Example").As("trufflemuffin").Has("C").On(new { id = 1 }),
+                    DecisionContext.Create().Using("Example").As("trufflemuffin").Has("D").On(new { id = 1 })
+                };
+            var results = target.Check(decisions);
             Assert.Count(4, results);
             Assert.AreEqual(true, results["Example/trufflemuffin/A/id%3D1"]);
             Assert.AreEqual(false, results["Example/trufflemuffin/B/id%3D1"]);

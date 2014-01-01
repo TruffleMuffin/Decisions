@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Decisions.Castle</id>
+    <title>Decisions.Castle</title>
+    <version>1.0.0</version>
+    <authors>TruffleMuffin</authors>
+    <owners>TruffleMuffin</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>An extension to the Decisions package that provides Castle integration options.</description>
+    <summary>An extension to the Decisions package that provides Castle integration options.</summary>
+    <copyright>Copyright 2014</copyright>
+    <projectUrl>https://github.com/TruffleMuffin/Decisions</projectUrl>
+    <tags>Decisions Castle</tags>
+    <dependencies>
+      <dependency id="TruffleCache" version="1.1.0" />
+      <dependency id="Castle.Core" version="3.2.0" />
+      <dependency id="Castle.Windsor" version="3.2.0" />
+      <dependency id="Microsoft.AspNet.WebApi.Core" version="5.0.0" />
+      <dependency id="Microsoft.AspNet.WebApi.Client" version="5.0.0" />
+      <dependency id="Decisions" version="1.0.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="Build\Decisions.Castle.dll" target="lib\net45" />
+    <file src="Build\Decisions.Castle.XML" target="lib\net45" />
+  </files>
+</package>

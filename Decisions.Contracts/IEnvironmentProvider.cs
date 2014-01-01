@@ -15,7 +15,7 @@ namespace Decisions.Contracts
         string[] SupportedAliases { get; }
         
         /// <summary>
-        /// Gets the environment with the specified <see cref="alias"/> using the <see cref="context"/> provided.
+        /// Gets the environment with the specified alias using the context provided.
         /// </summary>
         /// <param name="alias">The globally unique alias used to represent a specific environment.</param>
         /// <param name="context">The context.</param>

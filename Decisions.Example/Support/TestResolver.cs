@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Decisions.API;
 using Decisions.Contracts;
 using Decisions.Contracts.Providers;
 using Decisions.Services;
+using Decisions.WebHost.API;
 
 namespace Decisions.Example.Support
 {
-    internal class TestResolver : IResolver
+    public class TestResolver : IResolver
     {
         private PolicyService policyService;
         private EnvironmentService environmentService;
@@ -37,7 +37,6 @@ namespace Decisions.Example.Support
 
         public object Get(Type type)
         {
-            if (type == typeof(ValuesResolver)) return new ValuesResolver();
             if (type == typeof(DecideController)) return controller;
 
             return null;

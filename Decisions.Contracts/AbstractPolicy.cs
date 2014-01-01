@@ -28,6 +28,21 @@ namespace Decisions.Contracts
         /// <returns>
         /// The environment
         /// </returns>
+        protected dynamic GetEnvironment(string key, DecisionContext context)
+        {
+            var task = Service.GetAsync(key, context);
+            task.Wait();
+            return task.Result;
+        }
+
+        /// <summary>
+        /// Gets the environment with the specified key asynchronously.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="context">The context.</param>
+        /// <returns>
+        /// The environment
+        /// </returns>
         protected async Task<dynamic> GetEnvironmentAsync(string key, DecisionContext context)
         {
             if (Service == null) return null;

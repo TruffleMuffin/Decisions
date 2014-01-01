@@ -1,0 +1,187 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Decisions.WebHost</name>
+    </assembly>
+    <members>
+        <member name="T:Decisions.WebHost.API.DecideController">
+            <summary>
+            Describes the Decide endpoint for the Decisions API.
+            </summary>
+        </member>
+        <member name="M:Decisions.WebHost.API.DecideController.#ctor(Decisions.Contracts.IDecisionService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Decisions.WebHost.API.DecideController"/> class.
+            </summary>
+            <param name="service">The service.</param>
+        </member>
+        <member name="M:Decisions.WebHost.API.DecideController.Get(System.String,System.String,System.String,System.String)">
+            <summary>
+            Handles a Decision request.
+            HTTP Verb: GET
+            </summary>
+            <param name="namespace">The namespace.</param>
+            <param name="sourceId">The identifier of the source of the request.</param>
+            <param name="roleName">Name of the role the user claims to have on the entity within the namespace.</param>
+            <param name="targetId">The identifier of the target of the request.</param>
+            <returns>
+            A Decision indicating the result of the query.
+            </returns>
+        </member>
+        <member name="M:Decisions.WebHost.API.DecideController.Resolve(System.String,System.String,System.String,System.String)">
+            <summary>
+            Resolves the <see cref="T:Decisions.Contracts.DecisionContext"/> based on the provided parameters.
+            </summary>
+            <param name="namespace">The namespace.</param>
+            <param name="sourceId">The source id.</param>
+            <param name="roleName">Name of the role.</param>
+            <param name="targetId">The target id.</param>
+            <returns>A <see cref="T:Decisions.Contracts.DecisionContext"/></returns>
+        </member>
+        <member name="T:Decisions.WebHost.Filters.DecisionCheckAttribute">
+            <summary>
+            An action filter that can be used to make calls to <see cref="T:Decisions.Contracts.IDecisionService"/> in a non-blocking (for the action execution) manner.
+            </summary>
+            <remarks>
+            Will block on OnActionExecuted until the results is returned.
+            For best performance, you should attempt to place this on the action itself so it is last in the filter stack to be executed.
+            </remarks>
+        </member>
+        <member name="M:Decisions.WebHost.Filters.DecisionCheckAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Decisions.WebHost.Filters.DecisionCheckAttribute"/> class.
+            </summary>
+        </member>
+        <member name="M:Decisions.WebHost.Filters.DecisionCheckAttribute.#ctor(Decisions.Contracts.IDecisionService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Decisions.WebHost.Filters.DecisionCheckAttribute"/> class.
+            </summary>
+            <param name="service">The service.</param>
+        </member>
+        <member name="M:Decisions.WebHost.Filters.DecisionCheckAttribute.OnActionExecuting(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            Occurs before the action method is invoked.
+            </summary>
+            <param name="actionContext">The action context.</param>
+        </member>
+        <member name="M:Decisions.WebHost.Filters.DecisionCheckAttribute.OnActionExecuted(System.Web.Http.Filters.HttpActionExecutedContext)">
+            <summary>
+            Occurs after the action method is invoked.
+            </summary>
+            <param name="actionExecutedContext">The action executed context.</param>
+        </member>
+        <member name="M:Decisions.WebHost.Filters.DecisionCheckAttribute.OnActionExecuting(System.Web.Mvc.ActionExecutingContext)">
+            <summary>
+            Called before an action method executes.
+            </summary>
+            <param name="filterContext">The filter context.</param>
+        </member>
+        <member name="M:Decisions.WebHost.Filters.DecisionCheckAttribute.OnActionExecuted(System.Web.Mvc.ActionExecutedContext)">
+            <summary>
+            Called after the action method executes.
+            </summary>
+            <param name="filterContext">The filter context.</param>
+        </member>
+        <member name="M:Decisions.WebHost.Filters.DecisionCheckAttribute.Executed">
+            <summary>
+            Called after the action method executes.
+            </summary>
+        </member>
+        <member name="M:Decisions.WebHost.Filters.DecisionCheckAttribute.Resolve(System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Resolves the specified args.
+            </summary>
+            <param name="args">The args.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Decisions.WebHost.Filters.DecisionCheckAttribute.ParseOn(System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Parses the Target.
+            </summary>
+            <param name="args">The args.</param>
+            <returns>An IEnumerable of key value pairs from the args matching the on</returns>
+            <exception cref="T:System.ArgumentException">Decisions.Utility.Filters.DecisionCheckAttribute has no Target</exception>
+        </member>
+        <member name="M:Decisions.WebHost.Filters.DecisionCheckAttribute.Validate">
+            <summary>
+            Validates this instance.
+            </summary>
+            <exception cref="T:System.ArgumentException">
+            Decisions.Utility.Filters.DecisionCheckAttribute - Using has not been set
+            or
+            Decisions.Utility.Filters.DecisionCheckAttribute - Has has not been set
+            </exception>
+        </member>
+        <member name="M:Decisions.WebHost.Filters.DecisionCheckAttribute.CleanIdentifier(System.String)">
+            <summary>
+            Cleans the identifier of non important text.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>A string with {}</returns>
+        </member>
+        <member name="P:Decisions.WebHost.Filters.DecisionCheckAttribute.Using">
+            <summary>
+            Gets the Namespace to use for the Check.
+            </summary>
+        </member>
+        <member name="P:Decisions.WebHost.Filters.DecisionCheckAttribute.Has">
+            <summary>
+            Gets or sets the Role to use for the Check.
+            </summary>
+        </member>
+        <member name="P:Decisions.WebHost.Filters.DecisionCheckAttribute.On">
+            <summary>
+            Gets or sets the Target Details to use for the Check.
+            </summary>
+        </member>
+        <member name="P:Decisions.WebHost.Filters.DecisionCheckAttribute.Lazy">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:Decisions.WebHost.Filters.DecisionCheckAttribute"/> can lazily resolve the result of the Decision.
+            </summary>
+        </member>
+        <member name="T:Decisions.WebHost.InjectorDependencyResolver">
+            <summary>
+            An implementation of the <see cref="T:System.Web.Http.Dependencies.IDependencyResolver"/> interface which uses <see cref="T:Decisions.Contracts.Injector"/>
+            to supply dependencies.
+            </summary>
+        </member>
+        <member name="F:Decisions.WebHost.InjectorDependencyResolver.instances">
+            <summary>
+            The instances that have been initialised within this scope
+            </summary>
+        </member>
+        <member name="M:Decisions.WebHost.InjectorDependencyResolver.GetService(System.Type)">
+            <summary>
+            Gets the service.
+            </summary>
+            <param name="t">The t.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Decisions.WebHost.InjectorDependencyResolver.GetServices(System.Type)">
+            <summary>
+            Gets the services.
+            </summary>
+            <param name="t">The t.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Decisions.WebHost.InjectorDependencyResolver.BeginScope">
+            <summary>
+            Starts a resolution scope.
+            </summary>
+            <returns>
+            The dependency scope.
+            </returns>
+        </member>
+        <member name="M:Decisions.WebHost.InjectorDependencyResolver.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Decisions.WebHost.InjectorDependencyResolver.AddToScope(System.Object[])">
+            <summary>
+            Adds the services to the registered instances within this scope.
+            </summary>
+            <param name="services">The services.</param>
+        </member>
+    </members>
+</doc>

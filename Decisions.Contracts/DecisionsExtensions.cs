@@ -10,7 +10,33 @@ namespace Decisions.Contracts
     public static class DecisionsExtensions
     {
         /// <summary>
-        /// Determines the results of the specified <see cref="contexts" />.
+        /// Determines the result of the specified context.
+        /// </summary>
+        /// <param name="service">The service.</param>
+        /// <param name="context">The context.</param>
+        /// <returns>
+        /// A Decision indicating the result of the query.
+        /// </returns>
+        public static bool Check(this IDecisionService service, DecisionContext context)
+        {
+            return Task.Run(() => service.CheckAsync(context)).Result;
+        }
+
+        /// <summary>
+        /// Determines the results of the specified contexts.
+        /// </summary>
+        /// <param name="service">The service.</param>
+        /// <param name="contexts">The contexts.</param>
+        /// <returns>
+        /// A Decision indicating the result of the query.
+        /// </returns>
+        public static IDictionary<string, bool> Check(this IDecisionService service, IEnumerable<DecisionContext> contexts)
+        {
+            return Task.Run(() => service.CheckAsync(contexts)).Result;
+        }
+
+        /// <summary>
+        /// Determines the results of the specified contexts.
         /// </summary>
         /// <param name="service">The service.</param>
         /// <param name="contexts">The contexts.</param>
@@ -24,7 +50,9 @@ namespace Decisions.Contracts
                     var tasks = new Dictionary<string, Task<bool>>();
                     foreach (var context in contexts)
                     {
-                        tasks.Add(context.Id, service.CheckAsync(context));
+                        // Create the task before adding so the service applies defaults to the context.
+                        var result = service.CheckAsync(context);
+                        tasks.Add(context.Id, result);
                     }
 
                     Task.WaitAll(tasks.Values.ToArray());

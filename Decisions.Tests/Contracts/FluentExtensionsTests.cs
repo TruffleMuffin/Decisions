@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Decisions.Contracts;
-using Decisions.Tests.Support;
+using Decisions.Example.Support;
 using MbUnit.Framework;
 
 namespace Decisions.Tests.Contracts

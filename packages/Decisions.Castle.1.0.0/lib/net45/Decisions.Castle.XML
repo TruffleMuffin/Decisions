@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Decisions.Castle</name>
+    </assembly>
+    <members>
+        <member name="T:Decisions.Castle.CastleResolver">
+            <summary>
+            The IoC resolver for castle
+            </summary>
+        </member>
+        <member name="F:Decisions.Castle.CastleResolver.lazyContainer">
+            <summary>
+            The windsor castle configuration containers (lazy and explicitly set)
+            </summary>
+        </member>
+        <member name="M:Decisions.Castle.CastleResolver.Get``1">
+            <summary>
+            Gets an instance.
+            </summary>
+            <typeparam name="T">The type of the service to get</typeparam>
+            <returns>The service instance</returns>
+        </member>
+        <member name="M:Decisions.Castle.CastleResolver.Get(System.Type)">
+            <summary>
+            Gets an instance.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>
+            The service instance
+            </returns>
+        </member>
+        <member name="M:Decisions.Castle.CastleResolver.Release(System.Object)">
+            <summary>
+            Releases the specified instance.
+            </summary>
+            <param name="instance">The instance.</param>
+        </member>
+        <member name="M:Decisions.Castle.CastleResolver.Has(System.Type)">
+            <summary>
+            Determines whether Resolver has a component of type registered.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>
+              <c>true</c> if the Resolver has the type registered; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Decisions.Castle.CastleResolver.CreateContainer">
+            <summary>
+            Ensures the container.
+            </summary>
+        </member>
+        <member name="P:Decisions.Castle.CastleResolver.Container">
+            <summary>
+            Gets or sets the container, which is lazily initialized if not explicitly set.
+            </summary>
+        </member>
+        <member name="P:Decisions.Castle.CastleResolver.ConfigFilePath">
+            <summary>
+            Gets or sets the config file path.
+            </summary>
+            <value>The config file.</value>
+            <remarks>
+            The path to the configuration file to load.  If this is
+            not set then config will be loaded from application domain config,
+            for example web.config.
+            </remarks>
+        </member>
+        <member name="T:Decisions.Castle.Installers.CacheServicesInstaller">
+            <summary>
+            Installs Decisions using Cache services as wrappers to the actual services.
+            </summary>
+        </member>
+        <member name="M:Decisions.Castle.Installers.CacheServicesInstaller.Install(Castle.Windsor.IWindsorContainer,Castle.MicroKernel.SubSystems.Configuration.IConfigurationStore)">
+            <summary>
+            Performs the installation in the <see cref="T:Castle.Windsor.IWindsorContainer" />.
+            </summary>
+            <param name="container">The container.</param>
+            <param name="store">The configuration store.</param>
+        </member>
+        <member name="T:Decisions.Castle.Installers.EndpointInstaller">
+            <summary>
+            Installs Decisions Endpoints
+            </summary>
+        </member>
+        <member name="M:Decisions.Castle.Installers.EndpointInstaller.Install(Castle.Windsor.IWindsorContainer,Castle.MicroKernel.SubSystems.Configuration.IConfigurationStore)">
+            <summary>
+            Performs the installation in the <see cref="T:Castle.Windsor.IWindsorContainer" />.
+            </summary>
+            <param name="container">The container.</param>
+            <param name="store">The configuration store.</param>
+        </member>
+        <member name="T:Decisions.Castle.Installers.EnvironmentServiceInstaller">
+            <summary>
+            Installs Decisions Environment Service implementation with all <see cref="T:Decisions.Contracts.IEnvironmentProvider"/> implementations available from the bin folder.
+            </summary>
+        </member>
+        <member name="M:Decisions.Castle.Installers.EnvironmentServiceInstaller.Install(Castle.Windsor.IWindsorContainer,Castle.MicroKernel.SubSystems.Configuration.IConfigurationStore)">
+            <summary>
+            Performs the installation in the <see cref="T:Castle.Windsor.IWindsorContainer" />.
+            </summary>
+            <param name="container">The container.</param>
+            <param name="store">The configuration store.</param>
+        </member>
+        <member name="T:Decisions.Castle.Installers.PolicyServiceInstaller">
+            <summary>
+            Installs Decisions Policy Service implementation with the <see cref="T:Decisions.Castle.Providers.ConfigPolicyProvider"/> and all other Castle registered implementations of <see cref="T:Decisions.Contracts.IPolicyProvider"/>.
+            </summary>
+        </member>
+        <member name="M:Decisions.Castle.Installers.PolicyServiceInstaller.Install(Castle.Windsor.IWindsorContainer,Castle.MicroKernel.SubSystems.Configuration.IConfigurationStore)">
+            <summary>
+            Performs the installation in the <see cref="T:Castle.Windsor.IWindsorContainer" />.
+            </summary>
+            <param name="container">The container.</param>
+            <param name="store">The configuration store.</param>
+        </member>
+        <member name="T:Decisions.Castle.Providers.ConfigPolicyProvider">
+            <summary>
+            Implements a <see cref="T:Decisions.Contracts.IPolicyProvider"/> which uses a Config file to load and register <see cref="T:Decisions.Contracts.IPolicy"/>. 
+            </summary>
+            <remarks>Uses a <see cref="!:Castle.Windsor.WindsorContainer"/> to initialise the <see cref="T:Decisions.Contracts.IPolicy"/> classes.</remarks>
+        </member>
+        <member name="M:Decisions.Castle.Providers.ConfigPolicyProvider.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Decisions.Castle.Providers.ConfigPolicyProvider"/> class.
+            </summary>
+            <param name="configPath">The config path.</param>
+        </member>
+        <member name="M:Decisions.Castle.Providers.ConfigPolicyProvider.#ctor(System.Xml.Linq.XContainer)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Decisions.Castle.Providers.ConfigPolicyProvider"/> class.
+            </summary>
+            <param name="settings">The settings.</param>
+            <exception cref="T:System.ArgumentException">
+            All policies must specify a unique 'key'.
+            or
+            All policies must specify an IPolicy policy type 'value'.
+            or
+            All policies must implement 'Decision.IPolicy'.
+            </exception>
+        </member>
+        <member name="M:Decisions.Castle.Providers.ConfigPolicyProvider.GetPolicies">
+            <summary>
+            Gets all the policies this instance of the provider wishes to offer.
+            </summary>
+            <returns>
+            A dictionary of policies, the key should be a identifier that is used to link to the decision.
+            </returns>
+        </member>
+        <member name="M:Decisions.Castle.Providers.ConfigPolicyProvider.Dependencies(System.Type,System.Xml.Linq.XElement)">
+            <summary>
+            Loads <see cref="!:Castle.MicroKernel.Registration.Dependency"/>s for the specified type.
+            </summary>
+            <param name="type">The type.</param>
+            <param name="item">The item.</param>
+            <returns>A set of <see cref="!:Castle.MicroKernel.Registration.Dependency"/>s</returns>
+        </member>
+    </members>
+</doc>

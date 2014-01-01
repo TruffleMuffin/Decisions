@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Dynamic;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -73,9 +74,9 @@ namespace Decisions.Contracts
         /// </summary>
         /// <param name="lambda">The lambda.</param>
         /// <returns></returns>
-        public static Task<bool> Check(Func<DecisionContext, DecisionContext> lambda)
+        public static async Task<bool> Check(Func<DecisionContext, DecisionContext> lambda)
         {
-            return Injector.Get<IDecisionService>().CheckAsync(lambda(Create()));
+            return await Injector.Get<IDecisionService>().CheckAsync(lambda(Create()));
         }
 
         /// <summary>
@@ -84,7 +85,21 @@ namespace Decisions.Contracts
         /// <param name="anonymousObject">The anonymous object.</param>
         internal void SetTargetProperty(object anonymousObject)
         {
-            this.Target = anonymousObject;
+            if (!(anonymousObject is ExpandoObject))
+            {
+                IDictionary<string, object> expando = new ExpandoObject();
+
+                foreach (PropertyDescriptor property in TypeDescriptor.GetProperties(anonymousObject.GetType()))
+                {
+                    expando.Add(property.Name, property.GetValue(anonymousObject));
+                }
+
+                this.Target = expando as ExpandoObject;
+            }
+            else
+            {
+                this.Target = anonymousObject;
+            }
         }
 
         /// <summary>
@@ -113,6 +128,42 @@ namespace Decisions.Contracts
             {
                 yield return prop.Name + "=" + prop.GetValue(Target, null);
             }
+        }
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            if (!(obj is DecisionContext)) return false;
+
+            return (obj as DecisionContext).Id == Id;
+        }
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return Id;
         }
     }
 }

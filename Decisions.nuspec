@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Decisions</id>
+    <title>Decisions</title>
+    <version>1.0.0</version>
+    <authors>TruffleMuffin</authors>
+    <owners>TruffleMuffin</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A Claims based model for resolving bespoke authorization/security operations.</description>
+    <summary>A Claims based model for resolving bespoke authorization/security operations.</summary>
+    <copyright>Copyright 2014</copyright>
+    <projectUrl>https://github.com/TruffleMuffin/Decisions</projectUrl>
+    <tags>Security Decisions Authorization Claims</tags>
+    <dependencies>
+      <dependency id="TruffleCache" version="1.1.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="Build\Decisions.dll" target="lib\net45" />
+    <file src="Build\Decisions.XML" target="lib\net45" />
+  </files>
+</package>

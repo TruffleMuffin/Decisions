@@ -4,8 +4,8 @@ using System.IO;
 using System.Threading.Tasks;
 using Decisions.Contracts;
 using Decisions.Contracts.Providers;
+using Decisions.Example.Support;
 using Decisions.Services;
-using Decisions.Tests.Support;
 using MbUnit.Framework;
 
 namespace Decisions.Tests.Application.Services
