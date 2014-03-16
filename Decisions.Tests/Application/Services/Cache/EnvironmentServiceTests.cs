@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Decisions.Contracts;
@@ -69,6 +70,24 @@ namespace Decisions.Tests.Application.Services.Cache
             // After the second execution there is a wait in this thread for 3s, making sure that the cache period has expired. So now the next execution
             // should take the original amount of time as its going back to get the environment fresh.
             Assert.IsTrue(thirdEnd.Subtract(secondStart).TotalSeconds >= 3, "Long Running 2nd: " + thirdEnd.Subtract(secondStart).TotalSeconds);
+        }
+
+        [Test]
+        void GetAsync_WhenExecutedInParallel_RequestsDoNotBottleneckUnderlieingProvider()
+        {
+            var taskList = new List<Task<dynamic>>();
+            for (var i = 0; i < 1000; i++)
+            {
+                taskList.Add(target.GetAsync(SimpleCounterEnvironment.ALIAS, new DecisionContext()));
+            }
+
+            Task.WaitAll(taskList.ToArray());
+
+            foreach (var task in taskList)
+            {
+                Assert.IsInstanceOfType<SimpleCounterEnvironment>(task.Result);
+                Assert.AreEqual(2, (task.Result as SimpleCounterEnvironment).Counter());
+            }
         }
     }
 }

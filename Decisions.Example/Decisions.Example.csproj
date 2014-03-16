@@ -149,6 +149,7 @@
     <Compile Include="Support\ExampleEnvironmentProvider.cs" />
     <Compile Include="Support\LongAclEnvironment.cs" />
     <Compile Include="Support\LongDeltaPolicy.cs" />
+    <Compile Include="Support\SimpleCounterEnvironment.cs" />
     <Compile Include="Support\TestResolver.cs" />
     <Compile Include="Support\ValuesController.cs" />
   </ItemGroup>
