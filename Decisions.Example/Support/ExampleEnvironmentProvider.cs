@@ -14,7 +14,7 @@ namespace Decisions.Example.Support
                 { CurrentUserEnvironment.ALIAS, new CurrentUserEnvironment { UserId = new Guid("880A00AD-5C40-447B-821A-2679E757B267") } }, 
                 { AclEnvironment.ALIAS, new AclEnvironment { Entries = new List<Acl>{ new Acl { Allow = false } } } },
                 { LongAclEnvironment.ALIAS, new LongAclEnvironment { Entries = new List<Acl>{ new Acl { Allow = true } } } },
-                { SimpleCounterEnvironment.ALIAS, new SimpleCounterEnvironment() }
+                { SimpleCounterEnvironment.ALIAS, new SimpleCounterEnvironment(false) }
             };
 
         public string[] SupportedAliases { get { return environments.Keys.ToArray(); } }
@@ -30,7 +30,7 @@ namespace Decisions.Example.Support
 
             if (alias == SimpleCounterEnvironment.ALIAS)
             {
-                return new SimpleCounterEnvironment();
+                return new SimpleCounterEnvironment(true);
             }
 
             return await Task.FromResult(environments[alias]);

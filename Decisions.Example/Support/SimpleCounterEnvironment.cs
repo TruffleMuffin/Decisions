@@ -7,9 +7,9 @@
     {
         private static int counter = 0;
 
-        public SimpleCounterEnvironment()
+        public SimpleCounterEnvironment(bool inc)
         {
-            ++counter;
+            if (inc) ++counter;
         }
 
         public const string ALIAS = "Counter";

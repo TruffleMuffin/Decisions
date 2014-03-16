@@ -86,7 +86,7 @@ namespace Decisions.Tests.Application.Services.Cache
             foreach (var task in taskList)
             {
                 Assert.IsInstanceOfType<SimpleCounterEnvironment>(task.Result);
-                Assert.AreEqual(2, (task.Result as SimpleCounterEnvironment).Counter());
+                Assert.AreEqual(1, (task.Result as SimpleCounterEnvironment).Counter());
             }
         }
     }
