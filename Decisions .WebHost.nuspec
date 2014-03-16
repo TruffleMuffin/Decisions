@@ -21,6 +21,9 @@
       <dependency id="Microsoft.Web.Infrastructure" version="1.0.0.0" />
       <dependency id="Decisions" version="1.0.0" />
     </dependencies>
+    <releaseNotes>
+    Decisions.WebHost.Filters.DecisionCheckAttribute will now produce a Http Status Code 403 Forbidden instead of 401 when a Decision check returns false.
+    </releaseNotes>
   </metadata>
   <files>
     <file src="Build\Decisions.WebHost.dll" target="lib\net45" />
