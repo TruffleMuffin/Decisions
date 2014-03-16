@@ -45,7 +45,8 @@
     <Reference Include="Castle.Windsor">
       <HintPath>..\packages\Castle.Windsor.3.2.0\lib\net45\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="Decisions">
+    <Reference Include="Decisions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Decisions.1.0.0\lib\net45\Decisions.dll</HintPath>
     </Reference>
     <Reference Include="Decisions.Castle">
@@ -57,10 +58,12 @@
     <Reference Include="Decisions.WebHost">
       <HintPath>..\packages\Decisions.WebHost.1.1.0\lib\net45\Decisions.WebHost.dll</HintPath>
     </Reference>
-    <Reference Include="MemcachedSharp">
+    <Reference Include="MemcachedSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8da2af81ba496336, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MemcachedSharp.1.0.0\lib\net45\MemcachedSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CompilerServices.AsyncTargetingPack.Net45">
+    <Reference Include="Microsoft.CompilerServices.AsyncTargetingPack.Net45, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.CompilerServices.AsyncTargetingPack.1.0.1\lib\net45\Microsoft.CompilerServices.AsyncTargetingPack.Net45.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -124,7 +127,8 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="TruffleCache">
+    <Reference Include="TruffleCache, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\TruffleCache.1.1.0\lib\net45\TruffleCache.dll</HintPath>
     </Reference>
   </ItemGroup>

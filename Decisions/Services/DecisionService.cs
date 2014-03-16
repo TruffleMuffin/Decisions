@@ -1,8 +1,11 @@
 ﻿using System.Collections.Concurrent;
+using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Decisions.Contracts;
+using Decisions.Exceptions;
 using Decisions.Providers;
 
 namespace Decisions.Services
@@ -22,8 +25,17 @@ namespace Decisions.Services
         public DecisionService(string configPath, PolicyService service)
         {
             var settings = XElement.Load(Path.GetFullPath(configPath));
+
+            // Validate the XML Formatting to prevent bad errors being thrown which have poor debugging information due to their nature
+            if (settings.Elements("namespace").Any() == false) throw new ConfigurationMalformedException("No namespace elements could be found.");
+
             foreach (var expressionSection in settings.Elements("namespace"))
             {
+                if (expressionSection.HasAttributes == false || expressionSection.Attributes().Any(a => a.Name == "name") == false)
+                {
+                    throw new ConfigurationMalformedException("One of the namespace elements does not have a name attribute.");
+                }
+
                 var component = expressionSection.Attribute("name").Value;
                 var expressionProvider = new ExpressionProvider(expressionSection.Element("decisions"), service);
                 providers.AddOrUpdate(component, expressionProvider, (key, oldValue) => expressionProvider);
