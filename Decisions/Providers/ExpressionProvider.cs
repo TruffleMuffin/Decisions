@@ -2,11 +2,13 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Decisions.Contracts;
+using Decisions.Exceptions;
 using Decisions.Services;
 
 namespace Decisions.Providers
@@ -48,8 +50,29 @@ namespace Decisions.Providers
             expressions = new Dictionary<string, string>();
             this.provider = provider;
 
+            // Validate the XML Formatting to prevent bad errors being thrown which have poor debugging information due to their nature
+            if (settings == null || settings.Name.LocalName.Equals("decisions") == false)
+            {
+                throw new ConfigurationMalformedException("No decisions elements could be found.");
+            }
+
+            if (settings.Elements("item").Any() == false)
+            {
+                throw new ConfigurationMalformedException("No item elements could be found.");
+            }
+
             foreach (var item in settings.Elements("item"))
             {
+                if (item.HasAttributes == false || item.Attributes().Any(a => a.Name == "key") == false)
+                {
+                    throw new ConfigurationMalformedException("One of the item elements does not have a key attribute.");
+                }
+
+                if (item.Attributes().Any(a => a.Name == "value") == false)
+                {
+                    throw new ConfigurationMalformedException("One of the item elements does not have a value attribute.");
+                }
+
                 var key = item.Attribute("key");
                 if (key == null || string.IsNullOrWhiteSpace((string)key))
                 {

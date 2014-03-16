@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Decisions.Contracts;
 using Decisions.Contracts.Providers;
 using Decisions.Example.Support;
+using Decisions.Exceptions;
 using Decisions.Services;
 using MbUnit.Framework;
 
@@ -66,6 +67,41 @@ namespace Decisions.Tests.Application.Services
 
             Assert.AreEqual(expected, result);
             Assert.AreApproximatelyEqual(end, start, TimeSpan.FromSeconds(seconds));
+        }
+
+        [Test]
+        [ExpectedException(typeof(ConfigurationMalformedException))]
+        void Construction_WithMissingNameSpace_UsefulException()
+        {
+            target = new DecisionService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MissingNamespace.config"), policyService);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ConfigurationMalformedException))]
+        void Construction_WithBadNameSpace_UsefulException()
+        {
+            target = new DecisionService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BadNamespace.config"), policyService);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ConfigurationMalformedException))]
+        void Construction_WithMissingDecisions_UsefulException()
+        {
+            target = new DecisionService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MissingDecisions.config"), policyService);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ConfigurationMalformedException))]
+        void Construction_WithMissingItem_UsefulException()
+        {
+            target = new DecisionService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MissingItem.config"), policyService);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ConfigurationMalformedException))]
+        void Construction_WithBadItem_UsefulException()
+        {
+            target = new DecisionService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BadItem.config"), policyService);
         }
     }
 }
