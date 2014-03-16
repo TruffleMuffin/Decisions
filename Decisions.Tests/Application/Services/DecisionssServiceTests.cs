@@ -45,6 +45,8 @@ namespace Decisions.Tests.Application.Services
         [Row("F", false)]
         [Row("G", false)]
         [Row("H", true)]
+        [Row("J", true)]
+        [Row("K", true)]
         async Task CheckAsync_Decision_Expected(string alias, bool expected)
         {
             var result = await target.CheckAsync(DecisionContext.Create().Using("Example").As("trufflemuffin").Has(alias).On(new { id = 1 }));
