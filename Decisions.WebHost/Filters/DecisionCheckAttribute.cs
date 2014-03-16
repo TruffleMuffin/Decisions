@@ -9,6 +9,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using System.Web.Mvc;
 using Decisions.Contracts;
+using Decisions.Contracts.IoC;
 using ActionFilterAttribute = System.Web.Http.Filters.ActionFilterAttribute;
 
 namespace Decisions.WebHost.Filters
@@ -98,7 +99,7 @@ namespace Decisions.WebHost.Filters
             Validate();
 
             var context = Resolve(filterContext.ActionParameters);
-            checkTask = service.CheckAsync(context);
+            checkTask = Task.Run(() => service.CheckAsync(context));
             if (!Lazy) Executed();
         }
 
@@ -123,7 +124,7 @@ namespace Decisions.WebHost.Filters
             {
                 if (checkTask.IsFaulted || checkTask.Result == false)
                 {
-                    throw new HttpResponseException(HttpStatusCode.Unauthorized);
+                    throw new HttpResponseException(HttpStatusCode.Forbidden);
                 }
             }
         }

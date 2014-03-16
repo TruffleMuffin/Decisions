@@ -21,6 +21,32 @@ namespace Decisions.Contracts
         public abstract bool Decide(DecisionContext context);
 
         /// <summary>
+        /// Gets the environment with the specified key.
+        /// </summary>
+        /// <typeparam name="T">The type of Environment to return</typeparam>
+        /// <param name="key">The key.</param>
+        /// <param name="context">The context.</param>
+        /// <returns>A instance of T or default T</returns>
+        protected T GetEnvironment<T>(string key, DecisionContext context)
+        {
+            var environment = GetEnvironment(key, context);
+            return environment is T ? (T)environment : default(T);
+        }
+
+        /// <summary>
+        /// Gets the environment with the specified key asynchronously.
+        /// </summary>
+        /// <typeparam name="T">The type of Environment to return</typeparam>
+        /// <param name="key">The key.</param>
+        /// <param name="context">The context.</param>
+        /// <returns>A instance of T or default T</returns>
+        protected async Task<T> GetEnvironmentAsync<T>(string key, DecisionContext context)
+        {
+            var environment = await GetEnvironmentAsync(key, context);
+            return environment is T ? (T)environment : default(T);
+        }
+
+        /// <summary>
         /// Gets the environment with the specified key asynchronously.
         /// </summary>
         /// <param name="key">The key.</param>

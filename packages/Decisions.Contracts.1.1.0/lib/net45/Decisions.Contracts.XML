@@ -34,6 +34,24 @@
             </summary>
             <returns>True if the policy passes, otherwise false.</returns>
         </member>
+        <member name="M:Decisions.Contracts.AbstractPolicy.GetEnvironment``1(System.String,Decisions.Contracts.DecisionContext)">
+            <summary>
+            Gets the environment with the specified key.
+            </summary>
+            <typeparam name="T">The type of Environment to return</typeparam>
+            <param name="key">The key.</param>
+            <param name="context">The context.</param>
+            <returns>A instance of T or default T</returns>
+        </member>
+        <member name="M:Decisions.Contracts.AbstractPolicy.GetEnvironmentAsync``1(System.String,Decisions.Contracts.DecisionContext)">
+            <summary>
+            Gets the environment with the specified key asynchronously.
+            </summary>
+            <typeparam name="T">The type of Environment to return</typeparam>
+            <param name="key">The key.</param>
+            <param name="context">The context.</param>
+            <returns>A instance of T or default T</returns>
+        </member>
         <member name="M:Decisions.Contracts.AbstractPolicy.GetEnvironment(System.String,Decisions.Contracts.DecisionContext)">
             <summary>
             Gets the environment with the specified key asynchronously.
@@ -308,31 +326,31 @@
             An environment, likely an instance of a class from an external assembly.
             </returns>
         </member>
-        <member name="T:Decisions.Contracts.Injector">
+        <member name="T:Decisions.Contracts.IoC.Injector">
             <summary>
             An inversion of control injector for resolving objects.
             </summary>
         </member>
-        <member name="F:Decisions.Contracts.Injector.resolver">
+        <member name="F:Decisions.Contracts.IoC.Injector.resolver">
             <summary>
             The resolver to use for Inversion of Control
             </summary>
         </member>
-        <member name="M:Decisions.Contracts.Injector.Get``1">
+        <member name="M:Decisions.Contracts.IoC.Injector.Get``1">
             <summary>
             Gets an instance.
             </summary>
             <typeparam name="T">The type of the instance.</typeparam>
             <returns>The instance.</returns>
         </member>
-        <member name="M:Decisions.Contracts.Injector.Get(System.Type)">
+        <member name="M:Decisions.Contracts.IoC.Injector.Get(System.Type)">
             <summary>
             Gets an instance.
             </summary>
             <param name="type">The type of the instance.</param>
             <returns>The instance.</returns>
         </member>
-        <member name="M:Decisions.Contracts.Injector.Has(System.Type)">
+        <member name="M:Decisions.Contracts.IoC.Injector.Has(System.Type)">
             <summary>
             Determines whether Resolver has a component of type registered.
             </summary>
@@ -341,19 +359,57 @@
               <c>true</c> if the Resolver has the type registered; otherwise, <c>false</c>.
             </returns>
         </member>
-        <member name="M:Decisions.Contracts.Injector.Release(System.Object)">
+        <member name="M:Decisions.Contracts.IoC.Injector.Release(System.Object)">
             <summary>
             Releases the specified instance.
             </summary>
             <param name="instance">The instance.</param>
         </member>
-        <member name="P:Decisions.Contracts.Injector.Resolver">
+        <member name="P:Decisions.Contracts.IoC.Injector.Resolver">
             <summary>
             Gets or sets the resolver.
             </summary>
             <value>
             The resolver.
             </value>
+        </member>
+        <member name="T:Decisions.Contracts.IoC.IResolver">
+            <summary>
+            A resolver supporting the <see cref="T:Decisions.Contracts.IoC.Injector"/> class.
+            </summary>
+        </member>
+        <member name="M:Decisions.Contracts.IoC.IResolver.Get``1">
+            <summary>
+            Gets an instance.
+            </summary>
+            <typeparam name="T">The type of the service to get</typeparam>
+            <returns>
+            The service instance
+            </returns>
+        </member>
+        <member name="M:Decisions.Contracts.IoC.IResolver.Get(System.Type)">
+            <summary>
+            Gets an instance.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>
+            The service instance
+            </returns>
+        </member>
+        <member name="M:Decisions.Contracts.IoC.IResolver.Release(System.Object)">
+            <summary>
+            Releases the specified instance.
+            </summary>
+            <param name="instance">The instance.</param>
+        </member>
+        <member name="M:Decisions.Contracts.IoC.IResolver.Has(System.Type)">
+            <summary>
+            Determines whether Resolver has a component of type registered.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>
+              <c>true</c> if the Resolver has the type registered; otherwise, <c>false</c>.
+            </returns>
         </member>
         <member name="T:Decisions.Contracts.IPolicyProvider">
             <summary>
@@ -367,44 +423,6 @@
             Gets all the policies this instance of the provider wishes to offer.
             </summary>
             <returns>A dictionary of policies, the key should be a identifier that is used to link to the decision.</returns>
-        </member>
-        <member name="T:Decisions.Contracts.IResolver">
-            <summary>
-            A resolver supporting the <see cref="T:Decisions.Contracts.Injector"/> class.
-            </summary>
-        </member>
-        <member name="M:Decisions.Contracts.IResolver.Get``1">
-            <summary>
-            Gets an instance.
-            </summary>
-            <typeparam name="T">The type of the service to get</typeparam>
-            <returns>
-            The service instance
-            </returns>
-        </member>
-        <member name="M:Decisions.Contracts.IResolver.Get(System.Type)">
-            <summary>
-            Gets an instance.
-            </summary>
-            <param name="type">The type.</param>
-            <returns>
-            The service instance
-            </returns>
-        </member>
-        <member name="M:Decisions.Contracts.IResolver.Release(System.Object)">
-            <summary>
-            Releases the specified instance.
-            </summary>
-            <param name="instance">The instance.</param>
-        </member>
-        <member name="M:Decisions.Contracts.IResolver.Has(System.Type)">
-            <summary>
-            Determines whether Resolver has a component of type registered.
-            </summary>
-            <param name="type">The type.</param>
-            <returns>
-              <c>true</c> if the Resolver has the type registered; otherwise, <c>false</c>.
-            </returns>
         </member>
         <member name="T:Decisions.Contracts.Providers.DefaultEnvironmentProvider">
             <summary>

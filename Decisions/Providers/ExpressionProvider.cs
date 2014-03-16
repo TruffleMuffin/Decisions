@@ -2,11 +2,15 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Decisions.Contracts;
+using Decisions.Exceptions;
 using Decisions.Services;
 
 namespace Decisions.Providers
@@ -48,8 +52,29 @@ namespace Decisions.Providers
             expressions = new Dictionary<string, string>();
             this.provider = provider;
 
+            // Validate the XML Formatting to prevent bad errors being thrown which have poor debugging information due to their nature
+            if (settings == null || settings.Name.LocalName.Equals("decisions") == false)
+            {
+                throw new ConfigurationMalformedException("No decisions elements could be found.");
+            }
+
+            if (settings.Elements("item").Any() == false)
+            {
+                throw new ConfigurationMalformedException("No item elements could be found.");
+            }
+
             foreach (var item in settings.Elements("item"))
             {
+                if (item.HasAttributes == false || item.Attributes().Any(a => a.Name == "key") == false)
+                {
+                    throw new ConfigurationMalformedException("One of the item elements does not have a key attribute.");
+                }
+
+                if (item.Attributes().Any(a => a.Name == "value") == false)
+                {
+                    throw new ConfigurationMalformedException("One of the item elements does not have a value attribute.");
+                }
+
                 var key = item.Attribute("key");
                 if (key == null || string.IsNullOrWhiteSpace((string)key))
                 {
@@ -98,7 +123,7 @@ namespace Decisions.Providers
             output = Regex.Replace(output, @"\+", "|");
             output = Regex.Replace(output, @"\s", "");
 
-            return output;
+            return output.StartsWith("(") && output.EndsWith(")") ? output : string.Format("({0})", output);
         }
 
         /// <summary>
@@ -108,76 +133,55 @@ namespace Decisions.Providers
         /// <returns>An <see cref="Expression"/> representing the input.</returns>
         private Expression Parse(string input)
         {
-            Expression expression = null;
-            var variable = string.Empty;
-            var not = false;
-            var operation = '&';
-            var depth = 0;
+            var expression = Parse(new StringReader(input));
 
-            foreach (var c in input)
+            if (expression == null)
             {
-                switch (c)
-                {
-                    case '(':
-                        depth++;
-                        break;
-
-                    case ')':
-                        depth--;
-                        if (depth == 0)
-                        {
-                            expression = Combine(expression, Parse(variable), operation, not);
-                            variable = string.Empty;
-                            not = false;
-                        }
-
-                        break;
-
-                    case '!':
-                        if (depth == 0)
-                        {
-                            not = !not;
-                        }
-                        else
-                        {
-                            variable += c;
-                        }
-
-                        break;
-
-                    case '&':
-                    case '|':
-                        if (depth == 0)
-                        {
-                            if (variable.Length > 0)
-                            {
-                                expression = Combine(expression, Call(variable), operation, not);
-                                variable = string.Empty;
-                                not = false;
-                            }
-
-                            operation = c;
-                        }
-                        else
-                        {
-                            variable += c;
-                        }
-
-                        break;
-
-                    default:
-                        variable += c;
-                        break;
-                }
-            }
-
-            // Ensure we don't drop the last variable
-            if (variable.Length > 0)
-            {
-                expression = Combine(expression, Call(variable), operation, not);
+                throw new ConfigurationMalformedException("The expression '" + input + "' is malformed and cannot be used. Please check that a set of brackets only includes at most two policies and an operator. For example, (A AND B) is valid, where as (A AND B OR C) is not.");
             }
 
             return expression;
+        }
+
+        /// <summary>
+        /// Parses the specified reader, creating an <see cref="Expression"/> from its contents.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <returns>An <see cref="Expression"/> representing the input.</returns>
+        private Expression Parse(StringReader reader)
+        {
+            // Determine if the character is a not
+            var not = IsCharThenConsume(reader, '!');
+
+            // If we are starting a bracketed input
+            if (IsCharThenConsume(reader, '('))
+            {
+                // Get the left hand side
+                var leftExpression = Parse(reader);
+
+                // If thsi is a single policy within a bracket the finish
+                if (IsCharThenConsume(reader, ')'))
+                {
+                    return leftExpression;
+                }
+
+                // Otherwise get the operator and right handside
+                var op = GetOperator(reader);
+                var rightExpression = Parse(reader);
+
+                // Verify this is the end of the bracketed part
+                if (IsCharThenConsume(reader, ')'))
+                {
+                    return Combine(leftExpression, rightExpression, op, not);
+                }
+
+                // If it is not, this isn't supported by our syntax
+                return null;
+            }
+
+            // This is not a bracketed policy, simply get it and create an expression from the call
+            var exp = Call(GetVariable(reader));
+            return not ? Expression.Not(exp) : exp;
         }
 
         /// <summary>
@@ -194,6 +198,77 @@ namespace Decisions.Providers
             }
 
             return Expression.Call(Expression.Constant(provider.Get(alias)), METHOD_INFO, PARAMETER);
+        }
+
+        /// <summary>
+        /// Determines whether the next character in the <see cref="StringReader"/> matches the specified character. If it does, it executes
+        /// a Read() on the <see cref="StringReader"/>.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="c">The c.</param>
+        /// <returns>
+        ///   <c>true</c> if the next character in the <see cref="StringReader"/> matches the specified character; otherwise, <c>false</c>.
+        /// </returns>
+        private static bool IsCharThenConsume(StringReader reader, char c)
+        {
+            if (reader.Peek() == c)
+            {
+                reader.Read();
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Determines whether the next character in the <see cref="StringReader"/> matches the operators '&' or '|'.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <returns>
+        ///   <c>true</c> if the next character in the <see cref="StringReader"/> matches the operators '&' or '|'; otherwise, <c>false</c>.
+        /// </returns>
+        private static bool IsOperator(StringReader reader)
+        {
+            var next = reader.Peek();
+            return next == '&' || next == '|';
+        }
+
+        /// <summary>
+        /// Determines whether the next character in the <see cref="StringReader"/> matches the end of the string.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified reader is at the end; otherwise, <c>false</c>.
+        /// </returns>
+        private static bool IsEnd(StringReader reader)
+        {
+            var next = reader.Peek();
+            return next == -1 || next == ')';
+        }
+
+        /// <summary>
+        /// Gets the next character as an operator.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <returns>A <see cref="char"/></returns>
+        private static char GetOperator(StringReader reader)
+        {
+            return (char)reader.Read();
+        }
+
+        /// <summary>
+        /// Gets the next variable in the <see cref="StringReader"/>.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <returns>A string variable</returns>
+        private static string GetVariable(StringReader reader)
+        {
+            var str = new StringBuilder();
+            while (IsOperator(reader) == false && IsEnd(reader) == false)
+            {
+                str.Append((char)reader.Read());
+            }
+            return str.ToString();
         }
 
         /// <summary>
@@ -229,5 +304,6 @@ namespace Decisions.Providers
                     throw new InvalidOperationException(string.Format("The operation '{0}' is not recognized", operation));
             }
         }
+
     }
 }

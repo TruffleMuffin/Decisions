@@ -50,10 +50,10 @@
     <Compile Include="IDecisionService.cs" />
     <Compile Include="IEnvironmentProvider.cs" />
     <Compile Include="IEnvironmentService.cs" />
-    <Compile Include="Injector.cs" />
+    <Compile Include="IoC\Injector.cs" />
+    <Compile Include="IoC\IResolver.cs" />
     <Compile Include="IPolicy.cs" />
     <Compile Include="IPolicyProvider.cs" />
-    <Compile Include="IResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.gen.cs" />
     <Compile Include="Providers\DefaultEnvironmentProvider.cs" />

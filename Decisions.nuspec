@@ -3,7 +3,7 @@
   <metadata>
     <id>Decisions</id>
     <title>Decisions</title>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <authors>TruffleMuffin</authors>
     <owners>TruffleMuffin</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -15,6 +15,10 @@
     <dependencies>
       <dependency id="TruffleCache" version="1.1.0" />
     </dependencies>
+    <releaseNotes>
+    Decisions.Providers.ExpressionProvider now enforces a grammer defined by the readme on the project page.
+    Decisions.Providers.ExpressionProvider now provides better information when initialising and there is a problem with the Decisions.config file.
+    </releaseNotes>
   </metadata>
   <files>
     <file src="Build\Decisions.dll" target="lib\net45" />

@@ -4,6 +4,7 @@ using Castle.Core.Resource;
 using Castle.Windsor;
 using Castle.Windsor.Configuration.Interpreters;
 using Decisions.Contracts;
+using Decisions.Contracts.IoC;
 
 namespace Decisions.Castle
 {

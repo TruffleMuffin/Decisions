@@ -1,4 +1,5 @@
 ﻿using Decisions.Contracts;
+using Decisions.Contracts.IoC;
 using Decisions.Example.Support;
 using MbUnit.Framework;
 using System.Net;
@@ -58,7 +59,7 @@ namespace Decisions.Tests.Utility.Filters
             var client = new HttpClient();
 
             var resp = client.GetAsync(string.Format("http://localhost:40000/api/values/{0}", 2)).Result;
-            Assert.AreEqual(HttpStatusCode.Unauthorized, resp.StatusCode);
+            Assert.AreEqual(HttpStatusCode.Forbidden, resp.StatusCode);
         }
 
         [Test]
@@ -67,7 +68,7 @@ namespace Decisions.Tests.Utility.Filters
             var client = new HttpClient();
 
             var resp = client.GetAsync(string.Format("http://localhost:40000/api/values/")).Result;
-            Assert.AreEqual(HttpStatusCode.Unauthorized, resp.StatusCode);
+            Assert.AreEqual(HttpStatusCode.Forbidden, resp.StatusCode);
         }
     }
 }

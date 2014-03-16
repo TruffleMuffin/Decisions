@@ -27,6 +27,14 @@ You can use Policies as part of Decisions, there are also some short hand conven
 * . instead of AND
 * + instead of OR
 
+The Decision has a limited grammer as of 1.1.0 in order to ensure it is successfully resolved. The following applies
+
+decision : = policy | "(" policy operator policy ")" 
+
+operator :=  "AND" | "OR" | "." | "+"
+
+policy := "True" | "False" | a string that appears in the policy list
+
 Environments
 -------------------------
 

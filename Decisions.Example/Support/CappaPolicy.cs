@@ -9,13 +9,12 @@ namespace Decisions.Example.Support
     public class CappaPolicy : AbstractPolicy
     {
         public Guid MatchUserId { get; set; }
-        
+
         public override bool Decide(DecisionContext context)
         {
-            var envTask = GetEnvironmentAsync(CurrentUserEnvironment.ALIAS, context);
+            var envTask = GetEnvironmentAsync<CurrentUserEnvironment>(CurrentUserEnvironment.ALIAS, context);
             envTask.Wait();
-            var env = envTask.Result as CurrentUserEnvironment;
-            return env.UserId == MatchUserId;
+            return envTask.Result.UserId == MatchUserId;
         }
     }
 }

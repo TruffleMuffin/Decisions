@@ -1,6 +1,7 @@
 ﻿using System.Web.Http;
 using Decisions.Castle;
 using Decisions.Contracts;
+using Decisions.Contracts.IoC;
 using Decisions.WebHost;
 using Decisions.WebHost.API;
 using Newtonsoft.Json.Serialization;

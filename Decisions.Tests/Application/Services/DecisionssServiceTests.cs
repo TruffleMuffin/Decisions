@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Decisions.Contracts;
 using Decisions.Contracts.Providers;
 using Decisions.Example.Support;
+using Decisions.Exceptions;
 using Decisions.Services;
 using MbUnit.Framework;
 
@@ -38,13 +39,18 @@ namespace Decisions.Tests.Application.Services
 
         [AsyncTest]
         [Row("A", true)]
+        [Row("A1", false)]
         [Row("B", false)]
         [Row("C", true)]
+        [Row("C1", false)]
         [Row("D", false)]
         [Row("E", true)]
         [Row("F", false)]
         [Row("G", false)]
         [Row("H", true)]
+        [Row("J", true)]
+        [Row("K", true)]
+        [Row("K1", true)]
         async Task CheckAsync_Decision_Expected(string alias, bool expected)
         {
             var result = await target.CheckAsync(DecisionContext.Create().Using("Example").As("trufflemuffin").Has(alias).On(new { id = 1 }));
@@ -64,6 +70,41 @@ namespace Decisions.Tests.Application.Services
 
             Assert.AreEqual(expected, result);
             Assert.AreApproximatelyEqual(end, start, TimeSpan.FromSeconds(seconds));
+        }
+
+        [Test]
+        [ExpectedException(typeof(ConfigurationMalformedException))]
+        void Construction_WithMissingNameSpace_UsefulException()
+        {
+            target = new DecisionService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MissingNamespace.config"), policyService);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ConfigurationMalformedException))]
+        void Construction_WithBadNameSpace_UsefulException()
+        {
+            target = new DecisionService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BadNamespace.config"), policyService);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ConfigurationMalformedException))]
+        void Construction_WithMissingDecisions_UsefulException()
+        {
+            target = new DecisionService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MissingDecisions.config"), policyService);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ConfigurationMalformedException))]
+        void Construction_WithMissingItem_UsefulException()
+        {
+            target = new DecisionService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MissingItem.config"), policyService);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ConfigurationMalformedException))]
+        void Construction_WithBadItem_UsefulException()
+        {
+            target = new DecisionService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BadItem.config"), policyService);
         }
     }
 }

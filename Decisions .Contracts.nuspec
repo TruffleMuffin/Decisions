@@ -3,7 +3,7 @@
   <metadata>
     <id>Decisions.Contracts</id>
     <title>Decisions.Contracts</title>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <authors>TruffleMuffin</authors>
     <owners>TruffleMuffin</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -12,6 +12,10 @@
     <copyright>Copyright 2014</copyright>
     <projectUrl>https://github.com/TruffleMuffin/Decisions</projectUrl>
     <tags>Decisions</tags>
+    <releaseNotes>
+    Decisions.Contracts.Injector and Decisions.Contracts.IResolver have moved to the namespace Decisions.Contracts.IoC within this DLL.
+    Decisions.Contracts.AbstractPolicy now includes of type T overrides for GetEnvironment.
+    </releaseNotes>
   </metadata>
   <files>
     <file src="Build\Decisions.Contracts.dll" target="lib\net45" />

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>Decisions.Contracts</id>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <title>Decisions.Contracts</title>
     <authors>TruffleMuffin</authors>
     <owners>TruffleMuffin</owners>
@@ -10,6 +10,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A set of interfaces and entities for integrating with the Decisions package.</description>
     <summary>A set of interfaces and entities for integrating with the Decisions package.</summary>
+    <releaseNotes>Decisions.Contracts.Injector and Decisions.Contracts.IResolver have moved to the namespace Decisions.Contracts.IoC within this DLL.</releaseNotes>
     <copyright>Copyright 2014</copyright>
     <tags>Decisions</tags>
   </metadata>

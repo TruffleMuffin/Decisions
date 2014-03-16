@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http.Dependencies;
 using Decisions.Contracts;
+using Decisions.Contracts.IoC;
 
 namespace Decisions.WebHost
 {

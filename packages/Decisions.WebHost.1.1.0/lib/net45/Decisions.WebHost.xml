@@ -141,7 +141,7 @@
         </member>
         <member name="T:Decisions.WebHost.InjectorDependencyResolver">
             <summary>
-            An implementation of the <see cref="T:System.Web.Http.Dependencies.IDependencyResolver"/> interface which uses <see cref="T:Decisions.Contracts.Injector"/>
+            An implementation of the <see cref="T:System.Web.Http.Dependencies.IDependencyResolver"/> interface which uses <see cref="T:Decisions.Contracts.IoC.Injector"/>
             to supply dependencies.
             </summary>
         </member>

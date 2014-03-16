@@ -1,4 +1,5 @@
 ﻿using Decisions.Contracts;
+using Decisions.Contracts.IoC;
 using Decisions.Example.Support;
 using MbUnit.Framework;
 using System.Threading.Tasks;
