@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Dynamic;
 using System.Reflection;
 using System.Threading.Tasks;
+using Decisions.Contracts.IoC;
 
 namespace Decisions.Contracts
 {

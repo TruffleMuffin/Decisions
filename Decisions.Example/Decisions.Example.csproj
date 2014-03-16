@@ -45,21 +45,21 @@
     <Reference Include="Castle.Windsor">
       <HintPath>..\packages\Castle.Windsor.3.2.0\lib\net45\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="Decisions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Decisions, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Decisions.1.0.0\lib\net45\Decisions.dll</HintPath>
+      <HintPath>..\packages\Decisions.1.1.0\lib\net45\Decisions.dll</HintPath>
     </Reference>
-    <Reference Include="Decisions.Castle, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Decisions.Castle, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Decisions.Castle.1.0.0\lib\net45\Decisions.Castle.dll</HintPath>
+      <HintPath>..\packages\Decisions.Castle.1.1.0\lib\net45\Decisions.Castle.dll</HintPath>
     </Reference>
-    <Reference Include="Decisions.Contracts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Decisions.Contracts, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Decisions.Contracts.1.0.0\lib\net45\Decisions.Contracts.dll</HintPath>
+      <HintPath>..\packages\Decisions.Contracts.1.1.0\lib\net45\Decisions.Contracts.dll</HintPath>
     </Reference>
-    <Reference Include="Decisions.WebHost, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Decisions.WebHost, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Decisions.WebHost.1.0.0\lib\net45\Decisions.WebHost.dll</HintPath>
+      <HintPath>..\packages\Decisions.WebHost.1.1.0\lib\net45\Decisions.WebHost.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">

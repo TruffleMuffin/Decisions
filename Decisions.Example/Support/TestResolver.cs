@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Decisions.Contracts;
+using Decisions.Contracts.IoC;
 using Decisions.Contracts.Providers;
 using Decisions.Services;
 using Decisions.WebHost.API;

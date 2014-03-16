@@ -9,6 +9,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using System.Web.Mvc;
 using Decisions.Contracts;
+using Decisions.Contracts.IoC;
 using ActionFilterAttribute = System.Web.Http.Filters.ActionFilterAttribute;
 
 namespace Decisions.WebHost.Filters

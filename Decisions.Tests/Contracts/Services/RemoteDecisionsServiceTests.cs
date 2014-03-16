@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.SelfHost;
 using Decisions.Contracts;
+using Decisions.Contracts.IoC;
 using Decisions.Contracts.Services;
 using Decisions.Example.Support;
 using Decisions.WebHost;

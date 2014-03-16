@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Decisions.Contracts
+namespace Decisions.Contracts.IoC
 {
     /// <summary>
     /// An inversion of control injector for resolving objects.
