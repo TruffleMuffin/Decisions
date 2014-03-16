@@ -14,6 +14,7 @@
     <tags>Decisions</tags>
     <releaseNotes>
     Decisions.Contracts.Injector and Decisions.Contracts.IResolver have moved to the namespace Decisions.Contracts.IoC within this DLL.
+    Decisions.Contracts.AbstractPolicy now includes of type T overrides for GetEnvironment.
     </releaseNotes>
   </metadata>
   <files>

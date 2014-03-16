@@ -10,10 +10,9 @@ namespace Decisions.Example.Support
     {
         public override bool Decide(DecisionContext context)
         {
-            var envTask = GetEnvironmentAsync(AclEnvironment.ALIAS, context);
+            var envTask = GetEnvironmentAsync<AclEnvironment>(AclEnvironment.ALIAS, context);
             envTask.Wait();
-            var env = envTask.Result as AclEnvironment;
-            return env.Entries.Any(a => a.Allow);
+            return envTask.Result.Entries.Any(a => a.Allow);
         }
     }
 }

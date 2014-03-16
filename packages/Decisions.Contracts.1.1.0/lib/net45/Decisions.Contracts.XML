@@ -34,6 +34,24 @@
             </summary>
             <returns>True if the policy passes, otherwise false.</returns>
         </member>
+        <member name="M:Decisions.Contracts.AbstractPolicy.GetEnvironment``1(System.String,Decisions.Contracts.DecisionContext)">
+            <summary>
+            Gets the environment with the specified key.
+            </summary>
+            <typeparam name="T">The type of Environment to return</typeparam>
+            <param name="key">The key.</param>
+            <param name="context">The context.</param>
+            <returns>A instance of T or default T</returns>
+        </member>
+        <member name="M:Decisions.Contracts.AbstractPolicy.GetEnvironmentAsync``1(System.String,Decisions.Contracts.DecisionContext)">
+            <summary>
+            Gets the environment with the specified key asynchronously.
+            </summary>
+            <typeparam name="T">The type of Environment to return</typeparam>
+            <param name="key">The key.</param>
+            <param name="context">The context.</param>
+            <returns>A instance of T or default T</returns>
+        </member>
         <member name="M:Decisions.Contracts.AbstractPolicy.GetEnvironment(System.String,Decisions.Contracts.DecisionContext)">
             <summary>
             Gets the environment with the specified key asynchronously.
