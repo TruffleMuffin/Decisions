@@ -4,6 +4,17 @@
         <name>Decisions</name>
     </assembly>
     <members>
+        <member name="T:Decisions.Exceptions.ConfigurationMalformedException">
+            <summary>
+            The Decisions configuration file is badly formatted in some way and Decisions is unable to successfully parse it.
+            </summary>
+        </member>
+        <member name="M:Decisions.Exceptions.ConfigurationMalformedException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Decisions.Exceptions.ConfigurationMalformedException"/> class.
+            </summary>
+            <param name="message">A message that describes why this <see cref="T:Decisions.Exceptions.ConfigurationMalformedException"/> exception was thrown.</param>
+        </member>
         <member name="T:Decisions.Providers.ExpressionProvider">
             <summary>
             Describes an Expression inflation provider for string based input.
@@ -48,12 +59,54 @@
             <param name="input">The input.</param>
             <returns>An <see cref="T:System.Linq.Expressions.Expression"/> representing the input.</returns>
         </member>
+        <member name="M:Decisions.Providers.ExpressionProvider.Parse(System.IO.StringReader)">
+            <summary>
+            Parses the specified reader, creating an <see cref="T:System.Linq.Expressions.Expression"/> from its contents.
+            </summary>
+            <param name="reader">The reader.</param>
+            <returns>An <see cref="T:System.Linq.Expressions.Expression"/> representing the input.</returns>
+        </member>
         <member name="M:Decisions.Providers.ExpressionProvider.Call(System.String)">
             <summary>
             Calls an <see cref="T:Decisions.Contracts.AbstractPolicy"/> registered in the <see cref="T:Decisions.Services.PolicyService"/> with the specified alias.
             </summary>
             <param name="alias">The alias.</param>
             <returns>An <see cref="T:System.Linq.Expressions.Expression"/> representing the result</returns>
+        </member>
+        <member name="M:Decisions.Providers.ExpressionProvider.IsCharThenConsume(System.IO.StringReader,System.Char)">
+            <summary>
+            Determines whether the next character in the <see cref="T:System.IO.StringReader"/> matches the specified character. If it does, it executes
+            a Read() on the <see cref="T:System.IO.StringReader"/>.
+            </summary>
+            <param name="reader">The reader.</param>
+            <param name="c">The c.</param>
+            <returns>
+              <c>true</c> if the next character in the <see cref="T:System.IO.StringReader"/> matches the specified character; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Decisions.Providers.ExpressionProvider.IsOperator(System.IO.StringReader)" -->
+        <member name="M:Decisions.Providers.ExpressionProvider.IsEnd(System.IO.StringReader)">
+            <summary>
+            Determines whether the next character in the <see cref="T:System.IO.StringReader"/> matches the end of the string.
+            </summary>
+            <param name="reader">The reader.</param>
+            <returns>
+              <c>true</c> if the specified reader is at the end; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Decisions.Providers.ExpressionProvider.GetOperator(System.IO.StringReader)">
+            <summary>
+            Gets the next character as an operator.
+            </summary>
+            <param name="reader">The reader.</param>
+            <returns>A <see cref="T:System.Char"/></returns>
+        </member>
+        <member name="M:Decisions.Providers.ExpressionProvider.GetVariable(System.IO.StringReader)">
+            <summary>
+            Gets the next variable in the <see cref="T:System.IO.StringReader"/>.
+            </summary>
+            <param name="reader">The reader.</param>
+            <returns>A string variable</returns>
         </member>
         <member name="M:Decisions.Providers.ExpressionProvider.Combine(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Char,System.Boolean)">
             <summary>

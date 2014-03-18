@@ -3,7 +3,7 @@
   <metadata>
     <id>Decisions</id>
     <title>Decisions</title>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <authors>TruffleMuffin</authors>
     <owners>TruffleMuffin</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -14,10 +14,10 @@
     <tags>Security Decisions Authorization Claims</tags>
     <dependencies>
       <dependency id="TruffleCache" version="1.1.0" />
+      <dependency id="Decisions.Contracts" version="1.1.0" />
     </dependencies>
     <releaseNotes>
-    Decisions.Providers.ExpressionProvider now enforces a grammer defined by the readme on the project page.
-    Decisions.Providers.ExpressionProvider now provides better information when initialising and there is a problem with the Decisions.config file.
+    Fixing dependency on Decisions.Contracts
     </releaseNotes>
   </metadata>
   <files>
