@@ -1,18 +1,16 @@
-﻿using System;
+﻿using System.Net;
+using System.Web.Http;
+using Decisions.Contracts;
+using Decisions.Contracts.IoC;
+using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Http.Controllers;
-using System.Web.Http.Filters;
+using System.Web;
 using System.Web.Mvc;
-using Decisions.Contracts;
-using Decisions.Contracts.IoC;
-using ActionFilterAttribute = System.Web.Http.Filters.ActionFilterAttribute;
 
-namespace Decisions.WebHost.Filters
+namespace Decisions.WebHost.Filters.Mvc
 {
     /// <summary>
     /// An action filter that can be used to make calls to <see cref="IDecisionService" /> in a non-blocking (for the action execution) manner.
@@ -21,11 +19,10 @@ namespace Decisions.WebHost.Filters
     /// Will block on OnActionExecuted until the results is returned.
     /// For best performance, you should attempt to place this on the action itself so it is last in the filter stack to be executed.
     /// </remarks>
-    [Obsolete("Please use Decisions.Webhost.Filters.Http.DecisionCheckAttribute or Decisions.WebHost.Filters.Mvc.DecisionCheckAttribute", true)]
-    public sealed class DecisionCheckAttribute : ActionFilterAttribute, System.Web.Mvc.IActionFilter
+    public sealed class DecisionCheckAttribute : IActionFilter
     {
         private readonly IDecisionService service;
-        private Task<bool> checkTask;
+        private const string CHECK_TASK_KEY = "DecisionCheckAttribute.CHECK_TASK";
 
         /// <summary>
         /// Gets the Namespace to use for the Check.
@@ -66,32 +63,6 @@ namespace Decisions.WebHost.Filters
         }
 
         /// <summary>
-        /// Occurs before the action method is invoked.
-        /// </summary>
-        /// <param name="actionContext">The action context.</param>
-        public override void OnActionExecuting(HttpActionContext actionContext)
-        {
-            Validate();
-
-            var context = Resolve(actionContext.ActionArguments);
-            checkTask = Task.Run(() => service.CheckAsync(context));
-            if (!Lazy) Executed();
-        }
-
-
-        /// <summary>
-        /// Occurs after the action method is invoked.
-        /// </summary>
-        /// <param name="actionExecutedContext">The action executed context.</param>
-        public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
-        {
-            if (Lazy)
-            {
-                Executed();
-            }
-        }
-
-        /// <summary>
         /// Called before an action method executes.
         /// </summary>
         /// <param name="filterContext">The filter context.</param>
@@ -99,10 +70,18 @@ namespace Decisions.WebHost.Filters
         {
             Validate();
 
-            var context = Resolve(filterContext.ActionParameters);
-            checkTask = Task.Run(() => service.CheckAsync(context));
-            if (!Lazy) Executed();
+            var task = Task.Run(() => service.CheckAsync(Resolve(filterContext.ActionParameters)));
+
+            if (!Lazy)
+            {
+                Executed(task);
+            }
+            else
+            {
+                filterContext.HttpContext.Items[CHECK_TASK_KEY] = task;
+            }
         }
+
 
         /// <summary>
         /// Called after the action method executes.
@@ -110,23 +89,22 @@ namespace Decisions.WebHost.Filters
         /// <param name="filterContext">The filter context.</param>
         public void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            if (Lazy)
+            if (filterContext.HttpContext.Items.Contains(CHECK_TASK_KEY))
             {
-                Executed();
+                var task = (Task<bool>)filterContext.HttpContext.Items[CHECK_TASK_KEY];
+                Executed(task);
             }
         }
 
         /// <summary>
-        /// Called after the action method executes.
+        /// Throws a <see cref="HttpException"/> with 403 Forbidden if the decision result was false.
         /// </summary>
-        private void Executed()
+        /// <param name="checkTask">The <see cref="Task{T}"/> to check.</param>
+        private static void Executed(Task<bool> checkTask)
         {
-            if (checkTask != null)
+            if (checkTask.IsFaulted || checkTask.Result == false)
             {
-                if (checkTask.IsFaulted || checkTask.Result == false)
-                {
-                    throw new HttpResponseException(HttpStatusCode.Forbidden);
-                }
+                throw new HttpResponseException(HttpStatusCode.Forbidden);
             }
         }
 
@@ -154,7 +132,7 @@ namespace Decisions.WebHost.Filters
         /// <exception cref="System.ArgumentException">Decisions.Utility.Filters.DecisionCheckAttribute has no Target</exception>
         private IEnumerable<KeyValuePair<string, object>> ParseOn(IDictionary<string, object> args)
         {
-            if(string.IsNullOrWhiteSpace(On)) yield break;
+            if (string.IsNullOrWhiteSpace(On)) yield break;
 
             var elements = On.Split('&');
             foreach (var element in elements.Where(a => a.Contains("=")).Select(a => a.Split('=')))

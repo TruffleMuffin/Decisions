@@ -1,4 +1,5 @@
 ﻿using Castle.MicroKernel.Registration;
+using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Decisions.Castle.Providers;
@@ -19,8 +20,10 @@ namespace Decisions.Castle.Installers
         /// <param name="store">The configuration store.</param>
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel));
+
             container.Register(Component.For<IPolicyProvider>().ImplementedBy<ConfigPolicyProvider>().DependsOn(Dependency.OnAppSettingsValue("configPath", "Decisions.ConfigurationPath")));
-            container.Register(Component.For<PolicyService>().DependsOn(Dependency.OnValue("providers", container.ResolveAll<IPolicyProvider>())));
+            container.Register(Component.For<PolicyService>());
         }
     }
 }

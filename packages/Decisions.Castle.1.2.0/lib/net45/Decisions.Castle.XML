@@ -118,7 +118,7 @@
             <summary>
             Implements a <see cref="T:Decisions.Contracts.IPolicyProvider"/> which uses a Config file to load and register <see cref="T:Decisions.Contracts.IPolicy"/>. 
             </summary>
-            <remarks>Uses a <see cref="!:Castle.Windsor.WindsorContainer"/> to initialise the <see cref="T:Decisions.Contracts.IPolicy"/> classes.</remarks>
+            <remarks>Uses a <see cref="T:Castle.Windsor.WindsorContainer"/> to initialise the <see cref="T:Decisions.Contracts.IPolicy"/> classes.</remarks>
         </member>
         <member name="M:Decisions.Castle.Providers.ConfigPolicyProvider.#ctor(System.String)">
             <summary>
@@ -149,11 +149,11 @@
         </member>
         <member name="M:Decisions.Castle.Providers.ConfigPolicyProvider.Dependencies(System.Type,System.Xml.Linq.XElement)">
             <summary>
-            Loads <see cref="!:Castle.MicroKernel.Registration.Dependency"/>s for the specified type.
+            Loads <see cref="T:Castle.MicroKernel.Registration.Dependency"/>s for the specified type.
             </summary>
             <param name="type">The type.</param>
             <param name="item">The item.</param>
-            <returns>A set of <see cref="!:Castle.MicroKernel.Registration.Dependency"/>s</returns>
+            <returns>A set of <see cref="T:Castle.MicroKernel.Registration.Dependency"/>s</returns>
         </member>
     </members>
 </doc>

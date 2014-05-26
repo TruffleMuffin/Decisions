@@ -1,14 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
-using Castle.MicroKernel.Registration;
+﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Decisions.Contracts;
 using Decisions.Services.Cache;
 using TruffleCache;
 using CacheDecisionService = Decisions.Services.Cache.DecisionService;
-using DecisionService = Decisions.Services.DecisionService;
 using CacheEnvironmentService = Decisions.Services.Cache.EnvironmentService;
+using DecisionService = Decisions.Services.DecisionService;
 using EnvironmentService = Decisions.Services.EnvironmentService;
 
 namespace Decisions.Castle.Installers

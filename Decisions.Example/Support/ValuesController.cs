@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Web.Http;
-using Decisions.WebHost.Filters;
+using Decisions.WebHost.Filters.Http;
 
 namespace Decisions.Example.Support
 {
