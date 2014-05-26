@@ -1,4 +1,7 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Configuration;
+using System.IO;
+using System.Web.Http;
 using Decisions.Castle;
 using Decisions.Contracts;
 using Decisions.Contracts.IoC;
@@ -19,6 +22,9 @@ namespace Decisions.Example
         /// </summary>
         protected void Application_Start()
         {
+            // Dynamically find the proper decisions.config
+            ConfigurationManager.AppSettings["Decisions.ConfigurationPath"] = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Decisions.config");
+
             // Resolve dependancies via Inversion of Control
             GlobalConfiguration.Configuration.DependencyResolver = new InjectorDependencyResolver();
 

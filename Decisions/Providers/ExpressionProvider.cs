@@ -221,11 +221,11 @@ namespace Decisions.Providers
         }
 
         /// <summary>
-        /// Determines whether the next character in the <see cref="StringReader"/> matches the operators '&' or '|'.
+        /// Determines whether the next character in the <see cref="StringReader"/> matches the operators &amp; or |.
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <returns>
-        ///   <c>true</c> if the next character in the <see cref="StringReader"/> matches the operators '&' or '|'; otherwise, <c>false</c>.
+        ///   <c>true</c> if the next character in the <see cref="StringReader"/> matches the operators &amp; or |; otherwise, <c>false</c>.
         /// </returns>
         private static bool IsOperator(StringReader reader)
         {

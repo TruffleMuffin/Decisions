@@ -3,7 +3,7 @@
   <metadata>
     <id>Decisions.Castle</id>
     <title>Decisions.Castle</title>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <authors>TruffleMuffin</authors>
     <owners>TruffleMuffin</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -18,8 +18,11 @@
       <dependency id="Castle.Windsor" version="3.2.0" />
       <dependency id="Microsoft.AspNet.WebApi.Core" version="5.0.0" />
       <dependency id="Microsoft.AspNet.WebApi.Client" version="5.0.0" />
-      <dependency id="Decisions" version="1.1.0" />
+      <dependency id="Decisions" version="1.2.0" />
     </dependencies>
+    <releaseNotes>
+    Installers now use the Collection subresolver for Provider implementations. This should mean there are no order issues registering providers with services using these installers.
+    </releaseNotes>
   </metadata>
   <files>
     <file src="Build\Decisions.Castle.dll" target="lib\net45" />

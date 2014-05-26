@@ -1,4 +1,5 @@
 ﻿using Castle.MicroKernel.Registration;
+using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Decisions.Contracts;
@@ -18,8 +19,9 @@ namespace Decisions.Castle.Installers
         /// <param name="store">The configuration store.</param>
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel));
             container.Register(Classes.FromAssemblyInDirectory(new AssemblyFilter("bin")).BasedOn<IEnvironmentProvider>().WithServiceFirstInterface());
-            container.Register(Component.For<EnvironmentService>().DynamicParameters((k, p) => p.Add("providers", k.ResolveAll<IEnvironmentProvider>())));
+            container.Register(Component.For<EnvironmentService>());
         }
     }
 }

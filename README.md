@@ -10,6 +10,15 @@ Self contained WebAPI application that uses RESTful endpoints to describe claims
 
 Decisions has three key elements. A Policy, a Environment and a Decision. Each Decision is an Expression involving one or more Policies that resolves to a boolean True or False. Each Policy represents an element of the Decision and can use one or more Environments to resolve itself to a boolean True or False.
 
+Building
+-------------------------
+
+You should use the solution build for any development you are doing. However, if you would like to use the MSBUILD script, the following is an appropriate build command.
+
+```
+msBuild /build.xml /p:SourceFolder=[FULL-PATH-TO-SOLUTION-FOLDEr] /t:release-build;nuget
+```
+
 Decisions
 -------------------------
 

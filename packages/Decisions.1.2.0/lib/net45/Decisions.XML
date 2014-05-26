@@ -84,7 +84,15 @@
               <c>true</c> if the next character in the <see cref="T:System.IO.StringReader"/> matches the specified character; otherwise, <c>false</c>.
             </returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Decisions.Providers.ExpressionProvider.IsOperator(System.IO.StringReader)" -->
+        <member name="M:Decisions.Providers.ExpressionProvider.IsOperator(System.IO.StringReader)">
+            <summary>
+            Determines whether the next character in the <see cref="T:System.IO.StringReader"/> matches the operators &amp; or |.
+            </summary>
+            <param name="reader">The reader.</param>
+            <returns>
+              <c>true</c> if the next character in the <see cref="T:System.IO.StringReader"/> matches the operators &amp; or |; otherwise, <c>false</c>.
+            </returns>
+        </member>
         <member name="M:Decisions.Providers.ExpressionProvider.IsEnd(System.IO.StringReader)">
             <summary>
             Determines whether the next character in the <see cref="T:System.IO.StringReader"/> matches the end of the string.

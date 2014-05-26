@@ -1,19 +1,19 @@
-﻿using Castle.MicroKernel.Registration;
-using Castle.Windsor;
-using Decisions.Contracts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
+using Castle.MicroKernel.Registration;
+using Castle.Windsor;
+using Decisions.Contracts;
 
 namespace Decisions.Castle.Providers
 {
     /// <summary>
     /// Implements a <see cref="IPolicyProvider"/> which uses a Config file to load and register <see cref="IPolicy"/>. 
     /// </summary>
-    /// <remarks>Uses a <see cref="Castle.Windsor.WindsorContainer"/> to initialise the <see cref="IPolicy"/> classes.</remarks>
+    /// <remarks>Uses a <see cref="WindsorContainer"/> to initialise the <see cref="IPolicy"/> classes.</remarks>
     public class ConfigPolicyProvider : IPolicyProvider
     {
         // internal windsor container, so we don't need to worry about scope issues with components being added to the same
@@ -91,11 +91,11 @@ namespace Decisions.Castle.Providers
         }
 
         /// <summary>
-        /// Loads <see cref="Castle.MicroKernel.Registration.Dependency"/>s for the specified type.
+        /// Loads <see cref="Dependency"/>s for the specified type.
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="item">The item.</param>
-        /// <returns>A set of <see cref="Castle.MicroKernel.Registration.Dependency"/>s</returns>
+        /// <returns>A set of <see cref="Dependency"/>s</returns>
         private static IEnumerable<Dependency> Dependencies(Type type, XElement item)
         {
             // Efficiency block to avoid doing reflection work if there are no more attributes than the bare minimum (key and value)
